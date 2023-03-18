@@ -15,6 +15,16 @@
             android:name=".AdminsLogic.ResultActivity"
             android:exported="false" />
         <activity
+            android:name=".Activities.AllParties"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.VoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PartyDetailsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

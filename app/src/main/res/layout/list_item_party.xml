@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="3dp">
+
+
+    <ImageView
+        android:id="@+id/party_logo"
+        android:layout_width="400dp"
+        android:layout_height="150dp"
+        android:src="@drawable/party_logo_placeholder"
+        android:contentDescription="@string/party_logo_content_description"/>
+
+    <TextView
+        android:id="@+id/party_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black"
+        android:visibility="gone"/>
+</LinearLayout>

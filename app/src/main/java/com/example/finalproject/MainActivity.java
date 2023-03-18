@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.finalproject.Activities.VoteActivity;
 import com.example.finalproject.AdminsLogic.ResultActivity;
 import com.example.finalproject.Calculations.Generators;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resPage() {
-        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+        Intent intent = new Intent(MainActivity.this, VoteActivity.class);
         startActivity(intent);
     }
 
