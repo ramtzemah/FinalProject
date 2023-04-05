@@ -2,8 +2,11 @@ package com.example.finalproject.Activities;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
     private MaterialButton MB_votebtn;
     private String partyName,partyAgenda;
     private int partyLogo;
+    private String source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,10 @@ public class PartyDetailsActivity extends AppCompatActivity {
         partyName = getIntent().getStringExtra("party_name");
         partyLogo = getIntent().getIntExtra("party_logo", -1);
         partyAgenda = getIntent().getStringExtra("party_agenda");
+
+        source = getIntent().getStringExtra("from");
         findViews();
+        Log.d("pttt",source);
         // Set the party name and logo in the views
         partyNameTextView.setText(partyName);
         partyLogoImageView.setImageResource(partyLogo);
@@ -70,5 +77,11 @@ public class PartyDetailsActivity extends AppCompatActivity {
         partyLogoImageView = findViewById(R.id.party_logo_imageview);
         party_agenda = findViewById(R.id.party_agenda);
         MB_votebtn = findViewById(R.id.MB_votebtn);
+        if(source.equals("vote")){
+            MB_votebtn.setVisibility(View.VISIBLE);
+        }
+        else{
+            MB_votebtn.setVisibility(View.GONE);
+        }
     }
 }

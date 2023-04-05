@@ -22,11 +22,11 @@ public class AllParties extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_parties);
+        String source = getIntent().getStringExtra("from");
         findViews();
-        adapter = new PartyAdapter(this, TemporaryDB.getAllParties());
+        adapter = new PartyAdapter(this, TemporaryDB.getAllParties(),source);
         RV_parties.setLayoutManager(new LinearLayoutManager(this));
         RV_parties.setAdapter(adapter);
-
     }
 
     private void findViews() {
