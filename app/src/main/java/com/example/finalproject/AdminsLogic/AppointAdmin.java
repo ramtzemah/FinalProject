@@ -27,13 +27,14 @@ import java.util.List;
 public class AppointAdmin extends AppCompatActivity {
     private EditText id_search;
     private CardView cardView;
+    private TextView idNumber;
     private TextView firstName;
     private TextView lastName;
     private TextView gender;
-    private LinearLayout ll_search;
-    private LinearLayout ll_manage;
     private TextView city;
     private TextView age;
+    private LinearLayout ll_search;
+    private LinearLayout ll_manage;
     private Spinner areasDropdown;
     private MaterialButton MB_searchAdminBtn;
     private MaterialButton MB_clean_search;
@@ -129,16 +130,18 @@ public class AppointAdmin extends AppCompatActivity {
         ll_manage.setVisibility(View.VISIBLE);
         ll_search.setVisibility(View.INVISIBLE);
         areasDropdown.setVisibility(View.VISIBLE);
-        firstName.setText(tempVoter.getFirstName());
-        firstName.setText(tempVoter.getFirstName());
-        firstName.setText(tempVoter.getFirstName());
-        firstName.setText(tempVoter.getFirstName());
-        firstName.setText(tempVoter.getFirstName());
+        idNumber.setText("מספר תעודת זהות: " + tempVoter.getIdNumber());
+        firstName.setText("שם פרטי: " + tempVoter.getFirstName());
+        lastName.setText("שם משפחה: " + tempVoter.getLastName());
+        city.setText("עיר: " + tempVoter.getCity());
+        gender.setText("מין: " + tempVoter.getGender().toString());
+        age.setText("גיל: " + tempVoter.getAge());
     }
 
     private void findViews() {
         id_search = findViewById(R.id.id_search);
         cardView = findViewById(R.id.cardView);
+        idNumber = findViewById(R.id.idNumber);
         firstName = findViewById(R.id.firstName);
         lastName = findViewById(R.id.lastName);
         gender = findViewById(R.id.gender);

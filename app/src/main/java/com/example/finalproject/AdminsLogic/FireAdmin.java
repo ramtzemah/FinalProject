@@ -2,6 +2,7 @@ package com.example.finalproject.AdminsLogic;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -9,10 +10,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
+import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
 
@@ -29,6 +32,13 @@ public class FireAdmin extends AppCompatActivity {
     private LinearLayout ll_fire;
     private Admin tempAdmin;
     private List<String> adminNames;
+    private CardView cardView;
+    private TextView idNumber;
+    private TextView firstName;
+    private TextView lastName;
+    private TextView gender;
+    private TextView city;
+    private TextView age;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,26 +83,40 @@ public class FireAdmin extends AppCompatActivity {
 
     private void searchAdmin() {
         tempAdmin = null;
-        String theText = admins_dropdown.getSelectedItem().toString();
-        if(theText.isEmpty()){
+        String selectedAdmin = admins_dropdown.getSelectedItem().toString();
+        if(selectedAdmin.isEmpty()){
             Toast.makeText(this,"אתה חייב לבחור אדמין", Toast.LENGTH_SHORT).show();
         }
         else {
+            String[] details= selectedAdmin.split(",");
+            String[] adminId= details[1].split("\\s");
             ll_search.setVisibility(View.INVISIBLE);
             ll_fire.setVisibility(View.VISIBLE);
             for(Admin admin : TemporaryDB.getAllAdmins().values()){
-                if(String.valueOf(admin.getFirstName()).equals(theText)){
+                if(String.valueOf(admin.getIdNumber()).equals(adminId[1])){
                     tempAdmin = admin;
                     break;
                 }
             }
         }
-           // presentVoter(tempVoter);
+            presentAdmin(tempAdmin);
         }
+
+    private void presentAdmin(Admin tempAdmin) {
+        cardView.setVisibility(View.VISIBLE);
+        ll_fire.setVisibility(View.VISIBLE);
+        ll_search.setVisibility(View.INVISIBLE);
+        idNumber.setText("מספר תעודת זהות: " + tempAdmin.getIdNumber());
+        firstName.setText("שם פרטי: " + tempAdmin.getFirstName());
+        lastName.setText("שם משפחה: " + tempAdmin.getLastName());
+        city.setText("עיר: " + tempAdmin.getCity());
+        gender.setText("מין: " + tempAdmin.getGender().toString());
+        age.setText("גיל: " + tempAdmin.getAge());
+    }
 
     private void cleanSearch() {
         tempAdmin = null;
-       // cardView.setVisibility(View.INVISIBLE);
+        cardView.setVisibility(View.INVISIBLE);
         ll_fire.setVisibility(View.INVISIBLE);
         ll_search.setVisibility(View.VISIBLE);
         admins_dropdown.setSelection(0);
@@ -106,6 +130,13 @@ public class FireAdmin extends AppCompatActivity {
         ll_search = findViewById(R.id.ll_search);
         ll_fire = findViewById(R.id.ll_fire);
         refershךist();
+        cardView = findViewById(R.id.cardView);
+        idNumber = findViewById(R.id.idNumber);
+        firstName = findViewById(R.id.firstName);
+        lastName = findViewById(R.id.lastName);
+        gender = findViewById(R.id.gender);
+        city = findViewById(R.id.city);
+        age = findViewById(R.id.age);
     }
 
     private void refershךist() {
@@ -113,7 +144,8 @@ public class FireAdmin extends AppCompatActivity {
         adminNames.add("");
         for(Admin admin : TemporaryDB.getAllAdmins().values()){
             if(!admin.isAdminLeader()){
-                adminNames.add(admin.getFirstName());
+//                adminNames.add(admin.getFirstName() + " " + admin.getLastName() + "," + admin.getIdNumber() + "," +admin.getArea());
+                adminNames.add("שם: " + admin.getFirstName() + " " + admin.getLastName() + " ," + "ת.ז: " + admin.getIdNumber() + " ," + "אזור: "  +admin.getArea());
             }
         }
 
