@@ -15,13 +15,18 @@ import com.example.finalproject.Activities.PartyDetailsActivity;
 import com.example.finalproject.Entities.Party;
 import com.example.finalproject.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
     private List<Party> parties;
     private Context context;
-    public PartyAdapter(Context context,List<Party> parties) {
-        this.parties = parties;
+    public PartyAdapter(Context context, Map<String, Party> parties) {
+        this.parties = new ArrayList<Party>();
+        for(Party party : parties.values()){
+            this.parties.add(party);
+        }
         this.context = context;
     }
 

@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
                 resPage()
         );
         Generators.addVotersToDB();
+        Generators.addPartiesToDB();
+        Generators.addAreasToDB();
+        Generators.addAdminToDB();
     }
 
     private void resPage() {

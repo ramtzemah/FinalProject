@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,10 +32,10 @@ public class PartyDetailsActivity extends AppCompatActivity {
         partyNameTextView.setText(partyName);
         partyLogoImageView.setImageResource(partyLogo);
         party_agenda.setText(partyAgenda);
-        setbuttons();
+        setButtons();
     }
 
-    private void setbuttons() {
+    private void setButtons() {
         MB_votebtn.setOnClickListener(v -> voteParty());
     }
 

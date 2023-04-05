@@ -24,6 +24,17 @@ public class Voter {
         setVoterId(Generators.generateId());
     }
 
+    public Voter(String voterId,String firstName, String lastName, int age, Enum gender, String city, int idNumber, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.Gender = gender;
+        this.City = city;
+        this.idNumber = idNumber;
+        this.phoneNumber = phoneNumber;
+        setVoterId(voterId);
+    }
+
     public Voter() {
     }
 

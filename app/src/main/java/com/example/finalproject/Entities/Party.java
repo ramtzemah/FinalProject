@@ -15,14 +15,12 @@ public class Party {
         this.name = name;
         this.logoResourceId = logoResourceId;
         this.agenda = agenda;
+        this.partyId = Generators.generateId();
     }
     public String getPartyId() {
         return partyId;
     }
 
-    public void setPartyId(String id) {
-        this.partyId = Generators.generateId();
-    }
     public String getName() {
         return name;
     }

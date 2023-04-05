@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/ic_vote_bg">
-
+    tools:context=".AdminsLogic.ManageSection">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_voteBtn"
+        android:id="@+id/MB_appointAdminBtn"
         android:layout_width="105dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="70dp"
-        android:layout_marginTop="400dp"
-        android:text="הצבע!"
+        android:layout_marginTop="340dp"
+        android:text="מנה מנהל"
         android:textColor="@color/white"
         app:backgroundTint="#0068FF"
         app:cornerRadius="4dp"
         app:strokeWidth="0dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_manageBtn"
+        android:id="@+id/MB_firedAdminBtn"
         android:layout_width="105dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="70dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/MB_voteBtn"
-        android:text="ניהול"
+        android:layout_below="@+id/MB_appointAdminBtn"
+        android:text="הדח מנהל"
         android:textColor="@color/white"
         app:backgroundTint="#0068FF"
         app:cornerRadius="4dp"
