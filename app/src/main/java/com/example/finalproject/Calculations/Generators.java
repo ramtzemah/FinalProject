@@ -51,10 +51,10 @@ public class Generators {
     }
 
     public static void addAreasToDB(){
-        TemporaryDB.addArea(new Area("צפון"));
-        TemporaryDB.addArea(new Area("דרום"));
-        TemporaryDB.addArea(new Area("מזרח"));
-        TemporaryDB.addArea(new Area("מערב"));
+        TemporaryDB.addArea(new Area("צפון", TemporaryDB.getAllParties().keySet()));
+        TemporaryDB.addArea(new Area("דרום", TemporaryDB.getAllParties().keySet()));
+        TemporaryDB.addArea(new Area("מזרח", TemporaryDB.getAllParties().keySet()));
+        TemporaryDB.addArea(new Area("מערב", TemporaryDB.getAllParties().keySet()));
     }
 
     public static void addAdminToDB(){
