@@ -12,6 +12,15 @@
         android:theme="@style/Theme.FinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".AdminsLogic.FireAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".AdminsLogic.AppointAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".AdminsLogic.ManageSection"
+            android:exported="false" />
+        <activity
             android:name=".AdminsLogic.ResultActivity"
             android:exported="false" />
         <activity
@@ -23,7 +32,6 @@
         <activity
             android:name=".Activities.PartyDetailsActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
