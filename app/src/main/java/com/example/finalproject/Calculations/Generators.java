@@ -19,22 +19,22 @@ public class Generators {
     }
 
     public static void addVotersToDB(){
-        TemporaryDB.addVoter(new Voter("aaa","aaa",19, Gender.MALE,"Netanya",1,"0"));
-        TemporaryDB.addVoter(new Voter("bbb","bbb",20, Gender.FEMALE,"Hedera",2,"0"));
-        TemporaryDB.addVoter(new Voter("ccc","ccc",18, Gender.MALE,"Tel Aviv",3,"0"));
-        TemporaryDB.addVoter(new Voter("ddd","ddd",21, Gender.FEMALE,"Hedera",4,"0"));
-        TemporaryDB.addVoter(new Voter("eee","eee",27, Gender.MALE,"Netanya",5,"0"));
-        TemporaryDB.addVoter(new Voter("fff","fff",28, Gender.FEMALE,"Tel Aviv",6,"0"));
-        TemporaryDB.addVoter(new Voter("ggg","ggg",49, Gender.MALE,"Netanya",7,"0"));
-        TemporaryDB.addVoter(new Voter("hhh","hhh",20, Gender.FEMALE,"Hedera",8,"0"));
-        TemporaryDB.addVoter(new Voter("iii","iii",29, Gender.FEMALE,"Tel Aviv",9,"0"));
-        TemporaryDB.addVoter(new Voter("jjj","jjj",57, Gender.MALE,"Netanya",10,"0"));
-        TemporaryDB.addVoter(new Voter("kkk","kkk",35, Gender.FEMALE,"Hedera",11,"0"));
-        TemporaryDB.addVoter(new Voter("lll","lll",43, Gender.MALE,"Tel Aviv",12,"0"));
-        TemporaryDB.addVoter(new Voter("mmm","mmm",52, Gender.MALE,"Netanya",13,"0"));
-        TemporaryDB.addVoter(new Voter("nnn","nnn",60, Gender.FEMALE,"Hedera",14,"0"));
-        TemporaryDB.addVoter(new Voter("ooo","ooo",55, Gender.FEMALE,"Tel Aviv",15,"0"));
-        TemporaryDB.addVoter(new Voter("ppp","ppp",39, Gender.MALE,"Eilat",16,"0"));
+        TemporaryDB.addVoter(new Voter("אאא","אאא",19, Gender.זכר,"נתניה",1,"0"));
+        TemporaryDB.addVoter(new Voter("בבב","בבב",20, Gender.נקבה,"חדרה",2,"0"));
+        TemporaryDB.addVoter(new Voter("גגג","גגג",18, Gender.זכר,"תל-אביב",3,"0"));
+        TemporaryDB.addVoter(new Voter("דדד","דדד",21, Gender.נקבה,"חדרה",4,"0"));
+        TemporaryDB.addVoter(new Voter("ההה","ההה",27, Gender.זכר,"נתניה",5,"0"));
+        TemporaryDB.addVoter(new Voter("ווו","ווו",28, Gender.נקבה,"תל-אביב",6,"0"));
+        TemporaryDB.addVoter(new Voter("זזז","זזז",49, Gender.זכר,"נתניה",7,"0"));
+        TemporaryDB.addVoter(new Voter("חחח","חחח",20, Gender.נקבה,"חדרה",8,"0"));
+        TemporaryDB.addVoter(new Voter("טטט","טטט",29, Gender.נקבה,"תל-אביב",9,"0"));
+        TemporaryDB.addVoter(new Voter("כככ","כככ",57, Gender.זכר,"נתניה",10,"0"));
+        TemporaryDB.addVoter(new Voter("ללל","ללל",35, Gender.נקבה,"חדרה",11,"0"));
+        TemporaryDB.addVoter(new Voter("מממ","מממ",43, Gender.זכר,"תל-אביב",12,"0"));
+        TemporaryDB.addVoter(new Voter("נננ","נננ",52, Gender.זכר,"נתניה",13,"0"));
+        TemporaryDB.addVoter(new Voter("ססס","ססס",60, Gender.נקבה,"חדרה",14,"0"));
+        TemporaryDB.addVoter(new Voter("עעע","עעע",55, Gender.נקבה,"תל-אביב",15,"0"));
+        TemporaryDB.addVoter(new Voter("פפפ","פפפ",39, Gender.זכר,"אילת",16,"0"));
     }
 
     public static void addPartiesToDB(){
@@ -58,8 +58,8 @@ public class Generators {
     }
 
     public static void addAdminToDB(){
-        Voter tempVoter = new Voter("qqq","qqq",39, Gender.MALE,"Eilat",16,"0");
+        Voter tempVoter = new Voter("צצ","צצ",39, Gender.זכר,"אילת",16,"0");
         TemporaryDB.addVoter(tempVoter);
-        TemporaryDB.addAdminLeader(new Admin(tempVoter, " ",false));
+        TemporaryDB.addAdminLeader(new Admin(tempVoter, " ",true));
     }
 }
