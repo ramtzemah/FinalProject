@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
-import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
 
@@ -45,7 +44,7 @@ public class FireAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_fire_admin);
         findView();
         setButtons();
-        refershךist();
+        refreshList();
     }
 
     private void setButtons() {
@@ -129,7 +128,7 @@ public class FireAdmin extends AppCompatActivity {
         admins_dropdown = findViewById(R.id.admins_dropdown);
         ll_search = findViewById(R.id.ll_search);
         ll_fire = findViewById(R.id.ll_fire);
-        refershךist();
+        refreshList();
         cardView = findViewById(R.id.cardView);
         idNumber = findViewById(R.id.idNumber);
         firstName = findViewById(R.id.firstName);
@@ -139,7 +138,7 @@ public class FireAdmin extends AppCompatActivity {
         age = findViewById(R.id.age);
     }
 
-    private void refershךist() {
+    private void refreshList() {
         adminNames = new ArrayList<>();
         adminNames.add("");
         for(Admin admin : TemporaryDB.getAllAdmins().values()){

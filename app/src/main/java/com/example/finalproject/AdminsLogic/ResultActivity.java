@@ -2,10 +2,21 @@ package com.example.finalproject.AdminsLogic;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finalproject.Adapters.DistributionOfVotersByAgeAdapter;
+import com.example.finalproject.Adapters.PartyAdapter;
 import com.example.finalproject.DBUtils.TemporaryDB;
+import com.example.finalproject.DBUtils.TemporaryFB;
+import com.example.finalproject.Entities.Admin;
+import com.example.finalproject.Entities.AgesBlocks;
 import com.example.finalproject.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -14,26 +25,85 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.mackhartley.roundedprogressbar.RoundedProgressBar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ResultActivity extends AppCompatActivity {
     private PieChart pieChart;
-    private RoundedProgressBar progressBar;
+    private RoundedProgressBar pb_voters_prec;
+    private RoundedProgressBar pb_by_sex_prec;
+    private RecyclerView RV_DistributionByAge;
+    private DistributionOfVotersByAgeAdapter adapter;
+    private ArrayList agesBlocksList;
+    private Spinner ages_dropdown;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         findViews();
         System.out.println(TemporaryDB.getAllVoters());
-        progressBar.setProgressPercentage(32.6,true);
+        pb_voters_prec.setProgressPercentage(32.6,true);
+        pb_by_sex_prec.setProgressPercentage(32.6,true);
         showPieChart();
+        createAgeBlocks();
+        adapter = new DistributionOfVotersByAgeAdapter(this, agesBlocksList);
+        RV_DistributionByAge.setLayoutManager(new LinearLayoutManager(this));
+        RV_DistributionByAge.setAdapter(adapter);
+
+        ages_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                createAgeBlocks();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+    }
+
+    private void createAgeBlocks() {
+        agesBlocksList = new ArrayList<AgesBlocks>();
+        int oldesAge = TemporaryFB.getOldestAge();
+        int startVotingAge = TemporaryFB.startVotingAge();
+        int dropDownSelection = Integer.parseInt(ages_dropdown.getSelectedItem().toString());
+        while (startVotingAge < oldesAge){
+            agesBlocksList.add(new AgesBlocks(startVotingAge, startVotingAge + dropDownSelection,dropDownSelection));
+            startVotingAge += dropDownSelection;
+        }
+        if(adapter != null){
+            adapter.setAgesBlocksList(agesBlocksList);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void findViews() {
-        progressBar = findViewById(R.id.progressBar);
+        pb_voters_prec = findViewById(R.id.pb_voters_prec);
+        pb_by_sex_prec = findViewById(R.id.pb_by_sex_prec);
         pieChart = findViewById(R.id.pieChart_view);
+        RV_DistributionByAge = findViewById(R.id.RV_DistributionByAge);
+        ages_dropdown = findViewById(R.id.ages_dropdown);
+        refreshList();
     }
+
+
+    private void refreshList() {
+        List<String> ages = Arrays.asList("6", "8", "10", "12");
+
+// Create an ArrayAdapter with the keysList
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ages);
+
+// Set the ArrayAdapter to the spinner
+        ages_dropdown.setAdapter(adapter);
+    }
+
+
 
     private void showPieChart(){
 

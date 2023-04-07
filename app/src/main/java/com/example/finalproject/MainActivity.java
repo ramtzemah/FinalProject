@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findView();
+        resPage();
         button.setOnClickListener(v->
                 resPage()
         );
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void resPage() {
-        Intent intent = new Intent(MainActivity.this, VoteActivity.class);
+        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
         startActivity(intent);
     }
 
