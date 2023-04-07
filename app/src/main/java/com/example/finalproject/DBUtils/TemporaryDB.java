@@ -39,11 +39,11 @@ public class TemporaryDB {
         return areas;
     }
 
-    public static int getAllVotersNumber(){
+    public static int sunOfAllVoters(){
         return voters.size();
     }
 
-    public static int getAllPartiesNumber(){
+    public static int snmOfAllParties(){
         return parties.size();
     }
 

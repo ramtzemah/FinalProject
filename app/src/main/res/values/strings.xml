@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FinalProject</string>
     <string name="party_logo_content_description">temp</string>
+    <string name="Distribution_of_voters_by_age"><u>Distribution of voters by age:</u></string>
 </resources>
