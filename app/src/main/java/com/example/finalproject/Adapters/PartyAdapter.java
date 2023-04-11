@@ -54,6 +54,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
                 intent.putExtra("party_name", party.getName());
                 intent.putExtra("party_logo", party.getLogoResourceId());
                 intent.putExtra("party_agenda", party.getAgenda());
+                intent.putExtra("party_id", party.getPartyId());
                 intent.putExtra("from",source);
                 context.startActivity(intent);
             }

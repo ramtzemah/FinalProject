@@ -1,8 +1,10 @@
 package com.example.finalproject.DBUtils;
 
+import com.example.finalproject.Calculations.Generators;
 import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Party;
+import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 
 import java.util.HashMap;
@@ -12,6 +14,7 @@ public class TemporaryDB {
     private static Map<String, Voter> voters = new HashMap<>();
     private static Map<String, Party> parties = new HashMap<>();
     private static Map<String, Admin> admins = new HashMap<>();
+    private static Map<String, Vote> votes = new HashMap<>();
     private static Map<String, Area> areas = new HashMap<>();
 
     public static void addVoter(Voter voter){
@@ -27,6 +30,9 @@ public class TemporaryDB {
 
     public static void addParty(Party party){
         parties.put(party.getPartyId(),party);
+    }
+    public static void InitVotes(Party party){
+        votes.put(party.getPartyId() ,new Vote(0));
     }
     public static void addArea(Area area){
         areas.put(area.getId(), area);
@@ -54,6 +60,9 @@ public class TemporaryDB {
     private static Voter getVoterById(String voterId) {
         return voters.get(voterId);
     }
+    public static Party getPartyById(String partyId) {
+        return parties.get(partyId);
+    }
 
     public static void addAdminLeader(Admin admin) {
         admins.put(admin.getVoterId(), admin);
@@ -61,5 +70,9 @@ public class TemporaryDB {
 
     public static void fireAdmin(String voterId) {
         admins.remove(voterId);
+    }
+
+    public static void addVoteByPartyId(String partyId) {
+        votes.get(partyId).addVotes();
     }
 }

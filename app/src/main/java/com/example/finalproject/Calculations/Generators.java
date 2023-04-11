@@ -8,6 +8,8 @@ import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Enums.Gender;
 import com.example.finalproject.R;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.UUID;
 
 public class Generators {
@@ -48,6 +50,12 @@ public class Generators {
         TemporaryDB.addParty((new Party("המפלגה הטכנולוגית", R.drawable.ic_techno_logo,"דוגל במדיניות המקדמת חדשנות טכנולוגית ויזמות, כגון מתן תמריצי מס ומימון לסטארטאפים, השקעה במחקר ופיתוח וקידום חינוך (STEM Science, Technology, Engineering ו-Mathematics) בבתי ספר.")));
         TemporaryDB.addParty((new Party("המפלגה הירוקה", R.drawable.ic_yeroka_logo,"תומכים במדיניות שמפחיתה את פליטת הפחמן ומקדמת אנרגיה מתחדשת, כמו השקעה באנרגיה סולרית ורוח, בניית יותר תחבורה ציבורית והגדלת מסים על דלקים מאובנים. כמו כן, לעודד חקלאות בת קיימא יותר ולהפחית את השימוש בפלסטיק.")));
         TemporaryDB.addParty((new Party("מפלגת הצעירים", R.drawable.ic_youngs_logo,"דוגלת במדיניות המיטיבה עם הדורות הצעירים, כגון שיפור הגישה לדיור בר השגה, הגדלת המימון לתוכניות חינוך והכשרה בעבודה, והפחתת עלות שירותי הבריאות.")));
+    }
+    public static void initVotesCollection(){
+        Map<String, Party> parties = TemporaryDB.getAllParties();
+        for (Map.Entry<String,Party> party : parties.entrySet()) {
+            TemporaryDB.InitVotes(party.getValue());
+        }
     }
 
     public static void addAreasToDB(){

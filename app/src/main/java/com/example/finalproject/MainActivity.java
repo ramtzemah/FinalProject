@@ -26,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
         Generators.addPartiesToDB();
         Generators.addAreasToDB();
         Generators.addAdminToDB();
+        Generators.initVotesCollection();
     }
 
     private void resPage() {
-        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+        Intent intent = new Intent(MainActivity.this, VoteActivity.class);
         startActivity(intent);
     }
 
