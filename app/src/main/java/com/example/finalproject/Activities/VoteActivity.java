@@ -12,10 +12,16 @@ import com.google.android.material.button.MaterialButton;
 
 public class VoteActivity extends AppCompatActivity {
     private MaterialButton MB_voteBtn,MB_manageBtn,MB_partyPlatformBtn;
+    private String userId;
+    private String adminId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vote_activity);
+//        userId = getIntent().getStringExtra("user_id");
+//        adminId = getIntent().getStringExtra("admin_id");
+        userId = "1";
+        adminId = "2";
         findViews();
         setButtons();
     }
@@ -28,17 +34,20 @@ public class VoteActivity extends AppCompatActivity {
 
     private void toPartiesPlatform() {
         Intent intent = new Intent(VoteActivity.this, AllParties.class);
+        intent.putExtra("user_id",userId);
         intent.putExtra("from","platform");
         startActivity(intent);
     }
 
     private void toAllParties() {
         Intent intent = new Intent(VoteActivity.this, AllParties.class);
+        intent.putExtra("user_id",userId);
         intent.putExtra("from","vote");
         startActivity(intent);
     }
     private void toAdminManageSection() {
         Intent intent = new Intent(VoteActivity.this, ManageSection.class);
+        intent.putExtra("admin_id",adminId);
         startActivity(intent);
     }
 

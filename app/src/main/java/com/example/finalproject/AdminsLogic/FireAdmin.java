@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -38,10 +39,13 @@ public class FireAdmin extends AppCompatActivity {
     private TextView gender;
     private TextView city;
     private TextView age;
+    private String adminId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_admin);
+        adminId = getIntent().getStringExtra("admin_id");
         findView();
         setButtons();
         refreshList();

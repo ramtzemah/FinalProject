@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -41,11 +42,14 @@ public class AppointAdmin extends AppCompatActivity {
     private MaterialButton MB_appointAdminBtn;
     private Voter tempVoter = null;
     private List<String> areaNames;
+    private String adminId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appoint_admin);
+        adminId = getIntent().getStringExtra("admin_id");
         findViews();
         setButtons();
         refershList();

@@ -1,6 +1,7 @@
 package com.example.finalproject.Activities;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +19,14 @@ import java.util.List;
 public class AllParties extends AppCompatActivity {
     private RecyclerView RV_parties;
     private PartyAdapter adapter;
+    private String userId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_parties);
         String source = getIntent().getStringExtra("from");
+        userId = getIntent().getStringExtra("user_id");
         findViews();
         adapter = new PartyAdapter(this, TemporaryDB.getAllParties(),source);
         RV_parties.setLayoutManager(new LinearLayoutManager(this));

@@ -38,12 +38,14 @@ public class ResultActivity extends AppCompatActivity {
     private DistributionOfVotersByAgeAdapter adapter;
     private ArrayList agesBlocksList;
     private Spinner ages_dropdown;
+    private String adminId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         findViews();
+        adminId = getIntent().getStringExtra("admin_id");
         System.out.println(TemporaryDB.getAllVoters());
         pb_voters_prec.setProgressPercentage(32.6,true);
         pb_by_sex_prec.setProgressPercentage(32.6,true);
