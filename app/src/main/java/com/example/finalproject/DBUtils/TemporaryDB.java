@@ -81,5 +81,23 @@ public class TemporaryDB {
     public static void addVoteByPartyId(String partyId) {
         votes.get(partyId).addVotes();
     }
+    public static String getPhoneNumberById(String id) {
+        Map<String, Voter> voters = TemporaryDB.getAllVoters();
+        for (Voter voter : voters.values()) {
+            if (voter.getIdNumber() == Integer.valueOf(id)) {
+                return voter.getPhoneNumber();
+            }
+        }
+        return "";
+    }
+    public static Token getToken(String tocheck) {
+
+        for (Token token : TemporaryDB.getAllTokens().values()) {
+            if (token.getToken().equals(tocheck)) {
+                return token;
+            }
+        }
+        return null;
+    }
 
 }

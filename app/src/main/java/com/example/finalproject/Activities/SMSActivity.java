@@ -34,21 +34,12 @@ public class SMSActivity extends AppCompatActivity {
         Date now = new Date();
         Token token = new Token(id,String.valueOf(randomNumber),now);
         TemporaryDB.addToken(token);
-//        TemporaryDB.tokensToString();
-        phonenum = getPhoneNumberById(id);
+        phonenum = TemporaryDB.getPhoneNumberById(id);
         sendSMS(phonenum,"Your code for vote is " + randomNumber);
         setbutton();
     }
 
-    private String getPhoneNumberById(String id) {
-       Map<String, Voter> voters = TemporaryDB.getAllVoters();
-        for (Voter voter : voters.values()) {
-            if (voter.getIdNumber() == Integer.valueOf(id)) {
-                return voter.getPhoneNumber();
-            }
-        }
-        return "";
-    }
+
 
     private void setbutton() {
         submitButton.setOnClickListener(v -> {
@@ -59,7 +50,7 @@ public class SMSActivity extends AppCompatActivity {
                     Integer.valueOf(digit2.getText().toString()) * 10 +
                     Integer.valueOf(digit1.getText().toString());
             String tocheck = String.valueOf(enterednum);
-        Token myToken = getToken(tocheck);
+        Token myToken = TemporaryDB.getToken(tocheck);
         if(myToken != null){
             if(myToken.getVoterId().equals(id)){
                 Date newnow = new Date();
@@ -79,15 +70,6 @@ public class SMSActivity extends AppCompatActivity {
         });
     }
 
-    private Token getToken(String tocheck) {
-
-        for (Token token : TemporaryDB.getAllTokens().values()) {
-            if (token.getToken().equals(tocheck)) {
-                return token;
-            }
-        }
-        return null;
-    }
 
 
     private void findviews() {
