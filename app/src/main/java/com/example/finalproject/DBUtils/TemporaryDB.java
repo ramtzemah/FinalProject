@@ -1,9 +1,9 @@
 package com.example.finalproject.DBUtils;
-
 import com.example.finalproject.Calculations.Generators;
 import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Party;
+import com.example.finalproject.Entities.Token;
 import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 
@@ -16,6 +16,8 @@ public class TemporaryDB {
     private static Map<String, Admin> admins = new HashMap<>();
     private static Map<String, Vote> votes = new HashMap<>();
     private static Map<String, Area> areas = new HashMap<>();
+    private static Map<String, Token> tokens = new HashMap<>();
+
 
     public static void addVoter(Voter voter){
         voters.put(voter.getVoterId(),voter);
@@ -27,7 +29,12 @@ public class TemporaryDB {
     public static Map<String, Party> getAllParties(){
         return parties;
     }
-
+    public static Map<String, Token> getAllTokens(){
+        return tokens;
+    }
+    public static void addToken(Token token){
+        tokens.put(Generators.generateRandomString(),token);
+    }
     public static void addParty(Party party){
         parties.put(party.getPartyId(),party);
     }
@@ -57,7 +64,7 @@ public class TemporaryDB {
             admins.put(voterId, new Admin(getVoterById(voterId), area, false));
     }
 
-    private static Voter getVoterById(String voterId) {
+    public static Voter getVoterById(String voterId) {
         return voters.get(voterId);
     }
     public static Party getPartyById(String partyId) {
@@ -67,7 +74,6 @@ public class TemporaryDB {
     public static void addAdminLeader(Admin admin) {
         admins.put(admin.getVoterId(), admin);
     }
-
     public static void fireAdmin(String voterId) {
         admins.remove(voterId);
     }
@@ -75,4 +81,23 @@ public class TemporaryDB {
     public static void addVoteByPartyId(String partyId) {
         votes.get(partyId).addVotes();
     }
+    public static String getPhoneNumberById(String id) {
+        Map<String, Voter> voters = TemporaryDB.getAllVoters();
+        for (Voter voter : voters.values()) {
+            if (voter.getIdNumber() == Integer.valueOf(id)) {
+                return voter.getPhoneNumber();
+            }
+        }
+        return "";
+    }
+    public static Token getToken(String tocheck) {
+
+        for (Token token : TemporaryDB.getAllTokens().values()) {
+            if (token.getToken().equals(tocheck)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
 }

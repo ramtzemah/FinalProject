@@ -10,6 +10,7 @@ import com.example.finalproject.R;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 public class Generators {
@@ -21,22 +22,22 @@ public class Generators {
     }
 
     public static void addVotersToDB(){
-        TemporaryDB.addVoter(new Voter("אאא","אאא",19, Gender.זכר,"נתניה",1,"0"));
-        TemporaryDB.addVoter(new Voter("בבב","בבב",20, Gender.נקבה,"חדרה",2,"0"));
-        TemporaryDB.addVoter(new Voter("גגג","גגג",18, Gender.זכר,"תל-אביב",3,"0"));
-        TemporaryDB.addVoter(new Voter("דדד","דדד",21, Gender.נקבה,"חדרה",4,"0"));
-        TemporaryDB.addVoter(new Voter("ההה","ההה",27, Gender.זכר,"נתניה",5,"0"));
-        TemporaryDB.addVoter(new Voter("ווו","ווו",28, Gender.נקבה,"תל-אביב",6,"0"));
-        TemporaryDB.addVoter(new Voter("זזז","זזז",49, Gender.זכר,"נתניה",7,"0"));
-        TemporaryDB.addVoter(new Voter("חחח","חחח",20, Gender.נקבה,"חדרה",8,"0"));
-        TemporaryDB.addVoter(new Voter("טטט","טטט",29, Gender.נקבה,"תל-אביב",9,"0"));
-        TemporaryDB.addVoter(new Voter("כככ","כככ",57, Gender.זכר,"נתניה",10,"0"));
-        TemporaryDB.addVoter(new Voter("ללל","ללל",35, Gender.נקבה,"חדרה",11,"0"));
-        TemporaryDB.addVoter(new Voter("מממ","מממ",43, Gender.זכר,"תל-אביב",12,"0"));
-        TemporaryDB.addVoter(new Voter("נננ","נננ",52, Gender.זכר,"נתניה",13,"0"));
-        TemporaryDB.addVoter(new Voter("ססס","ססס",60, Gender.נקבה,"חדרה",14,"0"));
-        TemporaryDB.addVoter(new Voter("עעע","עעע",55, Gender.נקבה,"תל-אביב",15,"0"));
-        TemporaryDB.addVoter(new Voter("פפפ","פפפ",39, Gender.זכר,"אילת",16,"0"));
+        TemporaryDB.addVoter(new Voter("אאא","אאא",19, Gender.זכר,"נתניה",1,"+972503046017"));
+        TemporaryDB.addVoter(new Voter("בבב","בבב",20, Gender.נקבה,"חדרה",2,"0504020492"));
+        TemporaryDB.addVoter(new Voter("גגג","גגג",18, Gender.זכר,"תל-אביב",3,"0504242047"));
+        TemporaryDB.addVoter(new Voter("דדד","דדד",21, Gender.נקבה,"חדרה",4,"4"));
+        TemporaryDB.addVoter(new Voter("ההה","ההה",27, Gender.זכר,"נתניה",5,"5"));
+        TemporaryDB.addVoter(new Voter("ווו","ווו",28, Gender.נקבה,"תל-אביב",6,"6"));
+        TemporaryDB.addVoter(new Voter("זזז","זזז",49, Gender.זכר,"נתניה",7,"7"));
+        TemporaryDB.addVoter(new Voter("חחח","חחח",20, Gender.נקבה,"חדרה",8,"8"));
+        TemporaryDB.addVoter(new Voter("טטט","טטט",29, Gender.נקבה,"תל-אביב",9,"9"));
+        TemporaryDB.addVoter(new Voter("כככ","כככ",57, Gender.זכר,"נתניה",10,"10"));
+        TemporaryDB.addVoter(new Voter("ללל","ללל",35, Gender.נקבה,"חדרה",11,"11"));
+        TemporaryDB.addVoter(new Voter("מממ","מממ",43, Gender.זכר,"תל-אביב",12,"12"));
+        TemporaryDB.addVoter(new Voter("נננ","נננ",52, Gender.זכר,"נתניה",13,"13"));
+        TemporaryDB.addVoter(new Voter("ססס","ססס",60, Gender.נקבה,"חדרה",14,"14"));
+        TemporaryDB.addVoter(new Voter("עעע","עעע",55, Gender.נקבה,"תל-אביב",15,"15"));
+        TemporaryDB.addVoter(new Voter("פפפ","פפפ",39, Gender.זכר,"אילת",16,"16"));
     }
 
     public static void addPartiesToDB(){
@@ -69,5 +70,16 @@ public class Generators {
         Voter tempVoter = new Voter("צצ","צצ",39, Gender.זכר,"אילת",16,"0");
         TemporaryDB.addVoter(tempVoter);
         TemporaryDB.addAdminLeader(new Admin(tempVoter, " ",true));
+    }
+    public static String generateRandomString() {
+        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        Random rand = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            int index = rand.nextInt(letters.length());
+            char c = letters.charAt(index);
+            sb.append(c);
+        }
+        return sb.toString();
     }
 }
