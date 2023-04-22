@@ -1,5 +1,11 @@
 package com.example.finalproject.DBUtils;
+import android.util.Log;
+
 import com.example.finalproject.Calculations.Generators;
+import com.example.finalproject.Callbacks.AdminsCallback;
+import com.example.finalproject.Callbacks.AreasCallback;
+import com.example.finalproject.Callbacks.PartiesCallback;
+import com.example.finalproject.Callbacks.VotersCallback;
 import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Party;
@@ -8,6 +14,7 @@ import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TemporaryDB {
@@ -32,6 +39,70 @@ public class TemporaryDB {
     public static Map<String, Token> getAllTokens(){
         return tokens;
     }
+    public static DbUtils dbUtils = new DbUtils();
+
+
+    public static void addAllVoters(){
+        dbUtils.getAllVoters("peaple", "voters", (VotersCallback) (result, error)-> {
+            if (error != null) {
+                Log.d("ptttt", "errorrrrr");
+                // Handle the error.
+            } else {
+                List<Voter> voters1 = (List<Voter>) result;
+                for (Voter v : voters1){
+                    voters.put(v.getVoterId(), v);
+                }
+            }
+        }
+        );
+    }
+
+    public static void addAllParties() {
+        dbUtils.getAllParties("peaple", "parties", (PartiesCallback) (result, error)-> {
+                    if (error != null) {
+                        Log.d("ptttt", "errorrrrr");
+                        // Handle the error.
+                    } else {
+                        List<Party> parties1 = (List<Party>) result;
+                        for (Party p : parties1){
+                            parties.put(p.getPartyId(), p);
+                        }
+                    }
+                }
+        );
+    }
+
+    public static void addAllAreas() {
+        dbUtils.getAllAreas("peaple", "areas", (AreasCallback) (result, error)-> {
+                    if (error != null) {
+                        Log.d("ptttt", "errorrrrr");
+                        // Handle the error.
+                    } else {
+                        List<Area> areas1 = (List<Area>) result;
+                        for (Area a : areas1){
+                            areas.put(a.getId(), a);
+                        }
+                    }
+                }
+        );
+    }
+
+    public static void addAllAdmins() {
+        dbUtils.getAllAdmins("peaple", "admins", (AdminsCallback) (result, error)-> {
+                    if (error != null) {
+                        Log.d("ptttt", "errorrrrr");
+                        // Handle the error.
+                    } else {
+                        admins = new HashMap<>();
+                        List<Admin> admins1 = (List<Admin>) result;
+                        for (Admin a : admins1){
+                            admins.put(a.getId(), a);
+                        }
+                    }
+                }
+        );
+    }
+
     public static void addToken(Token token){
         tokens.put(Generators.generateRandomString(),token);
     }
@@ -39,7 +110,7 @@ public class TemporaryDB {
         parties.put(party.getPartyId(),party);
     }
     public static void InitVotes(Party party){
-        votes.put(party.getPartyId() ,new Vote(0));
+        votes.put(Generators.generateId() ,new Vote(0, party.getPartyId()));
     }
     public static void addArea(Area area){
         areas.put(area.getId(), area);

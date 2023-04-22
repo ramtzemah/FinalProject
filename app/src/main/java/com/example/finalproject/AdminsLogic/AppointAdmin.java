@@ -15,7 +15,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
+import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.R;
@@ -41,11 +43,12 @@ public class AppointAdmin extends AppCompatActivity {
     private MaterialButton MB_appointAdminBtn;
     private Voter tempVoter = null;
     private List<String> areaNames;
-
+    private DbUtils dbUtils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appoint_admin);
+        dbUtils = new DbUtils();
         findViews();
         setButtons();
         refershList();
@@ -66,7 +69,8 @@ public class AppointAdmin extends AppCompatActivity {
         builder.setPositiveButton("כן!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                TemporaryDB.manageAdmin(tempVoter.getVoterId(), areasDropdown.getSelectedItem().toString());
+                Admin admin = new Admin(tempVoter,areasDropdown.getSelectedItem().toString(), false);
+                dbUtils.manageAdmin("peaple", "admins", tempVoter.getVoterId(), admin);
                 finish();
             }
         });
