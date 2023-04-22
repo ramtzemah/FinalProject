@@ -1,6 +1,9 @@
 package com.example.finalproject.Entities;
 
-import com.example.finalproject.Calculations.Generators;
+import android.util.Log;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
 
 public class Voter {
     private String voterId; // maybe not necessary
@@ -21,7 +24,8 @@ public class Voter {
         this.City = city;
         this.idNumber = idNumber;
         this.phoneNumber = phoneNumber;
-        setVoterId(Generators.generateId());
+        ObjectId objectId = new ObjectId();
+        setVoterId(objectId.toString());
     }
 
     public Voter(String voterId,String firstName, String lastName, int age, Enum gender, String city, int idNumber, String phoneNumber) {
@@ -38,7 +42,20 @@ public class Voter {
     public Voter() {
     }
 
-    private void setVoterId(String generateId) {
+    public Voter(Document document) {
+        Log.d("ptttt", " " +document);
+        this.voterId = document.getString("voterId");
+        this.firstName = document.getString("firstName");
+        this.lastName = document.getString("lastName");
+        this.age = document.getInteger("age");
+        this.Gender = Gender.valueOf(com.example.finalproject.Enums.Gender.class, document.getString("gender").toUpperCase());
+        this.City = document.getString("city");
+        this.alreadyVote = document.getBoolean("alreadyVote");
+        this.idNumber = document.getInteger("idNumber");
+        this.phoneNumber = document.getString("phoneNumber");
+    }
+
+    public void setVoterId(String generateId) {
         this.voterId = generateId;
     }
 
@@ -93,5 +110,33 @@ public class Voter {
                 ", City='" + City + '\'' +
                 ", alreadyVote=" + alreadyVote +
                 '}';
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGender(Enum gender) {
+        Gender = gender;
+    }
+
+    public void setCity(String city) {
+        City = city;
+    }
+
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.R;
@@ -38,11 +39,13 @@ public class FireAdmin extends AppCompatActivity {
     private TextView gender;
     private TextView city;
     private TextView age;
+    private DbUtils dbUtils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_admin);
         findView();
+        dbUtils = new DbUtils();
         setButtons();
         refreshList();
     }
@@ -62,7 +65,7 @@ public class FireAdmin extends AppCompatActivity {
         builder.setPositiveButton("כן!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                TemporaryDB.fireAdmin(tempAdmin.getVoterId());
+                dbUtils.fireAdmin("peaple","admins", tempAdmin.getVoterId());
                 finish();
             }
         });

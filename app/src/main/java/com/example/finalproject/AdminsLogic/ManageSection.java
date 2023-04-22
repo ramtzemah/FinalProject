@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.finalproject.Activities.AllParties;
+import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
 
@@ -18,6 +20,7 @@ public class ManageSection extends AppCompatActivity {
         setContentView(R.layout.activity_manage_section);
         findViews();
         setButtons();
+        TemporaryDB.addAllAdmins();
     }
 
     private void setButtons() {
@@ -28,10 +31,12 @@ public class ManageSection extends AppCompatActivity {
     private void appointAdmin() {
         Intent intent = new Intent(ManageSection.this, AppointAdmin.class);
         startActivity(intent);
+        finish();
     }
     private void firedAdmin() {
         Intent intent = new Intent(ManageSection.this, FireAdmin.class);
         startActivity(intent);
+        finish();
     }
 
     private void findViews() {
