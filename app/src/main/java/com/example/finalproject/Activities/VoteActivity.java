@@ -12,12 +12,14 @@ import com.google.android.material.button.MaterialButton;
 
 public class VoteActivity extends AppCompatActivity {
     private MaterialButton MB_voteBtn,MB_manageBtn,MB_partyPlatformBtn;
+    private String userId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vote_activity);
         findViews();
         setButtons();
+        userId = "1";
     }
 
     private void setButtons() {
@@ -29,12 +31,14 @@ public class VoteActivity extends AppCompatActivity {
     private void toPartiesPlatform() {
         Intent intent = new Intent(VoteActivity.this, AllParties.class);
         intent.putExtra("from","platform");
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 
     private void toAllParties() {
         Intent intent = new Intent(VoteActivity.this, AllParties.class);
         intent.putExtra("from","vote");
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
     private void toAdminManageSection() {

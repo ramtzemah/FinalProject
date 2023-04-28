@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.util.Log;
 
+import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.Callbacks.PartiesCallback;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.Entities.Admin;
@@ -19,41 +20,52 @@ public class initDb {
     private  DbUtils dbUtils;
     public initDb() throws InterruptedException {
         dbUtils = new DbUtils();
-        dbUtils.deleteAllVoters("peaple","voters");
-        dbUtils.deleteAllTokens("peaple","token");
-        dbUtils.deleteAllVotes("peaple", "vote");
-        dbUtils.deleteAllParties("peaple","parties");
-        dbUtils.deleteAllAreas("peaple","areas");
-        Thread.sleep(2000);
+        dbUtils.deleteAllVoters(Constant.DataBaseName,Constant.VotersCollection);
+        dbUtils.deleteAllTokens(Constant.DataBaseName,Constant.TokensCollection);
+        dbUtils.deleteAllVotes(Constant.DataBaseName, Constant.VotesCollection);
+        dbUtils.deleteAllParties(Constant.DataBaseName,Constant.PartiesCollection);
+        dbUtils.deleteAllAreas(Constant.DataBaseName,Constant.AreasCollection);
+        dbUtils.deleteAllAdmins(Constant.DataBaseName,Constant.AdminsCollection);
+
+        Thread.sleep(5000);
 
         addVotersToDB();
+        Thread.sleep(5000);
+
         addPartiesToDB();
+        Thread.sleep(5000);
+
         initVotesCollection();
+        Thread.sleep(5000);
+
         addAreasToDB();
-        dbUtils.deleteAllAdmins("peaple","admins");
+        Thread.sleep(5000);
+
         addAdminToDB();
+        Thread.sleep(5000);
+
     }
 
     public static void addVotersToDB(){
         List<Voter> voters = new ArrayList<>();
-        voters.add(new Voter("אאא","אאא",19, Gender.זכר,"נתניה",1,"+972503046017"));
-        voters.add(new Voter("בבב","בבב",20, Gender.נקבה,"חדרה",2,"0504020492"));
-        voters.add(new Voter("גגג","גגג",18, Gender.זכר,"תל-אביב",3,"0504242047"));
-        voters.add(new Voter("דדד","דדד",21, Gender.נקבה,"חדרה",4,"4"));
-        voters.add(new Voter("ההה","ההה",27, Gender.זכר,"נתניה",5,"5"));
-        voters.add(new Voter("ווו","ווו",28, Gender.נקבה,"תל-אביב",6,"6"));
-        voters.add(new Voter("זזז","זזז",49, Gender.זכר,"נתניה",7,"7"));
-        voters.add(new Voter("חחח","חחח",20, Gender.נקבה,"חדרה",8,"8"));
-        voters.add(new Voter("טטט","טטט",29, Gender.נקבה,"תל-אביב",9,"9"));
-        voters.add(new Voter("כככ","כככ",57, Gender.זכר,"נתניה",10,"10"));
-        voters.add(new Voter("ללל","ללל",35, Gender.נקבה,"חדרה",11,"11"));
-        voters.add(new Voter("מממ","מממ",43, Gender.זכר,"תל-אביב",12,"12"));
-        voters.add(new Voter("נננ","נננ",52, Gender.זכר,"נתניה",13,"13"));
-        voters.add(new Voter("ססס","ססס",60, Gender.נקבה,"חדרה",14,"14"));
-        voters.add(new Voter("עעע","עעע",55, Gender.נקבה,"תל-אביב",15,"15"));
-        voters.add(new Voter("פפפ","פפפ",39, Gender.זכר,"אילת",16,"16"));
+        voters.add(new Voter("אאא","אאא",19, Gender.זכר,"צפון",1,"+972503046017"));
+        voters.add(new Voter("בבב","בבב",20, Gender.נקבה,"דרום",2,"0504020492"));
+        voters.add(new Voter("גגג","גגג",18, Gender.זכר,"מזרח",3,"0504242047"));
+        voters.add(new Voter("דדד","דדד",21, Gender.נקבה,"דרום",4,"4"));
+        voters.add(new Voter("ההה","ההה",27, Gender.זכר,"צפון",5,"5"));
+        voters.add(new Voter("ווו","ווו",28, Gender.נקבה,"מזרח",6,"6"));
+        voters.add(new Voter("זזז","זזז",49, Gender.זכר,"צפון",7,"7"));
+        voters.add(new Voter("חחח","חחח",20, Gender.נקבה,"דרום",8,"8"));
+        voters.add(new Voter("טטט","טטט",29, Gender.נקבה,"מזרח",9,"9"));
+        voters.add(new Voter("כככ","כככ",57, Gender.זכר,"צפון",10,"10"));
+        voters.add(new Voter("ללל","ללל",35, Gender.נקבה,"דרום",11,"11"));
+        voters.add(new Voter("מממ","מממ",43, Gender.זכר,"מזרח",12,"12"));
+        voters.add(new Voter("נננ","נננ",52, Gender.זכר,"צפון",13,"13"));
+        voters.add(new Voter("ססס","ססס",60, Gender.נקבה,"דרום",14,"14"));
+        voters.add(new Voter("עעע","עעע",55, Gender.נקבה,"מזרח",15,"15"));
+        voters.add(new Voter("פפפ","פפפ",39, Gender.זכר,"מערב",16,"16"));
         DbUtils dbUtils = new DbUtils();
-        dbUtils.addVotersToDb("peaple", "voters", voters);
+        dbUtils.addVotersToDb(Constant.DataBaseName, Constant.VotersCollection, voters);
     }
 
     public void addPartiesToDB(){
@@ -68,24 +80,24 @@ public class initDb {
         parties.add((new Party("המפלגה הטכנולוגית", R.drawable.ic_techno_logo,"דוגל במדיניות המקדמת חדשנות טכנולוגית ויזמות, כגון מתן תמריצי מס ומימון לסטארטאפים, השקעה במחקר ופיתוח וקידום חינוך (STEM Science, Technology, Engineering ו-Mathematics) בבתי ספר.")));
         parties.add((new Party("המפלגה הירוקה", R.drawable.ic_yeroka_logo,"תומכים במדיניות שמפחיתה את פליטת הפחמן ומקדמת אנרגיה מתחדשת, כמו השקעה באנרגיה סולרית ורוח, בניית יותר תחבורה ציבורית והגדלת מסים על דלקים מאובנים. כמו כן, לעודד חקלאות בת קיימא יותר ולהפחית את השימוש בפלסטיק.")));
         parties.add((new Party("מפלגת הצעירים", R.drawable.ic_youngs_logo,"דוגלת במדיניות המיטיבה עם הדורות הצעירים, כגון שיפור הגישה לדיור בר השגה, הגדלת המימון לתוכניות חינוך והכשרה בעבודה, והפחתת עלות שירותי הבריאות.")));
-        dbUtils.addParties("peaple","parties",parties);
+        dbUtils.addParties(Constant.DataBaseName,Constant.PartiesCollection,parties);
     }
     public void initVotesCollection(){
-        dbUtils.getAllParties("peaple", "parties",(PartiesCallback) (result, error) -> {
+        dbUtils.getAllParties(Constant.DataBaseName, Constant.PartiesCollection,(PartiesCallback) (result, error) -> {
                     if (error != null) {
                         Log.d("ptttt", "errorrrrr");
                         // Handle the error.
                     } else {
                         Log.d("ptttt", "" + result);
                         List<Party> parties = (List<Party>) result;
-                            dbUtils.initVotes("peaple","vote", parties);
+                            dbUtils.initVotes(Constant.DataBaseName,Constant.VotesCollection, parties);
                     }
                 }
         );
     }
 
     public void addAreasToDB(){
-        dbUtils.getAllParties("peaple", "parties",(PartiesCallback) (result, error) -> {
+        dbUtils.getAllParties(Constant.DataBaseName, Constant.PartiesCollection,(PartiesCallback) (result, error) -> {
                     if (error != null) {
                         Log.d("ptttt", "errorrrrr");
                         // Handle the error.
@@ -101,7 +113,7 @@ public class initDb {
                         areas.add(new Area("דרום", partiesId));
                         areas.add(new Area("מזרח", partiesId));
                         areas.add(new Area("מערב", partiesId));
-                        dbUtils.addAllArea("peaple","areas", areas);
+                        dbUtils.addAllArea(Constant.DataBaseName,Constant.AreasCollection, areas);
                     }
                 }
         );
@@ -110,8 +122,8 @@ public class initDb {
 
     public void addAdminToDB(){
         Voter tempVoter = new Voter("צצ","צצ",39, Gender.זכר,"אילת",16,"0");
-        dbUtils.addVoterToDb("peaple", "voters", tempVoter);
-        dbUtils.addAdminLeader("peaple", "admins",new Admin(tempVoter, " ",true));
+        dbUtils.addVoterToDb(Constant.DataBaseName, Constant.VotersCollection, tempVoter);
+        dbUtils.addAdminLeader(Constant.DataBaseName, Constant.AdminsCollection,new Admin(tempVoter, " ",true));
        // TemporaryDB.addAdminLeader(new Admin(tempVoter, " ",true));
     }
 

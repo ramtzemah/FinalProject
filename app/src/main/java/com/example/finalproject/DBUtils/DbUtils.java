@@ -139,17 +139,18 @@ public class DbUtils {
         AtomicReference<Voter> tempVoter = new AtomicReference<>();
         collection.findOne(queryFilter).getAsync(task1 -> {
             if (task1.isSuccess()) {
-            Document result = task1.get();
-            // Assuming that Voter is a class that can be constructed from a Document.
-            tempVoter.set(new Voter(result));
-            callback.onResult(tempVoter.get(), null);
+                Document result = task1.get();
+                // Assuming that Voter is a class that can be constructed from a Document.
+                tempVoter.set(new Voter(result));
+                callback.onResult(tempVoter.get(), null);
                 Log.v("EXAMPLE", "successfully found a document: " + task1);
-        } else {
-            Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
                 callback.onResult(null, task1.getError());
             }
         });
     }
+
 
     public void getPhoneNumberById(String dataBase, String collectionName, String id, SingleResultCallback<String> callback) {
         initConnection();
@@ -216,27 +217,47 @@ public class DbUtils {
         });
     }
 
+    public void updateVoterHowAlreadyVote(String dataBase, String collectionName, String userId) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document queryFilter = new Document("voterId", userId);
+        Document updateDocument = new Document("$set", new Document("alreadyVote", true));
+        collection.updateOne(queryFilter, updateDocument).getAsync(task -> {
+            if (task.isSuccess()) {
+                long count = task.get().getModifiedCount();
+                if (count == 1) {
+                    Log.v("EXAMPLE", "successfully updated a document.");
+                } else {
+                    Log.v("EXAMPLE", "did not update a document.");
+                }
+            } else {
+                Log.e("EXAMPLE", "failed to update document with: ", task.getError());
+            }
+        });
+    }
+
 ////////////////////////////PARTY/////////////////////////////////////
 
-public void addParties(String dataBase, String collectionName, List<Party> parties) {
-    initConnection();
-    MongoDatabase database = mongoClient.getDatabase(dataBase);
-    MongoCollection<Document> collection = database.getCollection(collectionName);
-    List<Document> documents = new ArrayList<>();
-    for (Party party : parties) {
-        documents.add(new Document("partyId", party.getPartyId())
-                .append("name", party.getName())
-                .append("agenda", party.getAgenda())
-                .append("logoResourceId", party.getLogoResourceId()));
-    }
-    collection.insertMany(documents).getAsync(result -> {
-        if (result.isSuccess()) {
-            Log.d("ptttttttt", "Inserted successfully");
-        } else {
-            Log.d("ptttttttt", "Error " + result.getError());
+    public void addParties(String dataBase, String collectionName, List<Party> parties) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        List<Document> documents = new ArrayList<>();
+        for (Party party : parties) {
+            documents.add(new Document("partyId", party.getPartyId())
+                    .append("name", party.getName())
+                    .append("agenda", party.getAgenda())
+                    .append("logoResourceId", party.getLogoResourceId()));
         }
-    });
-}
+        collection.insertMany(documents).getAsync(result -> {
+            if (result.isSuccess()) {
+                Log.d("ptttttttt", "Inserted successfully");
+            } else {
+                Log.d("ptttttttt", "Error " + result.getError());
+            }
+        });
+    }
 
     public void addParty(String dataBase, String collectionName, Party party) {
         initConnection();
@@ -335,13 +356,6 @@ public void addParties(String dataBase, String collectionName, List<Party> parti
         });
     }
 
-
-
-
-
-
-
-
 ////////////////////////////AREAS/////////////////////////////////////
 
     public void addArea(String dataBase, String collectionName, Area area){
@@ -363,6 +377,33 @@ public void addParties(String dataBase, String collectionName, List<Party> parti
             }
         });
     }
+
+    public void updateAreaWithVotes(String dataBase, String collectionName, Area area) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document queryFilter = new Document("areaId", area.getId());
+
+        Document updateDocument = new Document();
+        for (Map.Entry<String, Integer> entry : area.getPartiesVotes().entrySet()) {
+            updateDocument.append(entry.getKey(), entry.getValue());
+        }
+        updateDocument.append("name", area.getAreaName()).append("areaId", area.getId());
+
+        collection.updateOne(queryFilter, updateDocument).getAsync(task -> {
+            if (task.isSuccess()) {
+                long count = task.get().getModifiedCount();
+                if (count == 1) {
+                    Log.v("EXAMPLE", "successfully updated a document.");
+                } else {
+                    Log.v("EXAMPLE", "did not update a document.");
+                }
+            } else {
+                Log.e("EXAMPLE", "failed to update document with: ", task.getError());
+            }
+        });
+    }
+
 
     public void addAllArea(String dataBase, String collectionName, List<Area> areas) {
         initConnection();
@@ -434,6 +475,26 @@ public void addParties(String dataBase, String collectionName, List<Party> parti
         });
     }
 
+    public void getAreaByAreaName(String dataBase, String collectionName, String areaName, AreasCallback areasCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        Document queryFilter = new Document("name", areaName);
+        AtomicReference<Area> tempArea = new AtomicReference<>();
+        collection.findOne(queryFilter).getAsync(task1 -> {
+            if (task1.isSuccess()) {
+                Document result = task1.get();
+                tempArea.set(new Area(result));
+                areasCallback.onComplete(tempArea.get(), null);
+                Log.v("EXAMPLE", "successfully found a document: " + task1);
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
+                areasCallback.onComplete(null, task1.getError());
+            }
+        });
+    }
+
 ////////////////////////////VOTES/////////////////////////////////////
 
     public void initVotes(String dataBase, String collectionName, List<Party> parties) {
@@ -482,7 +543,6 @@ public void addParties(String dataBase, String collectionName, List<Party> parti
         collection.findOne(queryFilter).getAsync(task1 -> {
             if (task1.isSuccess()) {
                 Document result = task1.get();
-                // Assuming that Voter is a class that can be constructed from a Document.
                 tempVote.set(new Vote(result));
                 callback.onResult(tempVote.get(), null);
                 Log.v("EXAMPLE", "successfully found a document: " + task1);
@@ -499,7 +559,8 @@ public void addParties(String dataBase, String collectionName, List<Party> parti
         MongoCollection<Document> collection = database.getCollection(collectionName);
         Document queryFilter = new Document("partyId", partyId);
 
-        Document updateDocument = new Document("$set", new Document("votes", updatedVote));
+        Document updateDocument = new Document("$set", new Document("partyId", partyId)
+                .append("votes", 1));
         collection.updateOne(queryFilter, updateDocument).getAsync(task -> {
             if (task.isSuccess()) {
                 long count = task.get().getModifiedCount();
@@ -572,7 +633,7 @@ public void addParties(String dataBase, String collectionName, List<Party> parti
             }
         });
     }
-////////////////////////////ADMIN////////////////////////////////////
+    ////////////////////////////ADMIN////////////////////////////////////
     public void addAdminLeader(String dataBase, String collectionName, Admin admin) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
@@ -580,7 +641,7 @@ public void addParties(String dataBase, String collectionName, List<Party> parti
         Document document = new Document("id", admin.getId())
                 .append("area", admin.getArea())
                 .append("isAdminLeader", admin.isAdminLeader());
-                collection.insertOne(document).getAsync(result -> {
+        collection.insertOne(document).getAsync(result -> {
             if (result.isSuccess()) {
                 Log.d("ptttttttt", "Inserted successfully");
             } else {

@@ -1,6 +1,7 @@
 package com.example.finalproject.DBUtils;
 import android.util.Log;
 
+import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.Calculations.Generators;
 import com.example.finalproject.Callbacks.AdminsCallback;
 import com.example.finalproject.Callbacks.AreasCallback;
@@ -43,7 +44,7 @@ public class TemporaryDB {
 
 
     public static void addAllVoters(){
-        dbUtils.getAllVoters("peaple", "voters", (VotersCallback) (result, error)-> {
+        dbUtils.getAllVoters(Constant.DataBaseName, Constant.VotersCollection, (VotersCallback) (result, error)-> {
             if (error != null) {
                 Log.d("ptttt", "errorrrrr");
                 // Handle the error.
@@ -58,7 +59,7 @@ public class TemporaryDB {
     }
 
     public static void addAllParties() {
-        dbUtils.getAllParties("peaple", "parties", (PartiesCallback) (result, error)-> {
+        dbUtils.getAllParties(Constant.DataBaseName, Constant.PartiesCollection, (PartiesCallback) (result, error)-> {
                     if (error != null) {
                         Log.d("ptttt", "errorrrrr");
                         // Handle the error.
@@ -73,7 +74,7 @@ public class TemporaryDB {
     }
 
     public static void addAllAreas() {
-        dbUtils.getAllAreas("peaple", "areas", (AreasCallback) (result, error)-> {
+        dbUtils.getAllAreas(Constant.DataBaseName, Constant.AreasCollection, (AreasCallback) (result, error)-> {
                     if (error != null) {
                         Log.d("ptttt", "errorrrrr");
                         // Handle the error.
@@ -88,7 +89,7 @@ public class TemporaryDB {
     }
 
     public static void addAllAdmins() {
-        dbUtils.getAllAdmins("peaple", "admins", (AdminsCallback) (result, error)-> {
+        dbUtils.getAllAdmins(Constant.DataBaseName, Constant.AdminsCollection, (AdminsCallback) (result, error)-> {
                     if (error != null) {
                         Log.d("ptttt", "errorrrrr");
                         // Handle the error.
