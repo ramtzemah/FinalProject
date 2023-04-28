@@ -26,6 +26,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
     private int partyLogo;
     private String source;
     private int canAuthenticate;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,9 @@ public class PartyDetailsActivity extends AppCompatActivity {
         partyLogo = getIntent().getIntExtra("party_logo", -1);
         partyAgenda = getIntent().getStringExtra("party_agenda");
         partyId = getIntent().getStringExtra("party_id");
-
         source = getIntent().getStringExtra("from");
+        userId = getIntent().getStringExtra("userId");
+
         findViews();
         Log.d("pttt", source);
         // Set the party name and logo in the views
@@ -55,6 +57,10 @@ public class PartyDetailsActivity extends AppCompatActivity {
     }
 
     private void voteParty() {
+        Intent intent = new Intent(PartyDetailsActivity.this, EndVote.class);
+        intent.putExtra("party_id", partyId);
+        intent.putExtra("userId", userId);
+        PartyDetailsActivity.this.startActivity(intent);
         if (canAuthenticate == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("הצבעה ל" + partyName);
@@ -77,6 +83,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
                        //     Toast.makeText(PartyDetailsActivity.this, "Succeeded", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(PartyDetailsActivity.this, EndVote.class);
                             intent.putExtra("party_id", partyId);
+                            intent.putExtra("userId", userId);
                             PartyDetailsActivity.this.startActivity(intent);
                         }
 

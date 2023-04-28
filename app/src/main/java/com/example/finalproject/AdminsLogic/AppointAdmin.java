@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
@@ -70,7 +71,7 @@ public class AppointAdmin extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Admin admin = new Admin(tempVoter,areasDropdown.getSelectedItem().toString(), false);
-                dbUtils.manageAdmin("peaple", "admins", tempVoter.getVoterId(), admin);
+                dbUtils.manageAdmin(Constant.DataBaseName, Constant.AdminsCollection, tempVoter.getVoterId(), admin);
                 finish();
             }
         });

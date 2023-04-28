@@ -23,8 +23,8 @@
 ////        voters.add(new Voter("עעע","עעע",55, Gender.נקבה,"תל-אביב",15,"15"));
 ////        voters.add(new Voter("פפפ","פפפ",39, Gender.זכר,"אילת",16,"16"));
 //        DbUtils dbUtils = new DbUtils();
-//        //   dbUtils.addVotersToDb("peaple", "voters", voters);
-////        dbUtils.sumOfAllVoters("peaple", "voters",
+//        //   dbUtils.addVotersToDb(DataBaseName, Constant.VotersCollection, voters);
+////        dbUtils.sumOfAllVoters(DataBaseName, Constant.VotersCollection,
 ////                (result, error) -> {
 ////                    if (error != null) {
 ////                        Log.d("ptttt", "errorrrrr");
@@ -36,7 +36,7 @@
 ////                    }
 ////                }
 ////        );
-////        dbUtils.getVoterByVoterId("peaple", "voters", "6442c003db24b575b43cb97a",
+////        dbUtils.getVoterByVoterId(DataBaseName, Constant.VotersCollection, "6442c003db24b575b43cb97a",
 ////                (result, error) -> {
 ////                    if (error != null) {
 ////                        Log.d("ptttt", "errorrrrr");

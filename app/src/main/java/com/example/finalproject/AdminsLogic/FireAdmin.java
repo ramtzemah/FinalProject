@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
@@ -65,7 +66,7 @@ public class FireAdmin extends AppCompatActivity {
         builder.setPositiveButton("כן!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dbUtils.fireAdmin("peaple","admins", tempAdmin.getVoterId());
+                dbUtils.fireAdmin(Constant.DataBaseName,Constant.AdminsCollection, tempAdmin.getVoterId());
                 finish();
             }
         });
