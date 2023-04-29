@@ -1,6 +1,7 @@
 package com.example.finalproject.Entities;
 
 import com.example.finalproject.Calculations.Generators;
+import org.bson.Document;
 
 public class Admin extends Voter{
     private String id;
@@ -19,6 +20,13 @@ public class Admin extends Voter{
         this.area = area;
         this.isAdminLeader = isAdminLeader;
         this.id = voter.getVoterId();
+    }
+
+    public Admin(String id, Document doc, Voter voter) {
+        super(voter.getVoterId(), voter.getFirstName(), voter.getLastName(), voter.getAge(), voter.getGender(), voter.getCity(), voter.getIdNumber(), voter.getPhoneNumber());
+        this.id = id;
+        this.area = doc.getString("area");
+        this.isAdminLeader = doc.getBoolean("isAdminLeader");
     }
 
 

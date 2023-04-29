@@ -8,11 +8,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/MB_voteBtn"
-        android:layout_width="105dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:text="הצבע!"
         android:textColor="@color/white"
         app:backgroundTint="#0068FF"
@@ -20,13 +20,27 @@
         app:strokeWidth="0dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_manageBtn"
-        android:layout_width="105dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
+        android:id="@+id/MB_partyPlatformBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/MB_voteBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="מצעי המפלגות"
+        android:textColor="@color/white"
+        app:backgroundTint="#0068FF"
+        app:cornerRadius="4dp"
+        app:strokeWidth="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/MB_manageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/MB_partyPlatformBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:text="ניהול"
         android:textColor="@color/white"
         app:backgroundTint="#0068FF"

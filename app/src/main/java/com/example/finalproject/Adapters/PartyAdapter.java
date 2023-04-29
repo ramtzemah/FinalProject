@@ -22,12 +22,16 @@ import java.util.Map;
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
     private List<Party> parties;
     private Context context;
-    public PartyAdapter(Context context, Map<String, Party> parties) {
+    private String source;
+    private String userId;
+    public PartyAdapter(Context context, Map<String, Party> parties,String source, String userId) {
         this.parties = new ArrayList<Party>();
         for(Party party : parties.values()){
             this.parties.add(party);
         }
         this.context = context;
+        this.source = source;
+        this.userId = userId;
     }
 
     @NonNull
@@ -52,6 +56,9 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
                 intent.putExtra("party_name", party.getName());
                 intent.putExtra("party_logo", party.getLogoResourceId());
                 intent.putExtra("party_agenda", party.getAgenda());
+                intent.putExtra("party_id", party.getPartyId());
+                intent.putExtra("from",source);
+                intent.putExtra("userId",userId);
                 context.startActivity(intent);
             }
         });
