@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#7FB3FF" >
+    <ImageButton
+        android:id="@+id/closeButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_close"
+        android:background="@null"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true" />
+    <TextView
+        android:id="@+id/customTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vote_right"
+        android:textStyle="italic"
+        android:background="@drawable/blue_frame"
+        android:textColor="#343434"
+        android:textSize="14sp"
+        android:gravity="center" />
+
+
+</LinearLayout>

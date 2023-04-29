@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">FinalProject</string>
     <string name="party_logo_content_description">temp</string>
-    <string name="Distribution_of_voters_by_age"><u>Distribution of voters by age:</u></string>
+    <string name="vote_right">הזכות לבחור והזכות להיבחר הן בין חירויות היסוד המרכזיות והחשובות ביותר. הזכות להתמודד בבחירות היא זכות יסוד מדינית, המבטאת את רעיון השוויון, חירות הביטוי וחופש ההתאגדות. מכאן, כי קיומה וההקפדה על שמירתה של זכות זו, הם מן הסימנים המובהקים של חברה דמוקרטית.""</string>
+    <string name="login_txt">התחברות למערכת</string>
+    <string name="Welcome_txt">ברוכים הבאים לקלפי הדיגיטלי</string>
 </resources>
