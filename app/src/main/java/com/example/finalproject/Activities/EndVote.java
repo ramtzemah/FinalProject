@@ -14,6 +14,7 @@ import com.example.finalproject.Entities.Party;
 import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Entities.VoterVote;
+
 import com.example.finalproject.R;
 
 public class EndVote extends AppCompatActivity {
@@ -56,6 +57,7 @@ public class EndVote extends AppCompatActivity {
                         areaName = voter.getCity();
                         updateAreaWithVoteByPartyIdAndAreaName(); //old
                         dbUtils.addNewVote(Constant.DataBaseName, Constant.VotesCollectionNew, new VoterVote(partyId, voter.getGender().toString(), voter.getAge(), areaName)); //new
+
                     }
                 });
             }

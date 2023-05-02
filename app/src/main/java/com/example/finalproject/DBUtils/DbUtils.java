@@ -429,6 +429,7 @@ public class DbUtils {
         document.append("partiesVotes", votes);
 
         collection.updateOne(queryFilter, document).getAsync(task -> {
+
             if (task.isSuccess()) {
                 long count = task.get().getModifiedCount();
                 if (count == 1) {

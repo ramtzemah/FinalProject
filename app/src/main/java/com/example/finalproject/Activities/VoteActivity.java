@@ -16,6 +16,7 @@ public class VoteActivity extends AppCompatActivity {
     private MaterialButton MB_voteBtn,MB_manageBtn,MB_partyPlatformBtn;
     private String userId;
     private String adminId;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,7 @@ public class VoteActivity extends AppCompatActivity {
         if(admin != null) {
             adminId = admin.getId();
         }
+
     }
 
     private void setButtons() {
