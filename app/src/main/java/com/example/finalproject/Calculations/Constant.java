@@ -8,4 +8,6 @@ public class Constant {
     public static final String VotesCollection = "vote";
     public static final String PartiesCollection = "parties";
     public static final String TokensCollection = "token";
+    public static final String VotesCollectionNew = "votes";
+
 }

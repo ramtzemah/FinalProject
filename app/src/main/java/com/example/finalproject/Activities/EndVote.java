@@ -13,6 +13,8 @@ import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Party;
 import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
+import com.example.finalproject.Entities.VoterVote;
+
 import com.example.finalproject.R;
 
 public class EndVote extends AppCompatActivity {
@@ -32,7 +34,7 @@ public class EndVote extends AppCompatActivity {
 
         partyId = getIntent().getStringExtra("party_id");
         userId = getIntent().getStringExtra("userId");
-        userId = "644ba9661a1df26e5d442a45";
+        userId = "644bcbcfb29206472498446c";
         updateData();
 
 
@@ -53,7 +55,8 @@ public class EndVote extends AppCompatActivity {
                     if (success != null) {
                         Voter voter = (Voter) success;
                         areaName = voter.getCity();
-                        updateAreaWithVoteByPartyIdAndAreaName();
+                        updateAreaWithVoteByPartyIdAndAreaName(); //old
+                        dbUtils.addNewVote(Constant.DataBaseName, Constant.VotesCollectionNew, new VoterVote(partyId, voter.getGender().toString(), voter.getAge(), areaName)); //new
 
                     }
                 });
