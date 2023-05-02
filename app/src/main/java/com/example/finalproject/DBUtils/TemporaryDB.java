@@ -97,7 +97,7 @@ public class TemporaryDB {
                         admins = new HashMap<>();
                         List<Admin> admins1 = (List<Admin>) result;
                         for (Admin a : admins1){
-                            admins.put(a.getId(), a);
+                            admins.put(a.getVoterId(), a);
                         }
                     }
                 }

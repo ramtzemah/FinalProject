@@ -3,8 +3,8 @@ package com.example.finalproject.Entities;
 import org.bson.Document;
 
 public class Vote {
-    int votes;
-    String partyId;
+    private int votes;
+    private String partyId;
 
     public Vote(int votes, String partyId) {
         this.votes = votes;
