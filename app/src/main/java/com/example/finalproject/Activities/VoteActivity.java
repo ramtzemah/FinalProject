@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.example.finalproject.AdminsLogic.ManageSection;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
@@ -13,6 +15,7 @@ import com.google.android.material.button.MaterialButton;
 public class VoteActivity extends AppCompatActivity {
     private MaterialButton MB_voteBtn,MB_manageBtn,MB_partyPlatformBtn;
     private String userId;
+    private LottieAnimationView ballotbox,phonevote;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,5 +53,11 @@ public class VoteActivity extends AppCompatActivity {
         MB_voteBtn = findViewById(R.id.MB_voteBtn);
         MB_manageBtn = findViewById(R.id.MB_manageBtn);
         MB_partyPlatformBtn = findViewById(R.id.MB_partyPlatformBtn);
+        ballotbox = findViewById(R.id.ballotbox);
+        ballotbox.setRepeatCount(LottieDrawable.INFINITE);
+        ballotbox.playAnimation();
+        phonevote = findViewById(R.id.phonevote);
+        phonevote.setRepeatCount(LottieDrawable.INFINITE);
+        phonevote.playAnimation();
     }
 }

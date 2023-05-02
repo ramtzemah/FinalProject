@@ -2,7 +2,18 @@ plugins {
     id 'com.android.application'
 }
 
+apply plugin: "realm-android"
+
+configurations {
+    all*.exclude group: 'javax.naming', module: 'jndi'
+}
+
 android {
+
+    realm {
+        syncEnabled = true
+    }
+
     namespace 'com.example.finalproject'
     compileSdk 33
 
@@ -17,9 +28,30 @@ android {
     }
 
     buildTypes {
+        def addConstantTo = {target, constantName, constantValue ->
+            target.manifestPlaceholders += [ (constantName):constantValue]
+            target.buildConfigField "String", "${constantName}", "\"${constantValue}\""
+        }
+
+        debug {
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField('String', 'BaseUrl', '"https://apidemo."')
+            //  buildConfigField('String', 'RealmAppId', "finalproject-ghage")
+
+            addConstantTo(owner,"clientId", "929214729498-q4v47hs4qlva1enn7oa31g7hrm4n0inq.apps.googleusercontent.com")
+            addConstantTo(owner,"appId", "finalproject-wnxuy")
+
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            //    buildConfigField('String', 'RealmAppId', 'finalproject-ghage')
+            addConstantTo(owner,"clientId", "929214729498-q4v47hs4qlva1enn7oa31g7hrm4n0inq.apps.googleusercontent.com")
+            addConstantTo(owner,"appId", "finalproject-wnxuy")
         }
     }
     compileOptions {
@@ -38,4 +70,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.github.MackHartley:RoundedProgressBar:3.0.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation "androidx.biometric:biometric:1.1.0"
+    implementation 'org.mongodb:mongodb-driver-sync:4.4.2'
+    implementation 'javax.naming:jndi:1.2.1'
+    implementation "com.airbnb.android:lottie:3.4.0"
 }

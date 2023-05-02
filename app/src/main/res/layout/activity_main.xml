@@ -36,7 +36,7 @@
         android:fontFamily="@font/font_buttons"
         android:text="@string/login_txt"
         android:textColor="#FFFFFF"
-        android:background="@drawable/button_circle"/>
+        android:backgroundTint="#0068FF" />
     <!-- Custom Text with Blue Frame -->
     <FrameLayout
         android:layout_width="match_parent"
