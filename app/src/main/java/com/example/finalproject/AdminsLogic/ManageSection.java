@@ -42,7 +42,7 @@ public class ManageSection extends AppCompatActivity {
 
     private String getAdminArea() {
         Admin admin = TemporaryDB.getAllAdmins().get(voterId);
-        if(admin.getArea() != " "){
+        if(!admin.getArea().equals(" ")){
             return admin.getArea();
         }
         return "all";
