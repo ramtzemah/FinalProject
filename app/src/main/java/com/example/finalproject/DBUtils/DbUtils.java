@@ -1,8 +1,6 @@
 package com.example.finalproject.DBUtils;
 
 import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.gte;
-import static com.mongodb.client.model.Filters.lte;
 
 import android.util.Log;
 
@@ -10,7 +8,6 @@ import com.example.finalproject.Callbacks.AdminsCallback;
 import com.example.finalproject.Callbacks.AreasCallback;
 import com.example.finalproject.Callbacks.VotersCallback;
 import com.example.finalproject.Entities.Admin;
-import com.example.finalproject.Entities.AgesBlocks;
 import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Party;
 import com.example.finalproject.Entities.Token;
@@ -18,8 +15,6 @@ import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Callbacks.PartiesCallback;
 import com.example.finalproject.Entities.VoterVote;
-import com.mongodb.client.model.Aggregates;
-import com.mongodb.client.model.Filters;
 import com.mongodb.internal.async.SingleResultCallback;
 
 import org.bson.Document;
@@ -33,7 +28,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-import io.realm.RealmResults;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
@@ -251,7 +245,25 @@ public class DbUtils {
             }
         });
     }
+    public void getAllVotersAllCountry(String dataBase, String collectionName, VotersCallback votersCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
 
+        Document queryFilter = new Document();
+
+        collection.count(queryFilter).getAsync(task1 -> {
+            if (task1.isSuccess()) {
+                Long result = task1.get();
+                //tempVote.set(new Vote(result));
+                votersCallback.onComplete(result, null);
+                Log.v("EXAMPLE", "successfully found a document: " + task1);
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
+                votersCallback.onComplete(null, task1.getError());
+            }
+        });
+    }
 
     public void getAllVotersInArea(String dataBase, String collectionName, String area, VotersCallback votersCallback) {
         initConnection();
@@ -551,6 +563,26 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
     });
     }
 
+    public void getAllVotesInCountry(String dataBase, String collectionName, VotersCallback votersCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        Document queryFilter = new Document();
+
+        collection.count(queryFilter).getAsync(task1 -> {
+            if (task1.isSuccess()) {
+                Long result = task1.get();
+                //tempVote.set(new Vote(result));
+                votersCallback.onComplete(result, null);
+                Log.v("EXAMPLE", "successfully found a document: " + task1);
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
+                votersCallback.onComplete(null, task1.getError());
+            }
+        });
+    }
+
     public void getAllVotesInArea(String dataBase, String collectionName, String area, VotersCallback votersCallback) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
@@ -567,6 +599,46 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
             } else {
                 Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
                 votersCallback.onComplete(null, task1.getError());
+            }
+        });
+    }
+
+    public void getAllAgeVoterByArea(String dataBase, String collectionName, String area, int dropDownSelection, VotersCallback votersCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        List<Document> pipeline = Arrays.asList(
+                // Filter documents by the "city" field
+                new Document("$match", new Document("city", area)),
+                new Document("$match", new Document("age", new Document("$gte", 18))),
+                new Document("$addFields", new Document("rangeStart", new Document("$subtract", Arrays.asList("$age", new Document("$mod", Arrays.asList("$age", dropDownSelection)))))),
+                new Document("$group", new Document("_id", "$rangeStart")
+                        .append("count", new Document("$sum", 1))),
+                new Document("$sort", new Document("_id", 1))
+        );
+
+
+// query mongodb using the pipeline
+        RealmResultTask<MongoCursor<Document>> aggregationTask =
+                collection.aggregate(pipeline).iterator();
+// handle success or failure of the query
+        aggregationTask.getAsync(task -> {
+            if (task.isSuccess()) {
+                MongoCursor<Document> results = task.get();
+                // iterate over and print the results to the log
+                Map<Integer,Integer> temp = new HashMap<>();
+                while (results.hasNext()) {
+                    Document doc = results.next();
+                    int rangeStart = doc.getInteger("_id");
+                    int count = doc.getInteger("count");
+                    temp.put(rangeStart, count);
+                }
+                votersCallback.onComplete(temp, null);
+                Log.v("EXAMPLE", "successfully found a document: " + task);
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task.getError());
+                votersCallback.onComplete(null, task.getError());
             }
         });
     }
@@ -606,7 +678,50 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
                 votersCallback.onComplete(null, task.getError());
             }
         });
-    }public void getAllAgeVoter2(String dataBase, String collectionName, int dropDownSelection, VotersCallback votersCallback) {
+    }
+
+
+    public void getAllAgeVoterHowVoteByArea(String dataBase, String collectionName, String area, int dropDownSelection, VotersCallback votersCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        List<Document> pipeline = Arrays.asList(
+                // Filter documents by the "city" and "alreadyVote" fields
+                new Document("$match", new Document("city", area).append("alreadyVote", true)),
+                new Document("$match", new Document("age", new Document("$gte", 18))),
+                new Document("$addFields", new Document("rangeStart", new Document("$subtract", Arrays.asList("$age", new Document("$mod", Arrays.asList("$age", dropDownSelection)))))),
+                new Document("$group", new Document("_id", "$rangeStart")
+                        .append("count", new Document("$sum", 1))),
+                new Document("$sort", new Document("_id", 1))
+        );
+
+
+
+// query mongodb using the pipeline
+        RealmResultTask<MongoCursor<Document>> aggregationTask =
+                collection.aggregate(pipeline).iterator();
+// handle success or failure of the query
+        aggregationTask.getAsync(task -> {
+            if (task.isSuccess()) {
+                MongoCursor<Document> results = task.get();
+                // iterate over and print the results to the log
+                Map<Integer,Integer> temp = new HashMap<>();
+                while (results.hasNext()) {
+                    Document doc = results.next();
+                    int rangeStart = doc.getInteger("_id");
+                    int count = doc.getInteger("count");
+                    temp.put(rangeStart, count);
+                }
+                votersCallback.onComplete(temp, null);
+                Log.v("EXAMPLE", "successfully found a document: " + task);
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task.getError());
+                votersCallback.onComplete(null, task.getError());
+            }
+        });}
+
+    public void getAllAgeVoterHowVote(String dataBase, String collectionName, int dropDownSelection, VotersCallback votersCallback) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -644,6 +759,25 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         });
     }
 
+    public void getAllVotesAndSex(String dataBase, String collectionName, String sex, VotersCallback votersCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        Document queryFilter = new Document("gender", sex);
+
+        collection.count(queryFilter).getAsync(task1 -> {
+            if (task1.isSuccess()) {
+                Long result = task1.get();
+                //tempVote.set(new Vote(result));
+                votersCallback.onComplete(result, null);
+                Log.v("EXAMPLE", "successfully found a document: " + task1);
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
+                votersCallback.onComplete(null, task1.getError());
+            }
+        });
+    }
     public void getAllVotesInAreaAndSex(String dataBase, String collectionName, String area, String sex, VotersCallback votersCallback) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
@@ -902,4 +1036,5 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
             }
         });
     }
+
 }
