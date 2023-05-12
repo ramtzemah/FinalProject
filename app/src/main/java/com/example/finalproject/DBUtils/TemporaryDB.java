@@ -132,8 +132,8 @@ public class TemporaryDB {
         return parties.size();
     }
 
-    public static void manageAdmin(String voterId, String area){
-            admins.put(voterId, new Admin(getVoterById(voterId), area, false));
+    public static void manageAdmin(String voterId, String area, Voter voter){
+            admins.put(voterId, new Admin(voter, area, false));
     }
 
     public static Voter getVoterById(String voterId) {

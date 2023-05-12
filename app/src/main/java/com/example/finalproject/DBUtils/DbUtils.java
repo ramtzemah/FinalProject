@@ -51,7 +51,7 @@ public class DbUtils {
     public DbUtils() {
     }
 ////////////////////////////VOTER/////////////////////////////////////
-    private void initConnection() {
+    public void initConnection() {
         app = new App(new AppConfiguration.Builder(AppId).build());
 
         if (app.currentUser() == null) {
@@ -136,6 +136,26 @@ public class DbUtils {
             } else {
                 callback.onResult(null, task.getError());
                 Log.e("ptttttt", "failed to count documents with: ", task.getError());
+            }
+        });
+    }
+
+    public void getVoterById(String dataBase, String collectionName, String id, SingleResultCallback<Voter> callback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document queryFilter = new Document("idNumber", Integer.valueOf(id));
+        AtomicReference<Voter> tempVoter = new AtomicReference<>();
+        collection.findOne(queryFilter).getAsync(task1 -> {
+            if (task1.isSuccess()) {
+                Document result = task1.get();
+                // Assuming that Voter is a class that can be constructed from a Document.
+                tempVoter.set(new Voter(result));
+                callback.onResult(tempVoter.get(), null);
+                Log.v("EXAMPLE", "successfully found a document: " + task1);
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
+                callback.onResult(null, task1.getError());
             }
         });
     }
@@ -944,7 +964,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
         MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document document = new Document("id", admin.getId())
+        Document document = new Document("voterId", admin.getVoterId())
                 .append("area", admin.getArea())
                 .append("isAdminLeader", admin.isAdminLeader());
         collection.insertOne(document).getAsync(result -> {
@@ -979,7 +999,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
         MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document document = new Document("id", admin.getId())
+        Document document = new Document("voterId", admin.getVoterId())
                 .append("area", admin.getArea())
                 .append("isAdminLeader", admin.isAdminLeader());
         collection.insertOne(document).getAsync(result -> {
@@ -995,7 +1015,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
         MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document queryFilter = new Document("id", voterId);
+        Document queryFilter = new Document("voterId", voterId);
         collection.deleteOne(queryFilter).getAsync(task -> {
             if (task.isSuccess()) {
                 long count = task.get().getDeletedCount();
@@ -1023,9 +1043,9 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
                 List<Admin> admins = new ArrayList<>();
                 while (results.hasNext()) {
                     Document doc = results.next();
-                    String id = doc.getString("id");
-                    Voter voter = TemporaryDB.getVoterById(id);
-                    Admin admin = new Admin(id, doc, voter);
+                    String voterId = doc.getString("voterId");
+                    Voter voter = TemporaryDB.getVoterById(voterId);
+                    Admin admin = new Admin(voterId, doc, voter);
                     admins.add(admin);
                     Log.v("EXAMPLE", doc.toString());
                 }
@@ -1037,4 +1057,27 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         });
     }
 
+    public void getAdminByVoterId(String dataBase, String collectionName, String voterId, SingleResultCallback<Admin> callback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document queryFilter = new Document("voterId", voterId);
+        AtomicReference<Admin> tempAdmin = new AtomicReference<>();
+        collection.findOne(queryFilter).getAsync(task1 -> {
+            if (task1.isSuccess()) {
+                Document result = task1.get();
+                if(result == null){
+                    callback.onResult(null, null);
+                }else {
+                    tempAdmin.set(new Admin(result));
+                    callback.onResult(tempAdmin.get(), null);
+                    Log.v("EXAMPLE", "successfully found a document: " + task1);
+                }
+                // Assuming that Voter is a class that can be constructed from a Document.
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
+                callback.onResult(null, task1.getError());
+            }
+        });
+    }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
@@ -14,16 +15,26 @@ public class ManageSection extends AppCompatActivity {
     private MaterialButton MB_appointAdminBtn;
     private MaterialButton MB_firedAdminBtn;
     private MaterialButton MB_resultBtn;
-    private String voterId;
+    private String voterId, area;
+    private boolean isAdminLeader = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_section);
         voterId = getIntent().getStringExtra("voterId");
-
+        area = getIntent().getStringExtra("area");
+        isAdminLeader = getIntent().getBooleanExtra("isAdminLeader", false);
         findViews();
+        viewForAdminLeader();
         setButtons();
-        TemporaryDB.addAllAdmins();
+    }
+
+    private void viewForAdminLeader() {
+        if(isAdminLeader){
+            MB_appointAdminBtn.setVisibility(View.VISIBLE);
+            MB_firedAdminBtn.setVisibility(View.VISIBLE);
+            TemporaryDB.addAllAdmins();
+        }
     }
 
     private void setButtons() {
@@ -34,18 +45,9 @@ public class ManageSection extends AppCompatActivity {
 
     private void results() {
         Intent intent = new Intent(ManageSection.this, ResultActivity.class);
-        String areaToPass = getAdminArea();
-        intent.putExtra("area",areaToPass);
+        intent.putExtra("area",area);
         startActivity(intent);
         finish();
-    }
-
-    private String getAdminArea() {
-        Admin admin = TemporaryDB.getAllAdmins().get(voterId);
-        if(!admin.getArea().equals(" ")){
-            return admin.getArea();
-        }
-        return "all";
     }
 
     private void appointAdmin() {

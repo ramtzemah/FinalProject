@@ -62,7 +62,6 @@ public class ResultActivity extends AppCompatActivity {
             title.setText(area);
             getDataByArea();
         }
-        System.out.println(TemporaryDB.getAllVoters());
 
         showPieChart();
 
@@ -178,7 +177,7 @@ public class ResultActivity extends AppCompatActivity {
             });
                 dbUtils.getAllVotersInArea(Constant.DataBaseName, Constant.VotersCollection, area, (success, error) -> {
                     if (success != null) {
-                         double votNotVote = calculatePercentage((long) result, (long) success);
+                        double votNotVote = calculatePercentage((long) result, (long) success);
                         pb_voters_prec.setProgressPercentage(votNotVote,true);
                     }
                 });
@@ -272,6 +271,9 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public double calculatePercentage(long value, long total) {
+        if (total == 0){
+            return 0;
+        }
         double percentage = ((double) ((double) value / (double) total) )* 100.0;
         return percentage;
     }

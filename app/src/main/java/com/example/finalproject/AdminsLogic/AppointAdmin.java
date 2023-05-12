@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.Calculations.Calculation;
 import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
@@ -111,6 +112,10 @@ public class AppointAdmin extends AppCompatActivity {
         String theText = id_search.getText().toString();
         if(theText.isEmpty()){
             Toast.makeText(this,"אתה חייב למלא את השדה של התעודת זהות", Toast.LENGTH_SHORT).show();
+        }
+        //TODO fix it
+        else if (!Calculation.isValidId(theText)){
+
         }
 //        else if (theText.length() != 9) {
 //            Toast.makeText(this,"תעודת זהות לא תקינה", Toast.LENGTH_SHORT).show();

@@ -85,6 +85,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
                             intent.putExtra("party_id", partyId);
                             intent.putExtra("userId", userId);
                             PartyDetailsActivity.this.startActivity(intent);
+                            finish();
                         }
 
                         @Override

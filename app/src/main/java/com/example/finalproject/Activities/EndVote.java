@@ -34,7 +34,7 @@ public class EndVote extends AppCompatActivity {
 
         partyId = getIntent().getStringExtra("party_id");
         userId = getIntent().getStringExtra("userId");
-        userId = "644bcbcfb29206472498446c";
+//        userId = "644bcbcfb29206472498446c";
         updateData();
 
 
@@ -46,10 +46,6 @@ public class EndVote extends AppCompatActivity {
     }
 
     private void updateData() {
-        dbUtils.getVoteByPartyId(Constant.DataBaseName,Constant.VotesCollection,partyId,(result, t) -> {
-            if (result != null) {
-                Vote vote = (Vote) result;
-                dbUtils.addVoteByPartyId(Constant.DataBaseName, Constant.VotesCollection, partyId, vote.getVotes() + 1);
                 dbUtils.updateVoterHowAlreadyVote(Constant.DataBaseName, Constant.VotersCollection, userId);
                 dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, userId, (success, fail) -> {
                     if (success != null) {
@@ -60,8 +56,6 @@ public class EndVote extends AppCompatActivity {
 
                     }
                 });
-            }
-        });
     }
 
     private void updateAreaWithVoteByPartyIdAndAreaName() {
