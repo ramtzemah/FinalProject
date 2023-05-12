@@ -45,6 +45,7 @@
         android:textColor="@color/white"
         app:backgroundTint="#0068FF"
         app:cornerRadius="4dp"
+        android:visibility="invisible"
         app:strokeWidth="0dp" />
 
 

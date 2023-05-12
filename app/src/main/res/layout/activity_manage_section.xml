@@ -7,14 +7,29 @@
     tools:context=".AdminsLogic.ManageSection">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_appointAdminBtn"
+        android:id="@+id/MB_resultBtn"
         android:layout_width="105dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="70dp"
         android:layout_marginTop="340dp"
+        android:text="תוצאות"
+        android:textColor="@color/white"
+        app:backgroundTint="#0068FF"
+        app:cornerRadius="4dp"
+        app:strokeWidth="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/MB_appointAdminBtn"
+        android:layout_width="105dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/MB_resultBtn"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="10dp"
         android:text="מנה מנהל"
         android:textColor="@color/white"
+        android:visibility="invisible"
         app:backgroundTint="#0068FF"
         app:cornerRadius="4dp"
         app:strokeWidth="0dp" />
@@ -31,21 +46,7 @@
         android:textColor="@color/white"
         app:backgroundTint="#0068FF"
         app:cornerRadius="4dp"
-        app:strokeWidth="0dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_resultBtn"
-        android:layout_width="105dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/MB_firedAdminBtn"
-        android:text="תוצאות"
-        android:textColor="@color/white"
-        app:backgroundTint="#0068FF"
-        app:cornerRadius="4dp"
-        app:strokeWidth="0dp" />
-
+        app:strokeWidth="0dp"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

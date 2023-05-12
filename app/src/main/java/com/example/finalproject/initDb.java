@@ -121,9 +121,9 @@ public class initDb {
     }
 
     public void addAdminToDB(){
-        Voter tempVoter = new Voter("צצ","צצ",39, Gender.זכר,"אילת",16,"0");
+        Voter tempVoter = new Voter("צצ","צצ",39, Gender.זכר,"אילת",17,"0");
         dbUtils.addVoterToDb(Constant.DataBaseName, Constant.VotersCollection, tempVoter);
-        dbUtils.addAdminLeader(Constant.DataBaseName, Constant.AdminsCollection,new Admin(tempVoter, " ",true));
+        dbUtils.addAdminLeader(Constant.DataBaseName, Constant.AdminsCollection,new Admin(tempVoter, "all",true));
        // TemporaryDB.addAdminLeader(new Admin(tempVoter, " ",true));
     }
 
