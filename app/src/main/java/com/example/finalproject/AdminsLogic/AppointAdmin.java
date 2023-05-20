@@ -143,7 +143,7 @@ public class AppointAdmin extends AppCompatActivity {
         idNumber.setText("מספר תעודת זהות: " + tempVoter.getIdNumber());
         firstName.setText("שם פרטי: " + tempVoter.getFirstName());
         lastName.setText("שם משפחה: " + tempVoter.getLastName());
-        city.setText("עיר: " + tempVoter.getCity());
+        city.setText("עיר: " + tempVoter.getArea());
         gender.setText("מין: " + tempVoter.getGender().toString());
         age.setText("גיל: " + tempVoter.getAge());
     }
