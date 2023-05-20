@@ -21,8 +21,6 @@ public class initDb {
     public initDb() throws InterruptedException {
         dbUtils = new DbUtils();
         dbUtils.deleteAllVoters(Constant.DataBaseName,Constant.VotersCollection);
-        dbUtils.deleteAllTokens(Constant.DataBaseName,Constant.TokensCollection);
-        dbUtils.deleteAllVotes(Constant.DataBaseName, Constant.VotesCollection);
         dbUtils.deleteAllParties(Constant.DataBaseName,Constant.PartiesCollection);
         dbUtils.deleteAllAreas(Constant.DataBaseName,Constant.AreasCollection);
         dbUtils.deleteAllAdmins(Constant.DataBaseName,Constant.AdminsCollection);
@@ -90,7 +88,7 @@ public class initDb {
                     } else {
                         Log.d("ptttt", "" + result);
                         List<Party> parties = (List<Party>) result;
-                            dbUtils.initVotes(Constant.DataBaseName,Constant.VotesCollection, parties);
+                            //dbUtils.initVotes(Constant.DataBaseName,Constant.VotesCollection, parties);
                     }
                 }
         );

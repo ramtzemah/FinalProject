@@ -9,18 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.finalproject.DBUtils.TemporaryDB;
-import com.example.finalproject.DBUtils.TemporaryFB;
-import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
 import com.tsuryo.androidcountdown.Counter;
 import com.tsuryo.androidcountdown.TimeUnits;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,7 +41,7 @@ public class ManageSection extends AppCompatActivity {
     }
 
     private void setCounter() {
-        String formattedDate = TemporaryFB.dateOfEndVotingAfterFormat();
+        String formattedDate = TemporaryDB.dateOfEndVotingAfterFormat();
         mCounter.setDate(formattedDate); //countdown starts
 
         mCounter.setIsShowingTextDesc(true);
@@ -81,7 +76,7 @@ public class ManageSection extends AppCompatActivity {
 
     private void setButtons() {
         Date currentDate = Calendar.getInstance().getTime();
-        if (currentDate.before(TemporaryFB.dateOfEndVotingBeforeFormat())) {
+        if (currentDate.before(TemporaryDB.endDesiredDate)) {
             MB_resultBtn.setEnabled(false);
             MB_resultBtn.setBackgroundResource(R.drawable.btn_grey);
         } else {
