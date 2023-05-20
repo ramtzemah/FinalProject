@@ -415,11 +415,6 @@ public class DbUtils {
         MongoCollection<Document> collection = database.getCollection(collectionName);
         Document document = new Document(new Document("areaId", area.getId())
                 .append("name", area.getAreaName()));
-//        Document votes = new Document();
-//        for (Map.Entry<String, Integer> entry : area.getPartiesVotes().entrySet()) {
-//            votes.append(entry.getKey(), entry.getValue());
-//        }
-//        document.append("partiesVotes", votes);
         collection.insertOne(document).getAsync(result -> {
             if (result.isSuccess()) {
                 Log.d("ptttttttt", "Inserted successfully");
@@ -438,11 +433,6 @@ public class DbUtils {
         for (Area area : areas) {
             Document document = new Document(new Document("areaId", area.getId())
                     .append("name", area.getAreaName()));
-//            Document votes = new Document();
-//            for (Map.Entry<String, Integer> entry : area.getPartiesVotes().entrySet()) {
-//                votes.append(entry.getKey(), entry.getValue());
-//            }
-//            document.append("partiesVotes", votes);
             documents.add(document);
         }
 
