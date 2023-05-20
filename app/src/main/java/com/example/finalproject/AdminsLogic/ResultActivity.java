@@ -16,7 +16,6 @@ import com.example.finalproject.Adapters.DistributionOfVotersByAgeAdapter;
 import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
-import com.example.finalproject.DBUtils.TemporaryFB;
 import com.example.finalproject.Entities.AgesBlocks;
 import com.example.finalproject.Enums.Gender;
 import com.example.finalproject.R;
@@ -125,7 +124,7 @@ public class ResultActivity extends AppCompatActivity {
                                     entry2.getValue());
                         }
                         ArrayList<Double> votesPrec = new ArrayList<>();
-                        for (int i = TemporaryFB.startVotingAge(); i < TemporaryFB.getOldestAge(); i=i+dropDownSelection) {
+                        for (int i = TemporaryDB.startVotingAge(); i < TemporaryDB.getOldestAge(); i=i+dropDownSelection) {
                             votesPrec.add(calculatePercentage(allVotersHowVoteByAgeBlock.get(i),allVotersByAgeBlock.get(i)));
                         }
                         adapter = new DistributionOfVotersByAgeAdapter(this, agesBlocksList, votesPrec);
@@ -154,7 +153,7 @@ public class ResultActivity extends AppCompatActivity {
                                             entry2.getValue());
                                 }
                                 ArrayList<Double> votesPrec = new ArrayList<>();
-                                for (int i = TemporaryFB.startVotingAge(); i < TemporaryFB.getOldestAge(); i=i+dropDownSelection) {
+                                for (int i = TemporaryDB.startVotingAge(); i < TemporaryDB.getOldestAge(); i=i+dropDownSelection) {
                                 votesPrec.add(calculatePercentage(allVotersHowVoteByAgeBlock.get(i),allVotersByAgeBlock.get(i)));
                                 }
                                 adapter = new DistributionOfVotersByAgeAdapter(this, agesBlocksList, votesPrec);
@@ -189,8 +188,8 @@ public class ResultActivity extends AppCompatActivity {
         agesBlocksList = new ArrayList<AgesBlocks>();
         allVotersByAgeBlock= new HashMap<>();
         allVotersHowVoteByAgeBlock= new HashMap<>();
-        int oldesAge = TemporaryFB.getOldestAge();
-        int startVotingAge = TemporaryFB.startVotingAge();
+        int oldesAge = TemporaryDB.getOldestAge();
+        int startVotingAge = TemporaryDB.startVotingAge();
         int dropDownSelection = Integer.parseInt(ages_dropdown.getSelectedItem().toString());
         while (startVotingAge < oldesAge){
             allVotersByAgeBlock.put(startVotingAge,0);

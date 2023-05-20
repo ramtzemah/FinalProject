@@ -14,7 +14,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.example.finalproject.AdminsLogic.ManageSection;
 import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
-import com.example.finalproject.DBUtils.TemporaryFB;
+import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
@@ -47,7 +47,7 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void setCounter() {
-        String formattedDate = TemporaryFB.dateOfStartVotingAfterFormat();
+        String formattedDate = TemporaryDB.dateOfStartVotingAfterFormat();
         mCounter.setDate(formattedDate); //countdown starts
 
         mCounter.setIsShowingTextDesc(true);
@@ -89,7 +89,7 @@ public class VoteActivity extends AppCompatActivity {
 
     private void setButtons() {
         Date currentDate = Calendar.getInstance().getTime();
-        if (currentDate.before(TemporaryFB.dateOfStartVotingBeforeFormat())) {
+        if (currentDate.before(TemporaryDB.startDesiredDate)) {
             MB_voteBtn.setEnabled(false);
             MB_voteBtn.setBackgroundResource(R.drawable.btn_grey);
         } else {

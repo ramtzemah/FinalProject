@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.finalproject.Activities.LoginActivity;
 import com.example.finalproject.Activities.SMSActivity;
 import com.example.finalproject.Activities.VoteActivity;
+import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Realm.init(this);
+
         findView();
 
 
@@ -51,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        TemporaryDB.setOldestAge("oldestAge");
+        TemporaryDB.setStartVotingAge("startAge");
+        TemporaryDB.dateOfStartVotingBeforeFormat();
+        TemporaryDB.dateOfEndVotingBeforeFormat();
 
 //        try {
 //            initDb initDb = new initDb();
