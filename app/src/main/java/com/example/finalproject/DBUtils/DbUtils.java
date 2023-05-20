@@ -52,7 +52,25 @@ public class DbUtils {
     public DbUtils() {
     }
 
-
+    ////////////////////////////ALL COLLECTIONS//////////////////////////
+    public void deleteCollection(String dataBase, String collectionName){
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document queryFilter  = new Document();
+        collection.deleteMany(queryFilter).getAsync(task -> {
+            if (task.isSuccess()) {
+                long count = task.get().getDeletedCount();
+                if (count != 0) {
+                    Log.v("EXAMPLE", "successfully deleted " + count + " documents.");
+                } else {
+                    Log.v("EXAMPLE", "did not delete any documents.");
+                }
+            } else {
+                Log.e("EXAMPLE", "failed to delete documents with: ", task.getError());
+            }
+        });
+    }
 
     ////////////////////////////VOTER/////////////////////////////////////
     public void initConnection() {
@@ -91,7 +109,7 @@ public class DbUtils {
                     .append("lastName", voter.getLastName())
                     .append("age", voter.getAge())
                     .append("gender", voter.getGender().toString())
-                    .append("city", voter.getCity())
+                    .append("area", voter.getArea())
                     .append("alreadyVote", voter.isAlreadyVote())
                     .append("idNumber", voter.getIdNumber())
                     .append("phoneNumber", voter.getPhoneNumber()));
@@ -115,7 +133,7 @@ public class DbUtils {
                 .append("lastName", voter.getLastName())
                 .append("age", voter.getAge())
                 .append("gender", voter.getGender().toString())
-                .append("city", voter.getCity())
+                .append("area", voter.getArea())
                 .append("alreadyVote", voter.isAlreadyVote())
                 .append("idNumber", voter.getIdNumber())
                 .append("phoneNumber", voter.getPhoneNumber());
@@ -205,26 +223,6 @@ public class DbUtils {
         });
     }
 
-    public void deleteAllVoters(String dataBase, String collectionName){
-        initConnection();
-        MongoDatabase database = mongoClient.getDatabase(dataBase);
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document queryFilter  = new Document();
-        collection.deleteMany(queryFilter).getAsync(task -> {
-            if (task.isSuccess()) {
-                long count = task.get().getDeletedCount();
-                if (count != 0) {
-                    Log.v("EXAMPLE", "successfully deleted " + count + " documents.");
-                } else {
-                    Log.v("EXAMPLE", "did not delete any documents.");
-                }
-            } else {
-                Log.e("EXAMPLE", "failed to delete documents with: ", task.getError());
-            }
-        });
-    }
-
-
     public void getAllVoters(String dataBase, String collectionName, VotersCallback votersCallback) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
@@ -294,7 +292,7 @@ public class DbUtils {
         MongoDatabase database = mongoClient.getDatabase(dataBase);
         MongoCollection<Document> collection = database.getCollection(collectionName);
 
-        Document queryFilter = new Document("city", area);
+        Document queryFilter = new Document("area", area);
 
         collection.count(queryFilter).getAsync(task1 -> {
             if (task1.isSuccess()) {
@@ -409,25 +407,6 @@ public class DbUtils {
         });
     }
 
-    public void deleteAllParties(String dataBase, String collectionName){
-        initConnection();
-        MongoDatabase database = mongoClient.getDatabase(dataBase);
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document queryFilter  = new Document();
-        collection.deleteMany(queryFilter).getAsync(task -> {
-            if (task.isSuccess()) {
-                long count = task.get().getDeletedCount();
-                if (count != 0) {
-                    Log.v("EXAMPLE", "successfully deleted " + count + " documents.");
-                } else {
-                    Log.v("EXAMPLE", "did not delete any documents.");
-                }
-            } else {
-                Log.e("EXAMPLE", "failed to delete documents with: ", task.getError());
-            }
-        });
-    }
-
 ////////////////////////////AREAS/////////////////////////////////////
 
     public void addArea(String dataBase, String collectionName, Area area){
@@ -436,11 +415,11 @@ public class DbUtils {
         MongoCollection<Document> collection = database.getCollection(collectionName);
         Document document = new Document(new Document("areaId", area.getId())
                 .append("name", area.getAreaName()));
-        Document votes = new Document();
-        for (Map.Entry<String, Integer> entry : area.getPartiesVotes().entrySet()) {
-            votes.append(entry.getKey(), entry.getValue());
-        }
-        document.append("partiesVotes", votes);
+//        Document votes = new Document();
+//        for (Map.Entry<String, Integer> entry : area.getPartiesVotes().entrySet()) {
+//            votes.append(entry.getKey(), entry.getValue());
+//        }
+//        document.append("partiesVotes", votes);
         collection.insertOne(document).getAsync(result -> {
             if (result.isSuccess()) {
                 Log.d("ptttttttt", "Inserted successfully");
@@ -449,36 +428,6 @@ public class DbUtils {
             }
         });
     }
-
-    public void updateAreaWithVotes(String dataBase, String collectionName, Area area) {
-        initConnection();
-        MongoDatabase database = mongoClient.getDatabase(dataBase);
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document queryFilter = new Document("areaId", area.getId());
-
-        Document document = new Document(new Document("areaId", area.getId())
-                .append("name", area.getAreaName()));
-        Document votes = new Document();
-        for (Map.Entry<String, Integer> entry : area.getPartiesVotes().entrySet()) {
-            votes.append(entry.getKey(), entry.getValue());
-        }
-        document.append("partiesVotes", votes);
-
-        collection.updateOne(queryFilter, document).getAsync(task -> {
-
-            if (task.isSuccess()) {
-                long count = task.get().getModifiedCount();
-                if (count == 1) {
-                    Log.v("EXAMPLE", "successfully updated a document.");
-                } else {
-                    Log.v("EXAMPLE", "did not update a document.");
-                }
-            } else {
-                Log.e("EXAMPLE", "failed to update document with: ", task.getError());
-            }
-        });
-    }
-
 
     public void addAllArea(String dataBase, String collectionName, List<Area> areas) {
         initConnection();
@@ -489,11 +438,11 @@ public class DbUtils {
         for (Area area : areas) {
             Document document = new Document(new Document("areaId", area.getId())
                     .append("name", area.getAreaName()));
-            Document votes = new Document();
-            for (Map.Entry<String, Integer> entry : area.getPartiesVotes().entrySet()) {
-                votes.append(entry.getKey(), entry.getValue());
-            }
-            document.append("partiesVotes", votes);
+//            Document votes = new Document();
+//            for (Map.Entry<String, Integer> entry : area.getPartiesVotes().entrySet()) {
+//                votes.append(entry.getKey(), entry.getValue());
+//            }
+//            document.append("partiesVotes", votes);
             documents.add(document);
         }
 
@@ -502,25 +451,6 @@ public class DbUtils {
                 Log.d("ptttttttt", "Inserted successfully");
             } else {
                 Log.d("ptttttttt", "Error " + result.getError());
-            }
-        });
-    }
-
-    public void deleteAllAreas(String dataBase, String collectionName){
-        initConnection();
-        MongoDatabase database = mongoClient.getDatabase(dataBase);
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document queryFilter  = new Document();
-        collection.deleteMany(queryFilter).getAsync(task -> {
-            if (task.isSuccess()) {
-                long count = task.get().getDeletedCount();
-                if (count != 0) {
-                    Log.v("EXAMPLE", "successfully deleted " + count + " documents.");
-                } else {
-                    Log.v("EXAMPLE", "did not delete any documents.");
-                }
-            } else {
-                Log.e("EXAMPLE", "failed to delete documents with: ", task.getError());
             }
         });
     }
@@ -570,25 +500,6 @@ public class DbUtils {
         });
     }
 
-    public void getValueByKeyDateObject(String dataBase, String collectionName, String key, SystemParamCallback systemParamCallback) {
-        initConnection();
-        MongoDatabase database = mongoClient.getDatabase(dataBase);
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document queryFilter = new Document("key", key);
-        AtomicReference<Date> tempDate = new AtomicReference<>();
-        collection.findOne(queryFilter).getAsync(task1 -> {
-            if (task1.isSuccess()) {
-                Document result = task1.get();
-                result = (Document) result.get("value");
-                tempDate.set(new Date(result));
-                systemParamCallback.onComplete(tempDate.get(), null);
-                Log.v("EXAMPLE", "successfully found a document: " + task1);
-            } else {
-                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
-                systemParamCallback.onComplete(null, task1.getError());
-            }
-        });
-    }
 ////////////////////////////VOTES/////////////////////////////////////
 public void addNewVote(String dataBase, String collectionName, VoterVote voterVote) {
     initConnection();
@@ -653,7 +564,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
 
         List<Document> pipeline = Arrays.asList(
                 // Filter documents by the "city" field
-                new Document("$match", new Document("city", area)),
+                new Document("$match", new Document("area", area)),
                 new Document("$match", new Document("age", new Document("$gte", 18))),
                 new Document("$addFields", new Document("rangeStart", new Document("$subtract", Arrays.asList("$age", new Document("$mod", Arrays.asList("$age", dropDownSelection)))))),
                 new Document("$group", new Document("_id", "$rangeStart")
@@ -731,7 +642,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
 
         List<Document> pipeline = Arrays.asList(
                 // Filter documents by the "city" and "alreadyVote" fields
-                new Document("$match", new Document("city", area).append("alreadyVote", true)),
+                new Document("$match", new Document("area", area).append("alreadyVote", true)),
                 new Document("$match", new Document("age", new Document("$gte", 18))),
                 new Document("$addFields", new Document("rangeStart", new Document("$subtract", Arrays.asList("$age", new Document("$mod", Arrays.asList("$age", dropDownSelection)))))),
                 new Document("$group", new Document("_id", "$rangeStart")
@@ -861,25 +772,6 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         });
     }
 
-    public void deleteAllAdmins(String dataBase, String collectionName) {
-        initConnection();
-        MongoDatabase database = mongoClient.getDatabase(dataBase);
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document queryFilter  = new Document();
-        collection.deleteMany(queryFilter).getAsync(task -> {
-            if (task.isSuccess()) {
-                long count = task.get().getDeletedCount();
-                if (count != 0) {
-                    Log.v("EXAMPLE", "successfully deleted " + count + " documents.");
-                } else {
-                    Log.v("EXAMPLE", "did not delete any documents.");
-                }
-            } else {
-                Log.e("EXAMPLE", "failed to delete documents with: ", task.getError());
-            }
-        });
-    }
-
     public void manageAdmin(String dataBase, String collectionName, String voterId, Admin admin) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
@@ -986,5 +878,23 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         });
     }
 
-
+    public void getValueByKeyDateObject(String dataBase, String collectionName, String key, SystemParamCallback systemParamCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document queryFilter = new Document("key", key);
+        AtomicReference<Date> tempDate = new AtomicReference<>();
+        collection.findOne(queryFilter).getAsync(task1 -> {
+            if (task1.isSuccess()) {
+                Document result = task1.get();
+                result = (Document) result.get("value");
+                tempDate.set(new Date(result));
+                systemParamCallback.onComplete(tempDate.get(), null);
+                Log.v("EXAMPLE", "successfully found a document: " + task1);
+            } else {
+                Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
+                systemParamCallback.onComplete(null, task1.getError());
+            }
+        });
+    }
 }

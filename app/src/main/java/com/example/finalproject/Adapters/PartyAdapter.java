@@ -1,5 +1,6 @@
 package com.example.finalproject.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -24,7 +25,8 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     private Context context;
     private String source;
     private String userId;
-    public PartyAdapter(Context context, Map<String, Party> parties,String source, String userId) {
+    private Activity activity;
+    public PartyAdapter(Activity activity, Context context, Map<String, Party> parties, String source, String userId) {
         this.parties = new ArrayList<Party>();
         for(Party party : parties.values()){
             this.parties.add(party);
@@ -32,6 +34,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
         this.context = context;
         this.source = source;
         this.userId = userId;
+        this.activity = activity;
     }
 
     @NonNull
@@ -60,6 +63,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
                 intent.putExtra("from",source);
                 intent.putExtra("userId",userId);
                 context.startActivity(intent);
+                activity.finish();
             }
         });
     }

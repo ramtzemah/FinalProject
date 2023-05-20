@@ -50,21 +50,11 @@ public class EndVote extends AppCompatActivity {
                 dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, userId, (success, fail) -> {
                     if (success != null) {
                         Voter voter = (Voter) success;
-                        areaName = voter.getCity();
-                        updateAreaWithVoteByPartyIdAndAreaName(); //old
+                        areaName = voter.getArea();
                         dbUtils.addNewVote(Constant.DataBaseName, Constant.VotesCollectionNew, new VoterVote(partyId, voter.getGender().toString(), voter.getAge(), areaName)); //new
 
                     }
                 });
-    }
-
-    private void updateAreaWithVoteByPartyIdAndAreaName() {
-        dbUtils.getAreaByAreaName(Constant.DataBaseName, Constant.AreasCollection, areaName,(result, t) -> {
-            if (result !=null){
-                Area area = (Area) result;
-                area.getPartiesVotes().put(partyId, area.getPartiesVotes().get(partyId) + 1);
-                dbUtils.updateAreaWithVotes(Constant.DataBaseName, Constant.AreasCollection, area);
-            }});
     }
 
     private void findViews() {

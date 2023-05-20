@@ -26,7 +26,7 @@ public class AllParties extends AppCompatActivity {
         String source = getIntent().getStringExtra("from");
         userId = getIntent().getStringExtra("userId");
         findViews();
-        adapter = new PartyAdapter(this, TemporaryDB.getAllParties(),source, userId);
+        adapter = new PartyAdapter(this,this, TemporaryDB.getAllParties(),source, userId);
         RV_parties.setLayoutManager(new LinearLayoutManager(this));
         RV_parties.setAdapter(adapter);
     }
