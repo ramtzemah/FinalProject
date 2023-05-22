@@ -88,6 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void findView() {
     button = findViewById(R.id.button);
-    Login = findViewById(R.id.Login);
+    //Login = findViewById(R.id.Login);
     }
 }

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.finalproject.Calculations.Constant;
@@ -40,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SMSActivity extends AppCompatActivity {
     private EditText digit1, digit2, digit3, digit4, digit5, digit6;
-    private Button submitButton;
+    private ImageButton submitButton;
     private Random random = new Random();
     private int randomNumber;
     private String id, phoneNumber;
@@ -56,13 +57,13 @@ public class SMSActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_activity);
         findviews();
-        randomNumber = random.nextInt(899999) + 100000;
-        id = getIntent().getStringExtra("id");
-        phoneNumber = getIntent().getStringExtra("phoneNumber");
-
-
-        sendSMS(phoneNumber);
-        initViews();
+//        randomNumber = random.nextInt(899999) + 100000;
+//        id = getIntent().getStringExtra("id");
+//        phoneNumber = getIntent().getStringExtra("phoneNumber");
+//
+//
+//        sendSMS(phoneNumber);
+//        initViews();
     }
 
 
@@ -76,7 +77,7 @@ public class SMSActivity extends AppCompatActivity {
         digit6 = findViewById(R.id.digit6);
 //        digitBoxesBehavior();
         edtxtBehavior();
-        submitButton = findViewById(R.id.submit_button);
+        submitButton = findViewById(R.id.submitButton);
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthSettings = mAuth.getFirebaseAuthSettings();
         verificationCodeFields = new EditText[]{digit1, digit2, digit3, digit4, digit5, digit6};

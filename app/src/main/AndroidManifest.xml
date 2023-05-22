@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:supportsRtl="false"
         android:theme="@style/Theme.FinalProject"
+        android:hardwareAccelerated="true"
         tools:targetApi="31">
         <activity
             android:name=".Activities.EndVote"
@@ -38,10 +39,16 @@
             android:name=".Activities.VoteActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.PartyDetailsActivity"
+            android:name=".Activities.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name="com.example.finalproject.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PartyDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,9 +56,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.finalproject.Activities.LoginActivity"
-            android:exported="false"/>
         <activity android:name="com.example.finalproject.Activities.SMSActivity"
+            android:exported="false"/>
+        <activity android:name="com.example.finalproject.Activities.LoginActivity"
             android:exported="false"/>
     </application>
 
