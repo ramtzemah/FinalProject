@@ -1,81 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#87CEFA">
+    android:background="@drawable/ic_vote_bg">
 
-    <TextView
-        android:layout_width="match_parent"
+    <com.tsuryo.androidcountdown.Counter
+        android:id="@+id/counter"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/welcome_voters_admins"
-        android:fontFamily="@font/font_title"
+        app:max_time_unit="DAY"
+        app:text_color="@color/colorPrimary"
+        app:text_size="36dp"
+        android:layout_marginTop="170dp"
+        android:layout_centerHorizontal="true"
+        app:custom_font="@font/digi" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/MB_voteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="הצבע!"
         android:textColor="@color/white"
-        android:textSize="24sp"
-        android:padding="16dp" />
+        app:backgroundTint="#0068FF"
+        app:cornerRadius="4dp"
+        app:strokeWidth="0dp" />
 
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_alignParentTop="true">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/phonevote"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/phonevote"/>
-    </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="200dp"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/MB_partyPlatformBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_below="@+id/MB_voteBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="מצעי המפלגות"
+        android:textColor="@color/white"
+        app:backgroundTint="#0068FF"
+        app:cornerRadius="4dp"
+        app:strokeWidth="0dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/MB_voteBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="הצבע 🗳️"
-            android:textColor="@color/white"
-            android:backgroundTint="#0068FF"
-            android:layout_marginBottom="8dp"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/MB_manageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/MB_partyPlatformBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="ניהול"
+        android:textColor="@color/white"
+        app:backgroundTint="#0068FF"
+        app:cornerRadius="4dp"
+        android:visibility="invisible"
+        app:strokeWidth="0dp" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/MB_partyPlatformBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="מצעי המפלגות 🔍"
-            android:textColor="@color/white"
-            android:backgroundTint="#0068FF"
-            android:layout_marginBottom="8dp"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/MB_manageBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ניהול 💼"
-            android:textColor="@color/white"
-            android:backgroundTint="#0068FF"
-            android:layout_marginBottom="8dp"/>
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_alignParentTop="true">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/ballotbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/electionsballot"/>
-    </FrameLayout>
-
-</LinearLayout>
+</RelativeLayout>

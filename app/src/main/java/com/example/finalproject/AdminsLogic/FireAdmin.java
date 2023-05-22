@@ -112,7 +112,7 @@ public class FireAdmin extends AppCompatActivity {
         idNumber.setText("מספר תעודת זהות: " + tempAdmin.getIdNumber());
         firstName.setText("שם פרטי: " + tempAdmin.getFirstName());
         lastName.setText("שם משפחה: " + tempAdmin.getLastName());
-        city.setText("עיר: " + tempAdmin.getCity());
+        city.setText("עיר: " + tempAdmin.getArea());
         gender.setText("מין: " + tempAdmin.getGender().toString());
         age.setText("גיל: " + tempAdmin.getAge());
     }

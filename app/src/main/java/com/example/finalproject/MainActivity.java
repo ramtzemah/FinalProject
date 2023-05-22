@@ -2,91 +2,92 @@ package com.example.finalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
-import com.example.finalproject.Activities.VoteActivity;
-import com.example.finalproject.AdminsLogic.ResultActivity;
-import com.example.finalproject.Calculations.Generators;
+import com.example.finalproject.Activities.LoginActivity;
+import com.example.finalproject.Activities.SMSActivity;
+import com.example.finalproject.DBUtils.DbUtils;
+import com.example.finalproject.DBUtils.TemporaryDB;
+import com.example.finalproject.DBUtils.initDb;
+
+import io.realm.Realm;
+
 
 public class MainActivity extends AppCompatActivity {
-    private Button button;
-    private TextView titleTextView;
-    private LottieAnimationView israel_flag;
-    private PopupWindow popupWindow;
-    private ImageButton closeButton;
-
+    private Button button,Login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Realm.init(this);
+
         findView();
-        setPopup();
+
+
+        DbUtils dbUtils = new DbUtils();
+        dbUtils.initConnection();
+//        initDbMethod();
+
+        regularFlow();
+
         button.setOnClickListener(v->
                 resPage()
         );
-        Generators.addVotersToDB();
-        Generators.addPartiesToDB();
-        Generators.addAreasToDB();
-        Generators.addAdminToDB();
-        onFlagPressed();
-    }
+        Login.setOnClickListener(v->
+                loginPage()
+        );
 
-    private void setPopup() {
-        // Set the width and height of the popup window
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        View popupView = getLayoutInflater().inflate(R.layout.pop_app, null);
-
-        // Create the PopupWindow instance
-        popupWindow = new PopupWindow(popupView, width, height, true);
-
-        // Set any desired animations or other properties
-        popupWindow.setAnimationStyle(R.style.PopupAnimation);
-        popupWindow.setFocusable(true);
-        closeButton = popupView.findViewById(R.id.closeButton);
+        // TODO
+//        1. id number to real one
+//        2. vote once
+//        5. voter - admin from DB
 
     }
 
-    private void onFlagPressed() {
-        israel_flag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Show the popup window at a specific location on the screen
-                popupWindow.showAtLocation(israel_flag, Gravity.CENTER, 10, 10);
+    private void regularFlow() {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-            }
-        });
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Dismiss the popup window when close button is clicked
-                popupWindow.dismiss();
-            }
-        });
+        TemporaryDB.setOldestAge("oldestAge");
+        TemporaryDB.setStartVotingAge("startAge");
+        TemporaryDB.dateOfStartVotingBeforeFormat();
+        TemporaryDB.dateOfEndVotingBeforeFormat();
+        TemporaryDB.addAllVoters();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        TemporaryDB.addAllParties();
+        TemporaryDB.addAllAreas();
+        loginPage();
+    }
+
+    private void initDbMethod() {
+                try {
+            initDb initDb = new initDb();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void loginPage() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
     }
 
     private void resPage() {
-        Intent intent = new Intent(MainActivity.this, VoteActivity.class);
+        Intent intent = new Intent(MainActivity.this, SMSActivity.class);
         startActivity(intent);
     }
 
     private void findView() {
-
-        button = findViewById(R.id.button);
-        titleTextView = findViewById(R.id.titleTextView);
-        israel_flag = findViewById(R.id.israel_flag_animation);
-        israel_flag.setRepeatCount(LottieDrawable.INFINITE);
-        israel_flag.playAnimation();
-
+    button = findViewById(R.id.button);
+    Login = findViewById(R.id.Login);
     }
 }

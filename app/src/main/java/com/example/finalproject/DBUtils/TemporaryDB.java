@@ -10,10 +10,12 @@ import com.example.finalproject.Callbacks.VotersCallback;
 import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Party;
-import com.example.finalproject.Entities.Token;
 import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +26,11 @@ public class TemporaryDB {
     private static Map<String, Admin> admins = new HashMap<>();
     private static Map<String, Vote> votes = new HashMap<>();
     private static Map<String, Area> areas = new HashMap<>();
-    private static Map<String, Token> tokens = new HashMap<>();
 
+    public static int oldestAge;
+    public static int startVotingAge;
+    public static Date startDesiredDate;
+    public static Date endDesiredDate;
 
     public static void addVoter(Voter voter){
         voters.put(voter.getVoterId(),voter);
@@ -36,9 +41,6 @@ public class TemporaryDB {
     }
     public static Map<String, Party> getAllParties(){
         return parties;
-    }
-    public static Map<String, Token> getAllTokens(){
-        return tokens;
     }
     public static DbUtils dbUtils = new DbUtils();
 
@@ -97,16 +99,13 @@ public class TemporaryDB {
                         admins = new HashMap<>();
                         List<Admin> admins1 = (List<Admin>) result;
                         for (Admin a : admins1){
-                            admins.put(a.getId(), a);
+                            admins.put(a.getVoterId(), a);
                         }
                     }
                 }
         );
     }
 
-    public static void addToken(Token token){
-        tokens.put(Generators.generateRandomString(),token);
-    }
     public static void addParty(Party party){
         parties.put(party.getPartyId(),party);
     }
@@ -132,8 +131,8 @@ public class TemporaryDB {
         return parties.size();
     }
 
-    public static void manageAdmin(String voterId, String area){
-            admins.put(voterId, new Admin(getVoterById(voterId), area, false));
+    public static void manageAdmin(String voterId, String area, Voter voter){
+            admins.put(voterId, new Admin(voter, area, false));
     }
 
     public static Voter getVoterById(String voterId) {
@@ -162,14 +161,108 @@ public class TemporaryDB {
         }
         return "";
     }
-    public static Token getToken(String tocheck) {
 
-        for (Token token : TemporaryDB.getAllTokens().values()) {
-            if (token.getToken().equals(tocheck)) {
-                return token;
-            }
-        }
-        return null;
+    public static int getOldestAge() {
+        return oldestAge;
     }
 
+    public static int startVotingAge() {
+        return startVotingAge;
+    }
+
+//    public static void setOldestAge(){
+//        TemporaryDB.getValueByKey("oldestAge");
+//    }
+//    public static void setStartVotingAge(){
+//        TemporaryDB.getValueByKey("startAge");
+//    }
+
+
+    public static void dateOfEndVotingBeforeFormat() {
+        dbUtils.getValueByKeyDateObject(Constant.DataBaseName, Constant.SystemParamsCollection, "endVoteDate", ((result, error) -> {
+        if( result != null){
+        com.example.finalproject.Entities.Date endDate = (com.example.finalproject.Entities.Date) result;
+        Date currentDate = new Date();
+
+        // Create a Calendar instance and set it to the current date
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+
+        // Set the desired date
+            calendar.set(Calendar.YEAR, endDate.getYear());
+            calendar.set(Calendar.MONTH, endDate.getMonth());
+            calendar.set(Calendar.DAY_OF_MONTH, endDate.getDay());
+            calendar.set(Calendar.HOUR_OF_DAY, endDate.getHour());
+            calendar.set(Calendar.MINUTE, endDate.getMinute());
+            calendar.set(Calendar.SECOND, endDate.getSecund());
+
+        // Get the date object from the modified calendar
+        Date desiredDate = calendar.getTime();
+
+        endDesiredDate = desiredDate;
+            }
+        }));
+    }
+    public static String dateOfEndVotingAfterFormat() {
+        Date desiredDate = endDesiredDate;
+
+        // Format the desired date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String formattedDate = dateFormat.format(desiredDate);
+
+        return formattedDate;
+    }
+
+
+    public static void dateOfStartVotingBeforeFormat() {
+        dbUtils.getValueByKeyDateObject(Constant.DataBaseName, Constant.SystemParamsCollection, "startVoteDate", ((result, error) -> {
+        if( result != null){
+
+        com.example.finalproject.Entities.Date startDate = (com.example.finalproject.Entities.Date) result;
+        Date currentDate = new Date();
+
+        // Create a Calendar instance and set it to the current date
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+
+        // Set the desired date
+        calendar.set(Calendar.YEAR, startDate.getYear());
+        calendar.set(Calendar.MONTH, startDate.getMonth());
+        calendar.set(Calendar.DAY_OF_MONTH, startDate.getDay());
+        calendar.set(Calendar.HOUR_OF_DAY, startDate.getHour());
+        calendar.set(Calendar.MINUTE, startDate.getMinute());
+        calendar.set(Calendar.SECOND, startDate.getSecund());
+
+        // Get the date object from the modified calendar
+        Date desiredDate = calendar.getTime();
+
+        startDesiredDate = desiredDate;
+            }
+        }));
+    }
+    public static String dateOfStartVotingAfterFormat() {
+        Date desiredDate = startDesiredDate;
+
+        // Format the desired date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String formattedDate = dateFormat.format(desiredDate);
+
+        return formattedDate;
+    }
+
+    public static void setOldestAge(String key) {
+        dbUtils.getValueByKey(Constant.DataBaseName, Constant.SystemParamsCollection, key,(success, error) -> {
+            if(success != null){
+                oldestAge = (int) Math.round((double) success);
+            }
+        });
+    }
+
+    public static void setStartVotingAge(String key) {
+        dbUtils.getValueByKey(Constant.DataBaseName, Constant.SystemParamsCollection, key,(success, error) -> {
+            if(success != null){
+                startVotingAge = (int) Math.round((double) success);
+            }
+        });
+    }
 }

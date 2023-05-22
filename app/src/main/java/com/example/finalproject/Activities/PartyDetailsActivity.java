@@ -61,6 +61,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
         intent.putExtra("party_id", partyId);
         intent.putExtra("userId", userId);
         PartyDetailsActivity.this.startActivity(intent);
+        finish();
         if (canAuthenticate == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("הצבעה ל" + partyName);
@@ -85,6 +86,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
                             intent.putExtra("party_id", partyId);
                             intent.putExtra("userId", userId);
                             PartyDetailsActivity.this.startActivity(intent);
+                            finish();
                         }
 
                         @Override

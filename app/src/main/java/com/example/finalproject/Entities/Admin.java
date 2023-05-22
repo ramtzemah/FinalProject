@@ -4,29 +4,34 @@ import com.example.finalproject.Calculations.Generators;
 import org.bson.Document;
 
 public class Admin extends Voter{
-    private String id;
+    private String voterId;
     private String area;
     private boolean isAdminLeader;
 
-    public Admin(String firstName, String lastName, int age, Enum gender, String city, int idNumber, String phoneNumber, String area, boolean isAdminLeader) {
-        super(firstName, lastName, age, gender, city, idNumber, phoneNumber);
+    public Admin(String firstName, String lastName, int age, Enum gender, int idNumber, String phoneNumber, String area, boolean isAdminLeader) {
+        super(firstName, lastName, age, gender, area, idNumber, phoneNumber);
         this.area = area;
         this.isAdminLeader = isAdminLeader;
-        id = Generators.generateId();
+        voterId = Generators.generateId();
     }
 
     public Admin(Voter voter, String area, boolean isAdminLeader) {
-        super(voter.getVoterId(), voter.getFirstName(), voter.getLastName(), voter.getAge(), voter.getGender(), voter.getCity(), voter.getIdNumber(), voter.getPhoneNumber());
+        super(voter.getVoterId(), voter.getFirstName(), voter.getLastName(), voter.getAge(), voter.getGender(), voter.getArea(), voter.getIdNumber(), voter.getPhoneNumber());
         this.area = area;
         this.isAdminLeader = isAdminLeader;
-        this.id = voter.getVoterId();
+        this.voterId = voter.getVoterId();
     }
 
-    public Admin(String id, Document doc, Voter voter) {
-        super(voter.getVoterId(), voter.getFirstName(), voter.getLastName(), voter.getAge(), voter.getGender(), voter.getCity(), voter.getIdNumber(), voter.getPhoneNumber());
-        this.id = id;
+    public Admin(String voterId, Document doc, Voter voter) {
+        super(voter.getVoterId(), voter.getFirstName(), voter.getLastName(), voter.getAge(), voter.getGender(), voter.getArea(), voter.getIdNumber(), voter.getPhoneNumber());
+        this.voterId = voterId;
         this.area = doc.getString("area");
         this.isAdminLeader = doc.getBoolean("isAdminLeader");
+    }
+    public Admin(Document document) {
+        this.voterId = document.getString("voterId");
+        this.area = document.getString("area");
+        this.isAdminLeader = document.getBoolean("isAdminLeader");
     }
 
 
@@ -38,7 +43,7 @@ public class Admin extends Voter{
         return area;
     }
 
-    public String getId() {
-        return id;
+    public String getVoterId() {
+        return voterId;
     }
 }

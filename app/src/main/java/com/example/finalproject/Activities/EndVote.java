@@ -13,6 +13,8 @@ import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Party;
 import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
+import com.example.finalproject.Entities.VoterVote;
+
 import com.example.finalproject.R;
 
 public class EndVote extends AppCompatActivity {
@@ -32,7 +34,7 @@ public class EndVote extends AppCompatActivity {
 
         partyId = getIntent().getStringExtra("party_id");
         userId = getIntent().getStringExtra("userId");
-        userId = "644ba9661a1df26e5d442a45";
+//        userId = "644bcbcfb29206472498446c";
         updateData();
 
 
@@ -44,30 +46,15 @@ public class EndVote extends AppCompatActivity {
     }
 
     private void updateData() {
-        dbUtils.getVoteByPartyId(Constant.DataBaseName,Constant.VotesCollection,partyId,(result, t) -> {
-            if (result != null) {
-                Vote vote = (Vote) result;
-                dbUtils.addVoteByPartyId(Constant.DataBaseName, Constant.VotesCollection, partyId, vote.getVotes() + 1);
                 dbUtils.updateVoterHowAlreadyVote(Constant.DataBaseName, Constant.VotersCollection, userId);
                 dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, userId, (success, fail) -> {
                     if (success != null) {
                         Voter voter = (Voter) success;
-                        areaName = voter.getCity();
-                        updateAreaWithVoteByPartyIdAndAreaName();
+                        areaName = voter.getArea();
+                        dbUtils.addNewVote(Constant.DataBaseName, Constant.VotesCollectionNew, new VoterVote(partyId, voter.getGender().toString(), voter.getAge(), areaName)); //new
 
                     }
                 });
-            }
-        });
-    }
-
-    private void updateAreaWithVoteByPartyIdAndAreaName() {
-        dbUtils.getAreaByAreaName(Constant.DataBaseName, Constant.AreasCollection, areaName,(result, t) -> {
-            if (result !=null){
-                Area area = (Area) result;
-                area.getPartiesVotes().put(partyId, area.getPartiesVotes().get(partyId) + 1);
-                dbUtils.updateAreaWithVotes(Constant.DataBaseName, Constant.AreasCollection, area);
-            }});
     }
 
     private void findViews() {

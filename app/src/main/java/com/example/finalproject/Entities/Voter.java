@@ -11,29 +11,29 @@ public class Voter {
     private String lastName;
     private int age;
     private Enum Gender;
-    private String City;
+    private String area;
     private boolean alreadyVote;
     private int idNumber;
     private String phoneNumber;
 
-    public Voter(String firstName, String lastName, int age, Enum gender, String city, int idNumber, String phoneNumber) {
+    public Voter(String firstName, String lastName, int age, Enum gender, String area, int idNumber, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.Gender = gender;
-        this.City = city;
+        this.area = area;
         this.idNumber = idNumber;
         this.phoneNumber = phoneNumber;
         ObjectId objectId = new ObjectId();
         setVoterId(objectId.toString());
     }
 
-    public Voter(String voterId,String firstName, String lastName, int age, Enum gender, String city, int idNumber, String phoneNumber) {
+    public Voter(String voterId,String firstName, String lastName, int age, Enum gender, String area, int idNumber, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.Gender = gender;
-        this.City = city;
+        this.area = area;
         this.idNumber = idNumber;
         this.phoneNumber = phoneNumber;
         setVoterId(voterId);
@@ -49,7 +49,7 @@ public class Voter {
         this.lastName = document.getString("lastName");
         this.age = document.getInteger("age");
         this.Gender = Gender.valueOf(com.example.finalproject.Enums.Gender.class, document.getString("gender").toUpperCase());
-        this.City = document.getString("city");
+        this.area = document.getString("area");
         this.alreadyVote = document.getBoolean("alreadyVote");
         this.idNumber = document.getInteger("idNumber");
         this.phoneNumber = document.getString("phoneNumber");
@@ -87,8 +87,8 @@ public class Voter {
         return Gender;
     }
 
-    public String getCity() {
-        return City;
+    public String getArea() {
+        return area;
     }
 
     public int getIdNumber() {
@@ -107,7 +107,7 @@ public class Voter {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", Gender=" + Gender +
-                ", City='" + City + '\'' +
+                ", area='" + area + '\'' +
                 ", alreadyVote=" + alreadyVote +
                 '}';
     }
@@ -128,8 +128,8 @@ public class Voter {
         Gender = gender;
     }
 
-    public void setCity(String city) {
-        City = city;
+    public void setArea(String city) {
+        area = area;
     }
 
     public void setIdNumber(int idNumber) {

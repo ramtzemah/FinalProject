@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="rv_ages_color">#D0FFF7BB</color>
-    <color name="blue">#0000FF</color>
+    <color name="grey_blue">#505A7A</color>
+    <color name="regular_blue">#054BFF</color>
 </resources>

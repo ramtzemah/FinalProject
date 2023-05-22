@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.Calculations.Calculation;
 import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
@@ -112,6 +113,10 @@ public class AppointAdmin extends AppCompatActivity {
         if(theText.isEmpty()){
             Toast.makeText(this,"אתה חייב למלא את השדה של התעודת זהות", Toast.LENGTH_SHORT).show();
         }
+        //TODO fix it
+        else if (!Calculation.isValidId(theText)){
+
+        }
 //        else if (theText.length() != 9) {
 //            Toast.makeText(this,"תעודת זהות לא תקינה", Toast.LENGTH_SHORT).show();
 //        }
@@ -138,7 +143,7 @@ public class AppointAdmin extends AppCompatActivity {
         idNumber.setText("מספר תעודת זהות: " + tempVoter.getIdNumber());
         firstName.setText("שם פרטי: " + tempVoter.getFirstName());
         lastName.setText("שם משפחה: " + tempVoter.getLastName());
-        city.setText("עיר: " + tempVoter.getCity());
+        city.setText("עיר: " + tempVoter.getArea());
         gender.setText("מין: " + tempVoter.getGender().toString());
         age.setText("גיל: " + tempVoter.getAge());
     }

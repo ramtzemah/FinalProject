@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,15 +13,18 @@ import com.example.finalproject.Entities.AgesBlocks;
 import com.example.finalproject.R;
 import com.mackhartley.roundedprogressbar.RoundedProgressBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DistributionOfVotersByAgeAdapter extends RecyclerView.Adapter<DistributionOfVotersByAgeAdapter.AgesBlocksViewHolder> {
     private List<AgesBlocks> agesBlocksList;
     private Context context;
+    private ArrayList<Double> votesPrec;
 
-    public DistributionOfVotersByAgeAdapter(Context context, List<AgesBlocks> agesBlocks) {
+    public DistributionOfVotersByAgeAdapter(Context context, List<AgesBlocks> agesBlocks, ArrayList<Double> votesPrec) {
         this.agesBlocksList = agesBlocks;
         this.context = context;
+        this.votesPrec = votesPrec;
     }
 
     public void setAgesBlocksList(List<AgesBlocks> agesBlocksList) {
@@ -41,7 +43,11 @@ public class DistributionOfVotersByAgeAdapter extends RecyclerView.Adapter<Distr
     public void onBindViewHolder(@NonNull AgesBlocksViewHolder holder, int position) {
         AgesBlocks agesBlocks = agesBlocksList.get(position);
         holder.ages.setText(agesBlocks.getFromAge() + "-" + agesBlocks.getUntilAge());
-        holder.pb_by_age.setProgressPercentage(32.6,true);
+        if(position>votesPrec.size()-1){
+            holder.pb_by_age.setProgressPercentage(0,true);
+        }else {
+            holder.pb_by_age.setProgressPercentage(votesPrec.get(position),true);
+        }
     }
 
     @Override

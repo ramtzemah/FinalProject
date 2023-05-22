@@ -1,5 +1,6 @@
 package com.example.finalproject.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -21,17 +22,17 @@ import java.util.Map;
 
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
     private List<Party> parties;
-    private Context context;
     private String source;
     private String userId;
-    public PartyAdapter(Context context, Map<String, Party> parties,String source, String userId) {
+    private Activity activity;
+    public PartyAdapter(Activity activity, Map<String, Party> parties, String source, String userId) {
         this.parties = new ArrayList<Party>();
         for(Party party : parties.values()){
             this.parties.add(party);
         }
-        this.context = context;
         this.source = source;
         this.userId = userId;
+        this.activity = activity;
     }
 
     @NonNull
@@ -51,7 +52,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
             @Override
             public void onClick(View v) {
                 // Create intent to launch the PartyDetailsActivity
-                Intent intent = new Intent(context, PartyDetailsActivity.class);
+                Intent intent = new Intent(activity, PartyDetailsActivity.class);
                 // Pass in the party name and logo as extras in the intent
                 intent.putExtra("party_name", party.getName());
                 intent.putExtra("party_logo", party.getLogoResourceId());
@@ -59,7 +60,8 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
                 intent.putExtra("party_id", party.getPartyId());
                 intent.putExtra("from",source);
                 intent.putExtra("userId",userId);
-                context.startActivity(intent);
+                activity.startActivity(intent);
+                activity.finish();
             }
         });
     }
