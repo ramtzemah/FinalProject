@@ -39,10 +39,16 @@
             android:name=".Activities.VoteActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.PartyDetailsActivity"
+            android:name=".Activities.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name="com.example.finalproject.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PartyDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.SMSActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,9 +56,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.finalproject.Activities.LoginActivity"
+        <activity android:name="com.example.finalproject.Activities.SplashScreenActivity"
             android:exported="false"/>
-        <activity android:name="com.example.finalproject.Activities.SMSActivity"
+        <activity android:name="com.example.finalproject.Activities.LoginActivity"
             android:exported="false"/>
     </application>
 

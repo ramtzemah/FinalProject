@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,7 @@ import com.example.finalproject.R;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etId;
-    private Button btnSend;
+    private ImageButton btnSend;
     private static final int PERMISSION_REQUEST_SEND_SMS = 1;
     private DbUtils dbUtils;
     @Override
@@ -57,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     private void findviews() {
         dbUtils = new DbUtils();
         etId = findViewById(R.id.ET_id);
-        btnSend = findViewById(R.id.BTN_send);
+        btnSend = findViewById(R.id.lets_go_button);
     }
 
 
