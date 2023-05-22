@@ -48,7 +48,7 @@
             android:name=".Activities.PartyDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.SMSActivity"
+            android:name=".Activities.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,7 +56,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.finalproject.Activities.SplashScreenActivity"
+        <activity android:name="com.example.finalproject.Activities.SMSActivity"
             android:exported="false"/>
         <activity android:name="com.example.finalproject.Activities.LoginActivity"
             android:exported="false"/>
