@@ -57,13 +57,13 @@ public class SMSActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_activity);
         findviews();
-//        randomNumber = random.nextInt(899999) + 100000;
-//        id = getIntent().getStringExtra("id");
-//        phoneNumber = getIntent().getStringExtra("phoneNumber");
-//
-//
-//        sendSMS(phoneNumber);
-//        initViews();
+        randomNumber = random.nextInt(899999) + 100000;
+        id = getIntent().getStringExtra("id");
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
+
+
+        sendSMS(phoneNumber);
+        initViews();
     }
 
 

@@ -36,7 +36,7 @@
             android:name=".Activities.AllParties"
             android:exported="false" />
         <activity
-            android:name=".Activities.SplashScreenActivity"
+            android:name=".Activities.VoteActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.WelcomeActivity"
@@ -45,10 +45,10 @@
             android:name="com.example.finalproject.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.VoteActivity"
+            android:name=".Activities.PartyDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.PartyDetailsActivity"
+            android:name=".Activities.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

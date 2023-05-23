@@ -39,12 +39,12 @@ public class VoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vote_activity);
         findViews();
-//        voterId = getIntent().getStringExtra("VoterId");
-//
-//        handleAdminFlow();
-//
-//        setCounter();
-//        setButtons();
+        voterId = "1"; //getIntent().getStringExtra("VoterId");
+
+        handleAdminFlow();
+
+        setCounter();
+        setButtons();
     }
 
     private void setCounter() {
