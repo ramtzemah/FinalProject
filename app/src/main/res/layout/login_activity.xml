@@ -15,7 +15,7 @@
 
         <EditText
             android:id="@+id/ET_id"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:background="@drawable/edittext_background"
             android:inputType="number"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ET_id"
             android:layout_marginTop="40dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="35dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/lets_go_button"
             tools:ignore="NotSibling" />
