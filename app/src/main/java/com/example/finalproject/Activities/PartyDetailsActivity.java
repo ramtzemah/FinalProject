@@ -21,9 +21,8 @@ import com.google.android.material.button.MaterialButton;
 
 public class PartyDetailsActivity extends AppCompatActivity {
     private TextView partyNameTextView, party_agenda, what_page;
-    private ImageButton MB_home;
+    private ImageButton MB_home,MB_votebtn;
     private ImageView partyLogoImageView;
-    private MaterialButton MB_votebtn;
     private String partyName, partyAgenda, partyId;
     private int partyLogo;
     private String source;
@@ -34,24 +33,23 @@ public class PartyDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.party_details_activity);
-
-        // Get the extras from the intent
-        partyName = getIntent().getStringExtra("party_name");
-        partyLogo = getIntent().getIntExtra("party_logo", -1);
-        partyAgenda = getIntent().getStringExtra("party_agenda");
-        partyId = getIntent().getStringExtra("party_id");
-        source = getIntent().getStringExtra("from");
-        userId = getIntent().getStringExtra("userId");
+         //Get the extras from the intent
+         partyName = getIntent().getStringExtra("party_name");
+         partyLogo = getIntent().getIntExtra("party_logo", -1);
+         partyAgenda = getIntent().getStringExtra("party_agenda");
+         partyId = getIntent().getStringExtra("party_id");
+         source = getIntent().getStringExtra("from");
+         userId = getIntent().getStringExtra("userId");
 
         findViews();
         Log.d("pttt", source);
         // Set the party name and logo in the views
-        partyNameTextView.setText(partyName);
-        partyLogoImageView.setImageResource(partyLogo);
-        party_agenda.setText(partyAgenda);
-        setButtons();
-        BiometricManager biometricManager = BiometricManager.from(this);
-        canAuthenticate = biometricManager.canAuthenticate();
+         partyNameTextView.setText(partyName);
+         partyLogoImageView.setImageResource(partyLogo);
+         party_agenda.setText(partyAgenda);
+         setButtons();
+         BiometricManager biometricManager = BiometricManager.from(this);
+         canAuthenticate = biometricManager.canAuthenticate();
     }
 
     private void setButtons() {
