@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class VoteActivity extends AppCompatActivity {
-    private MaterialButton MB_voteBtn, MB_manageBtn, MB_partyPlatformBtn;
+    private ImageButton MB_voteBtn, MB_manageBtn, MB_partyPlatformBtn;
     private String voterId;
     private String adminId;
     private boolean isAdmin = false;
@@ -38,12 +39,12 @@ public class VoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vote_activity);
         findViews();
-        voterId = getIntent().getStringExtra("VoterId");
-
-        handleAdminFlow();
-
-        setCounter();
-        setButtons();
+//        voterId = getIntent().getStringExtra("VoterId");
+//
+//        handleAdminFlow();
+//
+//        setCounter();
+//        setButtons();
     }
 
     private void setCounter() {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,7 +20,8 @@ import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
 
 public class PartyDetailsActivity extends AppCompatActivity {
-    private TextView partyNameTextView, party_agenda;
+    private TextView partyNameTextView, party_agenda, what_page;
+    private ImageButton MB_home;
     private ImageView partyLogoImageView;
     private MaterialButton MB_votebtn;
     private String partyName, partyAgenda, partyId;
@@ -54,6 +56,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
 
     private void setButtons() {
         MB_votebtn.setOnClickListener(v -> voteParty());
+        //MB_home.setOnClickListener(v -> backToUserScreen());
     }
 
     private void voteParty() {
@@ -125,10 +128,14 @@ public class PartyDetailsActivity extends AppCompatActivity {
         partyLogoImageView = findViewById(R.id.party_logo_imageview);
         party_agenda = findViewById(R.id.party_agenda);
         MB_votebtn = findViewById(R.id.MB_votebtn);
+        what_page = findViewById(R.id.what_page);
         if (source.equals("vote")) {
             MB_votebtn.setVisibility(View.VISIBLE);
+            what_page.setText("בחירת מפלגה להצבעה");
         } else {
             MB_votebtn.setVisibility(View.GONE);
+            what_page.setText("צפייה במפלגות");
         }
+        MB_home = findViewById(R.id.MB_home);
     }
 }

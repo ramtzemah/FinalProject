@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/ic_vote_bg">
+    android:background="@drawable/user_landing_screen">
 
     <com.tsuryo.androidcountdown.Counter
         android:id="@+id/counter"
@@ -16,47 +15,49 @@
         android:layout_centerHorizontal="true"
         app:custom_font="@font/digi" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_voteBtn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="הצבע!"
-        android:textColor="@color/white"
-        app:backgroundTint="#0068FF"
-        app:cornerRadius="4dp"
-        app:strokeWidth="0dp" />
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_partyPlatformBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/MB_voteBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="מצעי המפלגות"
-        android:textColor="@color/white"
-        app:backgroundTint="#0068FF"
-        app:cornerRadius="4dp"
-        app:strokeWidth="0dp" />
+        <ImageButton
+            android:id="@+id/MB_partyPlatformBtn"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/watch_party_det"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_manageBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/MB_partyPlatformBtn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="ניהול"
-        android:textColor="@color/white"
-        app:backgroundTint="#0068FF"
-        app:cornerRadius="4dp"
-        android:visibility="invisible"
-        app:strokeWidth="0dp" />
+        <ImageButton
+            android:id="@+id/MB_home"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_home_button"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp" />
+
+        <ImageButton
+            android:id="@+id/MB_voteBtn"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/vote_party"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp" />
+
+        <ImageButton
+            android:id="@+id/MB_manageBtn"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/vote_party"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>
