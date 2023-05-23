@@ -5,15 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    android:background="@drawable/party_details_screen">
+    <ImageButton
+        android:id="@+id/MB_home"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/back_to_home"/>
+    <TextView
+        android:id="@+id/what_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:layoutDirection="rtl"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:textStyle="bold"/>
 
-    <ImageView
-        android:id="@+id/party_logo_imageview"
-        android:layout_width="350dp"
-        android:layout_height="250dp"
-        android:layout_alignParentTop="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/party_logo_placeholder" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="100dp">
+
+        <ImageView
+            android:id="@+id/party_logo_imageview"
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/party_logo_placeholder" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp">
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/party_name_textview"
@@ -24,7 +58,7 @@
         android:textSize="24sp"
         android:layout_below="@id/party_logo_imageview"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="15dp"
         android:textStyle="bold"/>
 
     <View
@@ -42,17 +76,20 @@
         android:textSize="20sp"
         android:layout_below="@id/party_name_textview"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"/>
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/MB_votebtn"
-        android:layout_width="145dp"
-        android:layout_height="80dp"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
         android:layout_centerInParent="true"
         android:text="הצבע למפלגה"
         android:textColor="@color/white"
-        app:backgroundTint="#0068FF"
         app:cornerRadius="4dp"
-        app:strokeWidth="0dp" />
+        app:strokeWidth="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/vote_to_party"/>
 
 </LinearLayout>
