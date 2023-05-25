@@ -29,38 +29,58 @@
 
         <ImageButton
             android:id="@+id/MB_partyPlatformBtn"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/watch_party_det"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_watch_parties"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="5dp" />
+
+        <Space
+            android:id="@+id/space1"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/MB_home"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_home_button"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_home"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:clickable="false"/>
+
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/MB_voteBtn"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/vote_party"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_voting_box"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/MB_manageBtn"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/vote_party"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
-            android:visibility="gone" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_admin_section"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="25dp"
+            android:visibility="gone"
+ />
 
     </LinearLayout>
+
 
 
 

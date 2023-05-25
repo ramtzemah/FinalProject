@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Space;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import java.util.Date;
 
 public class VoteActivity extends AppCompatActivity {
     private ImageButton MB_voteBtn, MB_manageBtn, MB_partyPlatformBtn;
+    private Space space1,space2;
     private String voterId;
     private String adminId;
     private boolean isAdmin = false;
@@ -42,7 +45,14 @@ public class VoteActivity extends AppCompatActivity {
         voterId = "1"; //getIntent().getStringExtra("VoterId");
 
         handleAdminFlow();
-
+        if(!isAdmin){
+            LinearLayout.LayoutParams layoutParams1 = (LinearLayout.LayoutParams) space1.getLayoutParams();
+            layoutParams1.width = 150; // Set the desired width in pixels
+            space2.setLayoutParams(layoutParams1);
+            LinearLayout.LayoutParams layoutParams2 = (LinearLayout.LayoutParams) space2.getLayoutParams();
+            layoutParams2.width = 150; // Set the desired width in pixels
+            space2.setLayoutParams(layoutParams2);
+        }
         setCounter();
         setButtons();
     }
@@ -130,5 +140,7 @@ public class VoteActivity extends AppCompatActivity {
         MB_manageBtn = findViewById(R.id.MB_manageBtn);
         MB_partyPlatformBtn = findViewById(R.id.MB_partyPlatformBtn);
         dbUtils = new DbUtils();
+        space1 = findViewById(R.id.space1);
+        space2 = findViewById(R.id.space2);
     }
 }
