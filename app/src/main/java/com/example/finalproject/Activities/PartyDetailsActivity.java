@@ -127,13 +127,13 @@ public class PartyDetailsActivity extends AppCompatActivity {
         party_agenda = findViewById(R.id.party_agenda);
         MB_votebtn = findViewById(R.id.MB_votebtn);
         what_page = findViewById(R.id.what_page);
-        if (source.equals("vote")) {
-            MB_votebtn.setVisibility(View.VISIBLE);
-            what_page.setText("בחירת מפלגה להצבעה");
-        } else {
-            MB_votebtn.setVisibility(View.GONE);
+//        if (source.equals("vote")) {
+//            MB_votebtn.setVisibility(View.VISIBLE);
+//            what_page.setText("בחירת מפלגה להצבעה");
+//        } else {
+//            MB_votebtn.setVisibility(View.GONE);
             what_page.setText("צפייה במפלגות");
-        }
+//        }
         MB_home = findViewById(R.id.MB_home);
     }
 }

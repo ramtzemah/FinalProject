@@ -42,7 +42,7 @@ public class VoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vote_activity);
         findViews();
-        voterId = "1"; //getIntent().getStringExtra("VoterId");
+        voterId = getIntent().getStringExtra("VoterId");
 
         handleAdminFlow();
         if(!isAdmin){
