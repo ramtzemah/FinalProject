@@ -39,7 +39,7 @@ import java.util.Date;
 public class VoteActivity extends AppCompatActivity {
     private ImageButton MB_voteBtn, MB_manageBtn, MB_partyPlatformBtn;
     private ImageView infoButton;
-    private Space space1,space2;
+    private Space space1;
     private String voterId;
     private String adminId;
     private boolean isAdmin = false;
@@ -81,7 +81,7 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void handleVoterFlow() {
-        dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.AdminsCollection, voterId, (success, error) -> {
+        dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, voterId, (success, error) -> {
             if (success != null) {
                 tempVoter = (Voter) success;
             }
@@ -127,24 +127,16 @@ public class VoteActivity extends AppCompatActivity {
 
     private void costumeView() {
         MB_manageBtn.setVisibility(View.VISIBLE);
-        if(!isAdmin){
-            LinearLayout.LayoutParams layoutParams1 = (LinearLayout.LayoutParams) space1.getLayoutParams();
-            layoutParams1.width = 150; // Set the desired width in pixels
-            space2.setLayoutParams(layoutParams1);
-            LinearLayout.LayoutParams layoutParams2 = (LinearLayout.LayoutParams) space2.getLayoutParams();
-            layoutParams2.width = 150; // Set the desired width in pixels
-            space2.setLayoutParams(layoutParams2);
-        }
     }
 
     private void setButtons() {
         Date currentDate = Calendar.getInstance().getTime();
         if (currentDate.before(TemporaryDB.startDesiredDate)) {
             MB_voteBtn.setEnabled(false);
-            MB_voteBtn.setBackgroundResource(R.drawable.btn_grey);
+            //MB_voteBtn.setBackgroundResource(R.drawable.btn_grey);
         } else {
             MB_voteBtn.setEnabled(true);
-            MB_voteBtn.setBackgroundResource(R.drawable.btn_regular);
+            //MB_voteBtn.setBackgroundResource(R.drawable.btn_regular);
         }
         MB_voteBtn.setOnClickListener(v -> toAllParties());
         MB_manageBtn.setOnClickListener(v -> toAdminManageSection());
