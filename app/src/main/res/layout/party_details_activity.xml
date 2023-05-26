@@ -28,24 +28,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="30dp">
 
         <ImageView
             android:id="@+id/party_logo_imageview"
-            android:layout_width="350dp"
+            android:layout_width="300dp"
             android:layout_height="250dp"
             android:scaleType="fitXY"
             android:src="@drawable/party_logo_placeholder" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp">
-
 
     </LinearLayout>
 
@@ -54,20 +45,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Party Name"
+        android:layout_gravity="center"
         android:textColor="@android:color/black"
         android:textSize="24sp"
+        android:layout_marginEnd="10dp"
         android:layout_below="@id/party_logo_imageview"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="25dp"
         android:textStyle="bold"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/black"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"/>
 
     <TextView
+        android:layout_marginEnd="10dp"
         android:id="@+id/party_agenda"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,7 +72,7 @@
         android:layout_below="@id/party_name_textview"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:layout_marginStart="25dp"/>
+        android:layout_gravity="center"/>
 
     <ImageButton
         android:id="@+id/MB_votebtn"
@@ -88,7 +83,7 @@
         android:textColor="@color/white"
         app:cornerRadius="4dp"
         app:strokeWidth="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="50dp"
         android:layout_marginStart="45dp"
         android:background="@drawable/vote_to_party"/>
 

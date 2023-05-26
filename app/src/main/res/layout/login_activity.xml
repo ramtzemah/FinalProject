@@ -8,27 +8,30 @@
     <LinearLayout
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="170dp"
+        android:layout_marginBottom="80dp"
         android:layout_marginStart="30dp"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
         <EditText
             android:id="@+id/ET_id"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
             android:background="@drawable/edittext_background"
             android:inputType="number"
-            android:paddingStart="10dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="30dp" />
+            android:gravity="center"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="18sp"
+            android:autoSizeMaxTextSize="18sp"
+            android:layout_gravity="center" />
+
+
         <ImageButton
             android:id="@+id/lets_go_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ET_id"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="150dp"
             android:layout_marginStart="35dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/lets_go_button"

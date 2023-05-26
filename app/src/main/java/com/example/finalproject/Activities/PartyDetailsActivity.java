@@ -54,7 +54,12 @@ public class PartyDetailsActivity extends AppCompatActivity {
 
     private void setButtons() {
         MB_votebtn.setOnClickListener(v -> voteParty());
-        //MB_home.setOnClickListener(v -> backToUserScreen());
+        MB_home.setOnClickListener(v -> backToUserScreen());
+    }
+
+    private void backToUserScreen() {
+        Intent intent = new Intent(PartyDetailsActivity.this, VoteActivity.class);
+        startActivity(intent);
     }
 
     private void voteParty() {
