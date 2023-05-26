@@ -60,7 +60,7 @@ public class VoteActivity extends AppCompatActivity {
         handleAdminFlow();
         setCounter();
         setButtons();
-        //addtitle();
+
     }
 
     private void addtitle() {
@@ -84,6 +84,7 @@ public class VoteActivity extends AppCompatActivity {
         dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, voterId, (success, error) -> {
             if (success != null) {
                 tempVoter = (Voter) success;
+                addtitle();
             }
         });
     }
@@ -121,12 +122,14 @@ public class VoteActivity extends AppCompatActivity {
                 adminId = tempAdmin.getVoterId();
                 isAdmin = true;
                 costumeView();
+
             }
         });
     }
 
     private void costumeView() {
         MB_manageBtn.setVisibility(View.VISIBLE);
+        addtitle();
     }
 
     private void setButtons() {

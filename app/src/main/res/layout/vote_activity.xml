@@ -2,13 +2,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/user_landing_screen">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/user_landing_screen">
 
         <ImageView
             android:id="@+id/infoButton"
@@ -22,7 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:layout_marginTop="50dp">
             <com.tsuryo.androidcountdown.Counter
                 android:id="@+id/counter"
@@ -37,62 +37,71 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="150dp">
+            android:layout_height="100dp">
             <TextView
                 android:id="@+id/welcome_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:textSize="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:fontFamily="@font/varsity_regular"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:padding="5dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
 
-            android:layout_marginTop="150dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
+                <ImageButton
+                    android:id="@+id/MB_partyPlatformBtn"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/border_square_grey_with_background"
+                    android:src="@drawable/ic_detect_parties"
+                    android:scaleType="centerCrop"
+                    android:drawablePadding="8dp"
+                    android:padding="16dp" />
+
+                <Space
+                    android:id="@+id/space1"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/MB_voteBtn"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/border_square_grey_with_background"
+                    android:src="@drawable/ic_ballotbox"
+                    android:scaleType="centerCrop"
+                    android:padding="2dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp" />
+
+            </LinearLayout>
 
             <ImageButton
-                android:id="@+id/MB_partyPlatformBtn"
+                android:id="@+id/MB_manageBtn"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/ic_detect_parties"
-                android:drawablePadding="8dp"
-                android:padding="16dp" />
-
-            <Space
-                android:id="@+id/space1"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:layout_weight="1" />
-
-            <ImageButton
-                android:id="@+id/MB_voteBtn"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:background="@drawable/ic_ballotbox"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp" />
-
+                android:background="@drawable/border_square_grey_with_background"
+                android:src="@drawable/ic_admin"
+                android:scaleType="centerCrop"
+                android:layout_marginStart="150dp"
+                android:visibility="gone" />
         </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/MB_manageBtn"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:background="@drawable/ic_admin"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="25dp"
-            android:visibility="gone" />
-
     </LinearLayout>
-
 </ScrollView>
