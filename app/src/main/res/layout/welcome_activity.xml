@@ -10,10 +10,10 @@
 
     <ImageButton
         android:id="@+id/lets_go_button"
-        android:layout_width="wrap_content"
+        android:layout_width="305dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:layout_marginStart="75dp"
+        android:layout_marginStart="55dp"
         android:background="@drawable/circle_button_background"
         android:src="@drawable/lets_go_button"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -2,6 +2,7 @@ package com.example.finalproject.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setButton() {
+        Log.d("aaaa","aaaa");
         btnSend.setOnClickListener(v -> toSMS());
     }
 
