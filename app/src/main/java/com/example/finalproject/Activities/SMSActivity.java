@@ -90,7 +90,7 @@ public class SMSActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String code = getCodeFromEditTexts();
                 if(code.isEmpty() || code.length() < 6){
-                    Toast.makeText(SMSActivity.this, "The code is not valid, please trt again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SMSActivity.this, "The code is not valid, please try again", Toast.LENGTH_LONG).show();
                     digit1.requestFocus();
                     return;
                 }
