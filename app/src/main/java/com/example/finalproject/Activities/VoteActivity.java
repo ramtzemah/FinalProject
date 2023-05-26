@@ -81,7 +81,7 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void handleVoterFlow() {
-        dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.AdminsCollection, voterId, (success, error) -> {
+        dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, voterId, (success, error) -> {
             if (success != null) {
                 tempVoter = (Voter) success;
             }
