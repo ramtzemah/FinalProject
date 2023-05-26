@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 
+import com.example.finalproject.DBUtils.DbUtils;
+import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
 
@@ -53,8 +55,27 @@ public class PartyDetailsActivity extends AppCompatActivity {
     }
 
     private void setButtons() {
-        MB_votebtn.setOnClickListener(v -> voteParty());
+        if(TemporaryDB.getVoterById(userId).isAlreadyVote()){
+            MB_votebtn.setOnClickListener(v -> alreadyVoted());
+        }else{
+            MB_votebtn.setOnClickListener(v -> voteParty());
+        }
         MB_home.setOnClickListener(v -> backToUserScreen());
+    }
+
+    private void alreadyVoted() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("תעודת זהות זו כבר ביצעה הצבעה, לא ניתן להצביע פעמיים")
+                .setPositiveButton("אישור", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Perform action when "אישור" button is clicked
+                        dialog.dismiss();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     private void backToUserScreen() {
@@ -122,7 +143,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-            Toast.makeText(PartyDetailsActivity.this, "You must have a biometric authentication to vote", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PartyDetailsActivity.this, "נא להזין טביעת אצבע ורק לאחר מכן לבצע הצבעה.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -132,13 +153,13 @@ public class PartyDetailsActivity extends AppCompatActivity {
         party_agenda = findViewById(R.id.party_agenda);
         MB_votebtn = findViewById(R.id.MB_votebtn);
         what_page = findViewById(R.id.what_page);
-//        if (source.equals("vote")) {
-//            MB_votebtn.setVisibility(View.VISIBLE);
-//            what_page.setText("בחירת מפלגה להצבעה");
-//        } else {
-//            MB_votebtn.setVisibility(View.GONE);
+        if (source.equals("vote")) {
+            MB_votebtn.setVisibility(View.VISIBLE);
+            what_page.setText("בחירת מפלגה להצבעה");
+        } else {
+            MB_votebtn.setVisibility(View.GONE);
             what_page.setText("צפייה במפלגות");
-//        }
+        }
         MB_home = findViewById(R.id.MB_home);
     }
 }
