@@ -52,12 +52,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         TemporaryDB.setStartVotingAge("startAge");
         TemporaryDB.dateOfStartVotingBeforeFormat();
         TemporaryDB.dateOfEndVotingBeforeFormat();
-        TemporaryDB.addAllVoters();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         TemporaryDB.addAllParties();
         TemporaryDB.addAllAreas();
     }

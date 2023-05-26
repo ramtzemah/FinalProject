@@ -121,17 +121,14 @@ public class AppointAdmin extends AppCompatActivity {
 //            Toast.makeText(this,"תעודת זהות לא תקינה", Toast.LENGTH_SHORT).show();
 //        }
         else {
-            for(Voter voter : TemporaryDB.getAllVoters().values()){
-                if(String.valueOf(voter.getIdNumber()).equals(theText)){
-                    tempVoter = voter;
-                    break;
+            dbUtils.getVoterById(Constant.DataBaseName, Constant.VotersCollection, theText, (success, error) -> {
+                if(success != null){
+                    tempVoter = (Voter) success;
+                    presentVoter(tempVoter);
+                } else {
+                    Toast.makeText(this,"לא נמצא אף אזרח, אנא בדוק את ה ת.ז ונסה שנית", Toast.LENGTH_SHORT).show();
                 }
-            }
-        }
-        if(tempVoter == null ){
-            Toast.makeText(this,"לא נמצא אף אזרח, אנא בדוק את ה ת.ז ונסה שנית", Toast.LENGTH_SHORT).show();
-        } else {
-            presentVoter(tempVoter);
+            });
         }
     }
 

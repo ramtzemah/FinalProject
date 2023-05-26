@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         // TODO
 //        1. id number to real one
 //        2. vote once
-//        5. voter - admin from DB
 
     }
 
@@ -57,12 +56,6 @@ public class MainActivity extends AppCompatActivity {
         TemporaryDB.setStartVotingAge("startAge");
         TemporaryDB.dateOfStartVotingBeforeFormat();
         TemporaryDB.dateOfEndVotingBeforeFormat();
-        TemporaryDB.addAllVoters();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         TemporaryDB.addAllParties();
         TemporaryDB.addAllAreas();
         loginPage();

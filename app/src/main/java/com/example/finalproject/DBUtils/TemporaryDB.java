@@ -91,14 +91,14 @@ public class TemporaryDB {
     }
 
     public static void addAllAdmins() {
-        dbUtils.getAllAdmins(Constant.DataBaseName, Constant.AdminsCollection, (AdminsCallback) (result, error)-> {
+        dbUtils.getAllAdminsAndThereInheritors(Constant.DataBaseName, Constant.AdminsCollection, (AdminsCallback) (result, error)-> {
                     if (error != null) {
                         Log.d("ptttt", "errorrrrr");
                         // Handle the error.
                     } else {
                         admins = new HashMap<>();
-                        List<Admin> admins1 = (List<Admin>) result;
-                        for (Admin a : admins1){
+                        List<Admin> adminsTempList = (List<Admin>) result;
+                        for (Admin a : adminsTempList){
                             admins.put(a.getVoterId(), a);
                         }
                     }

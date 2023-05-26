@@ -1,7 +1,11 @@
 package com.example.finalproject.Entities;
 
+import android.util.Log;
+
 import com.example.finalproject.Calculations.Generators;
 import org.bson.Document;
+
+import java.util.ArrayList;
 
 public class Admin extends Voter{
     private String voterId;
@@ -34,6 +38,13 @@ public class Admin extends Voter{
         this.isAdminLeader = document.getBoolean("isAdminLeader");
     }
 
+    public Admin(Document adminSide, ArrayList<Document> voterSide) {
+        super(voterSide.get(0));
+        this.voterId = adminSide.getString("voterId");
+        this.area = adminSide.getString("area");
+        this.isAdminLeader = adminSide.getBoolean("isAdminLeader");
+        Log.d("puuu", "dds");
+    }
 
     public boolean isAdminLeader() {
         return isAdminLeader;
