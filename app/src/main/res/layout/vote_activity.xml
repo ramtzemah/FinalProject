@@ -4,10 +4,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/user_landing_screen">
 
+    <ImageView
+        android:id="@+id/infoButton"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_info"
+        android:background="@drawable/circle_background"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="2dp"
+        android:contentDescription="Info Button" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="50dp">
         <com.tsuryo.androidcountdown.Counter
             android:id="@+id/counter"
             android:layout_width="wrap_content"
@@ -19,6 +29,19 @@
             app:custom_font="@font/digi" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="150dp">
+        <TextView
+            android:id="@+id/welcome_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/varsity_regular"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

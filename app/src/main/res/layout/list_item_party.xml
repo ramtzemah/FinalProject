@@ -8,9 +8,10 @@
 
     <ImageView
         android:id="@+id/party_logo"
-        android:layout_width="400dp"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:src="@drawable/party_logo_placeholder"
+        android:layout_marginBottom="10dp"
         android:contentDescription="@string/party_logo_content_description"/>
 
     <TextView

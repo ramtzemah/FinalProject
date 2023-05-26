@@ -43,7 +43,7 @@ public class Voter {
     }
 
     public Voter(Document document) {
-        Log.d("ptttt", " " +document);
+        Log.d("ptttt1", " " +document);
         this.voterId = document.getString("voterId");
         this.firstName = document.getString("firstName");
         this.lastName = document.getString("lastName");
