@@ -19,8 +19,8 @@ import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
+import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.R;
-import com.google.android.material.button.MaterialButton;
 import com.tsuryo.androidcountdown.Counter;
 import com.tsuryo.androidcountdown.TimeUnits;
 
@@ -35,6 +35,7 @@ public class VoteActivity extends AppCompatActivity {
     private boolean isAdmin = false;
     private DbUtils dbUtils;
     private Admin tempAdmin;
+    private Voter tempVoter;
     private Counter mCounter;
 
     @Override
@@ -44,17 +45,19 @@ public class VoteActivity extends AppCompatActivity {
         findViews();
         voterId = getIntent().getStringExtra("VoterId");
 
+        handleVoterFlow();
         handleAdminFlow();
-        if(!isAdmin){
-            LinearLayout.LayoutParams layoutParams1 = (LinearLayout.LayoutParams) space1.getLayoutParams();
-            layoutParams1.width = 150; // Set the desired width in pixels
-            space2.setLayoutParams(layoutParams1);
-            LinearLayout.LayoutParams layoutParams2 = (LinearLayout.LayoutParams) space2.getLayoutParams();
-            layoutParams2.width = 150; // Set the desired width in pixels
-            space2.setLayoutParams(layoutParams2);
-        }
+
         setCounter();
         setButtons();
+    }
+
+    private void handleVoterFlow() {
+        dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.AdminsCollection, voterId, (success, error) -> {
+            if (success != null) {
+                tempVoter = (Voter) success;
+            }
+        });
     }
 
     private void setCounter() {
@@ -89,13 +92,21 @@ public class VoteActivity extends AppCompatActivity {
                 tempAdmin = (Admin) success;
                 adminId = tempAdmin.getVoterId();
                 isAdmin = true;
-                setInvisible();
+                costumeView();
             }
         });
     }
 
-    private void setInvisible() {
+    private void costumeView() {
         MB_manageBtn.setVisibility(View.VISIBLE);
+        if(!isAdmin){
+            LinearLayout.LayoutParams layoutParams1 = (LinearLayout.LayoutParams) space1.getLayoutParams();
+            layoutParams1.width = 150; // Set the desired width in pixels
+            space2.setLayoutParams(layoutParams1);
+            LinearLayout.LayoutParams layoutParams2 = (LinearLayout.LayoutParams) space2.getLayoutParams();
+            layoutParams2.width = 150; // Set the desired width in pixels
+            space2.setLayoutParams(layoutParams2);
+        }
     }
 
     private void setButtons() {
@@ -120,10 +131,14 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void toAllParties() {
-        Intent intent = new Intent(VoteActivity.this, AllParties.class);
-        intent.putExtra("from", "vote");
-        intent.putExtra("userId", voterId);
-        startActivity(intent);
+        if(tempVoter.isAlreadyVote() || tempVoter.getAge() < 18){
+            toPartiesPlatform();
+        } else {
+            Intent intent = new Intent(VoteActivity.this, AllParties.class);
+            intent.putExtra("from", "vote");
+            intent.putExtra("userId", voterId);
+            startActivity(intent);
+        }
     }
 
     private void toAdminManageSection() {

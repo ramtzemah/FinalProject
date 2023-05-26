@@ -246,9 +246,6 @@ public class SMSActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() == 1) {
-                    lastDigit.clearFocus();
-                }
             }
         });
     }
