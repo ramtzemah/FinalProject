@@ -16,51 +16,60 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 
+import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
+import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
 
 public class PartyDetailsActivity extends AppCompatActivity {
     private TextView partyNameTextView, party_agenda, what_page;
-    private ImageButton MB_home,MB_votebtn;
+    private ImageButton MB_home, MB_votebtn;
     private ImageView partyLogoImageView;
     private String partyName, partyAgenda, partyId;
     private int partyLogo;
     private String source;
     private int canAuthenticate;
     private String userId;
+    private DbUtils dbUtils;
+    private Voter tempVoter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.party_details_activity);
-         //Get the extras from the intent
-         partyName = getIntent().getStringExtra("party_name");
-         partyLogo = getIntent().getIntExtra("party_logo", -1);
-         partyAgenda = getIntent().getStringExtra("party_agenda");
-         partyId = getIntent().getStringExtra("party_id");
-         source = getIntent().getStringExtra("from");
-         userId = getIntent().getStringExtra("userId");
+        //Get the extras from the intent
+        partyName = getIntent().getStringExtra("party_name");
+        partyLogo = getIntent().getIntExtra("party_logo", -1);
+        partyAgenda = getIntent().getStringExtra("party_agenda");
+        partyId = getIntent().getStringExtra("party_id");
+        source = getIntent().getStringExtra("from");
+        userId = getIntent().getStringExtra("userId");
 
         findViews();
         Log.d("pttt", source);
         // Set the party name and logo in the views
-         partyNameTextView.setText(partyName);
-         partyLogoImageView.setImageResource(partyLogo);
-         party_agenda.setText(partyAgenda);
-         setButtons();
-         BiometricManager biometricManager = BiometricManager.from(this);
-         canAuthenticate = biometricManager.canAuthenticate();
+        partyNameTextView.setText(partyName);
+        partyLogoImageView.setImageResource(partyLogo);
+        party_agenda.setText(partyAgenda);
+        setButtons();
+        BiometricManager biometricManager = BiometricManager.from(this);
+        canAuthenticate = biometricManager.canAuthenticate();
     }
 
     private void setButtons() {
-        if(TemporaryDB.getVoterById(userId).isAlreadyVote()){
-            MB_votebtn.setOnClickListener(v -> alreadyVoted());
-        }else{
-            MB_votebtn.setOnClickListener(v -> voteParty());
-        }
-        MB_home.setOnClickListener(v -> backToUserScreen());
+        dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, userId, (success, error) -> {
+            if (success != null) {
+                tempVoter = (Voter) success;
+                if (tempVoter.isAlreadyVote()) {
+                    MB_votebtn.setOnClickListener(v -> alreadyVoted());
+                } else {
+                    MB_votebtn.setOnClickListener(v -> voteParty());
+                }
+                MB_home.setOnClickListener(v -> backToUserScreen());
+            }
+        });
     }
 
     private void alreadyVoted() {
@@ -79,8 +88,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
     }
 
     private void backToUserScreen() {
-        Intent intent = new Intent(PartyDetailsActivity.this, VoteActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     private void voteParty() {
@@ -108,7 +116,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
                     BiometricPrompt biometricPrompt = new BiometricPrompt(PartyDetailsActivity.this, new BiometricPrompt.AuthenticationCallback() {
                         @Override
                         public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                       //     Toast.makeText(PartyDetailsActivity.this, "Succeeded", Toast.LENGTH_SHORT).show();
+                            //     Toast.makeText(PartyDetailsActivity.this, "Succeeded", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(PartyDetailsActivity.this, EndVote.class);
                             intent.putExtra("party_id", partyId);
                             intent.putExtra("userId", userId);
@@ -148,6 +156,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+        dbUtils = new DbUtils();
         partyNameTextView = findViewById(R.id.party_name_textview);
         partyLogoImageView = findViewById(R.id.party_logo_imageview);
         party_agenda = findViewById(R.id.party_agenda);

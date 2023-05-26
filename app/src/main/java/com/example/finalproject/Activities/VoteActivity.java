@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -68,9 +69,9 @@ public class VoteActivity extends AppCompatActivity {
         String title;
         if (tempVoter != null) {
             if (tempVoter.getGender() == Gender.זכר) {
-                title = "שלום אדון " + tempVoter.getFirstName() + " " + tempVoter.getLastName() + " , ברוכים הבאים למערכת בחירות דיגיטליות בישראל - העתיד כבר כאן";
+                title = "שלום אדון " + tempVoter.getFirstName() + " " + tempVoter.getLastName() + ",\n" + "ברוכים הבאים למערכת בחירות דיגיטליות בישראל - העתיד כבר כאן.";
             } else {
-                title = "שלום גברת " + tempVoter.getFirstName() + " " + tempVoter.getLastName() + " , ברוכים הבאים למערכת בחירות דיגיטליות בישראל - העתיד כבר כאן";
+                title = "שלום גברת " + tempVoter.getFirstName() + " " + tempVoter.getLastName() + ",\n"  + "ברוכים הבאים למערכת בחירות דיגיטליות בישראל - העתיד כבר כאן.";
             }
         } else {
             // Handle the case when tempVoter is null
@@ -222,5 +223,11 @@ public class VoteActivity extends AppCompatActivity {
         MB_partyPlatformBtn = findViewById(R.id.MB_partyPlatformBtn);
         infoButton = findViewById(R.id.infoButton);
         dbUtils = new DbUtils();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        handleVoterFlow();
     }
 }
