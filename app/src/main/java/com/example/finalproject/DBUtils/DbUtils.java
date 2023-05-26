@@ -16,6 +16,11 @@ import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Callbacks.PartiesCallback;
 import com.example.finalproject.Entities.VoterVote;
+import com.mongodb.client.AggregateIterable;
+import com.mongodb.client.MongoIterable;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
 import com.mongodb.internal.async.SingleResultCallback;
 
 import org.bson.Document;
@@ -41,9 +46,6 @@ import io.realm.mongodb.mongo.MongoDatabase;
 import io.realm.mongodb.mongo.iterable.MongoCursor;
 
 
-
-
-
 public class DbUtils {
     private MongoClient mongoClient;
     private User user;
@@ -54,11 +56,11 @@ public class DbUtils {
     }
 
     ////////////////////////////ALL COLLECTIONS//////////////////////////
-    public void deleteCollection(String dataBase, String collectionName){
+    public void deleteCollection(String dataBase, String collectionName) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
         MongoCollection<Document> collection = database.getCollection(collectionName);
-        Document queryFilter  = new Document();
+        Document queryFilter = new Document();
         collection.deleteMany(queryFilter).getAsync(task -> {
             if (task.isSuccess()) {
                 long count = task.get().getDeletedCount();
@@ -173,9 +175,13 @@ public class DbUtils {
             if (task1.isSuccess()) {
                 Document result = task1.get();
                 // Assuming that Voter is a class that can be constructed from a Document.
-                tempVoter.set(new Voter(result));
-                callback.onResult(tempVoter.get(), null);
-                Log.v("EXAMPLE", "successfully found a document: " + task1);
+               if(result == null){
+                   callback.onResult(null, null);
+               } else {
+                   tempVoter.set(new Voter(result));
+                   callback.onResult(tempVoter.get(), null);
+                   Log.v("EXAMPLE", "successfully found a document: " + task1);
+               }
             } else {
                 Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
                 callback.onResult(null, task1.getError());
@@ -268,6 +274,7 @@ public class DbUtils {
             }
         });
     }
+
     public void getAllVotersAllCountry(String dataBase, String collectionName, VotersCallback votersCallback) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
@@ -410,7 +417,7 @@ public class DbUtils {
 
 ////////////////////////////AREAS/////////////////////////////////////
 
-    public void addArea(String dataBase, String collectionName, Area area){
+    public void addArea(String dataBase, String collectionName, Area area) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -491,21 +498,21 @@ public class DbUtils {
         });
     }
 
-////////////////////////////VOTES/////////////////////////////////////
-public void addNewVote(String dataBase, String collectionName, VoterVote voterVote) {
-    initConnection();
-    MongoDatabase database = mongoClient.getDatabase(dataBase);
-    MongoCollection<Document> collection = database.getCollection(collectionName);
-    Document document = new Document(new Document("partyId", voterVote.getPartyId())
-            .append("area", voterVote.getArea()).append("age", voterVote.getAge())
-            .append("gender", voterVote.getGender()));
-    collection.insertOne(document).getAsync(result -> {
-        if (result.isSuccess()) {
-            Log.d("ptttttttt", "Inserted successfully");
-        } else {
-            Log.d("ptttttttt", "Error " + result.getError());
-        }
-    });
+    ////////////////////////////VOTES/////////////////////////////////////
+    public void addNewVote(String dataBase, String collectionName, VoterVote voterVote) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document document = new Document(new Document("partyId", voterVote.getPartyId())
+                .append("area", voterVote.getArea()).append("age", voterVote.getAge())
+                .append("gender", voterVote.getGender()));
+        collection.insertOne(document).getAsync(result -> {
+            if (result.isSuccess()) {
+                Log.d("ptttttttt", "Inserted successfully");
+            } else {
+                Log.d("ptttttttt", "Error " + result.getError());
+            }
+        });
     }
 
     public void getAllVotesInCountry(String dataBase, String collectionName, VotersCallback votersCallback) {
@@ -572,7 +579,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
             if (task.isSuccess()) {
                 MongoCursor<Document> results = task.get();
                 // iterate over and print the results to the log
-                Map<Integer,Integer> temp = new HashMap<>();
+                Map<Integer, Integer> temp = new HashMap<>();
                 while (results.hasNext()) {
                     Document doc = results.next();
                     int rangeStart = doc.getInteger("_id");
@@ -609,7 +616,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
             if (task.isSuccess()) {
                 MongoCursor<Document> results = task.get();
                 // iterate over and print the results to the log
-                Map<Integer,Integer> temp = new HashMap<>();
+                Map<Integer, Integer> temp = new HashMap<>();
                 while (results.hasNext()) {
                     Document doc = results.next();
                     int rangeStart = doc.getInteger("_id");
@@ -642,7 +649,6 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         );
 
 
-
 // query mongodb using the pipeline
         RealmResultTask<MongoCursor<Document>> aggregationTask =
                 collection.aggregate(pipeline).iterator();
@@ -651,7 +657,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
             if (task.isSuccess()) {
                 MongoCursor<Document> results = task.get();
                 // iterate over and print the results to the log
-                Map<Integer,Integer> temp = new HashMap<>();
+                Map<Integer, Integer> temp = new HashMap<>();
                 while (results.hasNext()) {
                     Document doc = results.next();
                     int rangeStart = doc.getInteger("_id");
@@ -664,7 +670,8 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
                 Log.e("EXAMPLE", "failed to find document with: ", task.getError());
                 votersCallback.onComplete(null, task.getError());
             }
-        });}
+        });
+    }
 
     public void getAllAgeVoterHowVote(String dataBase, String collectionName, int dropDownSelection, VotersCallback votersCallback) {
         initConnection();
@@ -689,7 +696,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
             if (task.isSuccess()) {
                 MongoCursor<Document> results = task.get();
                 // iterate over and print the results to the log
-                Map<Integer,Integer> temp = new HashMap<>();
+                Map<Integer, Integer> temp = new HashMap<>();
                 while (results.hasNext()) {
                     Document doc = results.next();
                     int rangeStart = doc.getInteger("_id");
@@ -724,6 +731,7 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
             }
         });
     }
+
     public void getAllVotesInAreaAndSex(String dataBase, String collectionName, String area, String sex, VotersCallback votersCallback) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
@@ -825,6 +833,47 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         });
     }
 
+    public void getAllAdminsAndThereInheritors(String dataBase, String collectionName, AdminsCallback adminsCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> adminsCollection = database.getCollection(collectionName);
+
+        List<Document> pipeline = Arrays.asList(
+                new Document("$lookup", new Document("from", "voters")
+                        .append("localField", "voterId")
+                        .append("foreignField", "voterId")
+                        .append("as", "AdminInherbit")),
+                new Document("$project", new Document("adminSide",
+                        new Document("voterId", "$voterId")
+                                .append("area", "$area")
+                                .append("isAdminLeader", "$isAdminLeader"))
+                        .append("voterSide",
+                                new Document("$sortArray",
+                                        new Document("input", "$AdminInherbit")
+                                                .append("sortBy", new Document("_id", 1.0))))));
+
+        RealmResultTask<MongoCursor<Document>> aggregationTask =
+                adminsCollection.aggregate(pipeline).iterator();
+        aggregationTask.getAsync(task -> {
+            if (task.isSuccess()) {
+                MongoCursor<Document> results = task.get();
+                // iterate over and print the results to the log
+                List<Admin> admins = new ArrayList<>();
+                while (results.hasNext()) {
+                    Document doc = results.next();
+                    Admin temp = new Admin((Document) doc.get("adminSide"), (ArrayList<Document>) doc.get("voterSide"));
+                    admins.add(temp);
+                    Log.v("EXAMPLE", doc.toString());
+                }
+                adminsCallback.onComplete(admins, null);
+            } else {
+                adminsCallback.onComplete(null, task.getError());
+                Log.e("EXAMPLE", "failed to find document with: ", task.getError());
+                // votersCallback.onComplete(null, task.getError());
+            }
+        });
+    }
+
     public void getAdminByVoterId(String dataBase, String collectionName, String voterId, SingleResultCallback<Admin> callback) {
         initConnection();
         MongoDatabase database = mongoClient.getDatabase(dataBase);
@@ -834,9 +883,9 @@ public void addNewVote(String dataBase, String collectionName, VoterVote voterVo
         collection.findOne(queryFilter).getAsync(task1 -> {
             if (task1.isSuccess()) {
                 Document result = task1.get();
-                if(result == null){
+                if (result == null) {
                     callback.onResult(null, null);
-                }else {
+                } else {
                     tempAdmin.set(new Admin(result));
                     callback.onResult(tempAdmin.get(), null);
                     Log.v("EXAMPLE", "successfully found a document: " + task1);
