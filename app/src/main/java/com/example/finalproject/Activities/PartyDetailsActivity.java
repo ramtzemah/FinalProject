@@ -3,6 +3,10 @@ package com.example.finalproject.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -158,8 +162,49 @@ public class PartyDetailsActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-            Toast.makeText(PartyDetailsActivity.this, "נא להזין טביעת אצבע ורק לאחר מכן לבצע הצבעה.", Toast.LENGTH_SHORT).show();
+            openMissingFingerPrintDialog();
         }
+    }
+
+    private void openMissingFingerPrintDialog() {
+        // Create an AlertDialog builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(PartyDetailsActivity.this);
+        builder.setTitle("פנייה לתמיכה"); // Dialog title
+
+        // Set the text and style for the explanation
+        SpannableStringBuilder explanation = new SpannableStringBuilder();
+
+        String erroracc = "לא ניתן להצביע ללא הגדרת טביעת אצבע במכשירך";
+        String erroraccCon = "במידה ואין באפשרותך לצרף טביעת אצבע";
+        String erroraccSol = "אזורך המוגדר בחוק הינו - " + tempArea.getAreaName() + ", " + tempArea.getDefaultVoteStation();
+
+        SpannableString erroraccSpan = new SpannableString(erroracc);
+        erroraccSpan.setSpan(new AbsoluteSizeSpan(12, true), 0, erroracc.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableString erroraccConSpan = new SpannableString(erroraccCon);
+        erroraccConSpan.setSpan(new AbsoluteSizeSpan(12, true), 0, erroraccCon.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        SpannableString erroraccSolSpan = new SpannableString(erroraccSol);
+        erroraccSolSpan.setSpan(new AbsoluteSizeSpan(12, true), 0, erroraccSol.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        explanation.append(erroraccSpan);
+        explanation.append('\n');
+        explanation.append(erroraccConSpan);
+        explanation.append('\n');
+        explanation.append(erroraccSolSpan);
+
+        // Set the explanation text in the dialog
+        builder.setMessage(explanation);
+
+        // Set the positive button for OK
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform any actions needed when the OK button is clicked
+                //for now nothing needed
+            }
+        });
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void findViews() {

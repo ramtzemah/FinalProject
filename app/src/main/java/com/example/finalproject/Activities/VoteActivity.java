@@ -163,18 +163,35 @@ public class VoteActivity extends AppCompatActivity {
         String email = "digiVote@support.co.il";
         String phone = "1-800-80-90-10";
 
-        String emailText = "במקרה של בעיה ניתן לפנות במייל - " + email;
-        String phoneText = "או לחייג " + phone;
+        String emailText = "במקרה של בעיה ניתן לפנות במייל";
+        String phoneText = "או לחייג למספר " + phone;
+        String areaText = "במידה ובכל זאת קיימת תקלה באפליקציה";
+        String areaTextCon = "אזורך המוגדר בחוק הינו - " + tempArea.getAreaName() + ", " + tempArea.getDefaultVoteStation();
 
         SpannableString emailSpannable = new SpannableString(emailText);
         emailSpannable.setSpan(new AbsoluteSizeSpan(12, true), 0, emailText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        SpannableString emailSpannable2 = new SpannableString(email);
+        emailSpannable2.setSpan(new AbsoluteSizeSpan(12, true), 0, email.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         SpannableString phoneSpannable = new SpannableString(phoneText);
         phoneSpannable.setSpan(new AbsoluteSizeSpan(12, true), 0, phoneText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        SpannableString areaSpannable = new SpannableString(areaText);
+        areaSpannable.setSpan(new AbsoluteSizeSpan(12, true), 0, areaText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        SpannableString areaSpannable2 = new SpannableString(areaTextCon);
+        areaSpannable2.setSpan(new AbsoluteSizeSpan(12, true), 0, areaTextCon.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         explanation.append(emailSpannable);
         explanation.append("\n");
+        explanation.append(emailSpannable2);
+        explanation.append("\n");
         explanation.append(phoneSpannable);
+        explanation.append("\n\n");
+        explanation.append(areaSpannable);
+        explanation.append("\n");
+        explanation.append(areaSpannable2);
 
         // Set the explanation text in the dialog
         builder.setMessage(explanation);
