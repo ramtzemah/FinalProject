@@ -41,7 +41,6 @@ import java.util.Date;
 public class VoteActivity extends AppCompatActivity {
     private ImageButton MB_voteBtn, MB_manageBtn, MB_partyPlatformBtn;
     private ImageView infoButton;
-    private Space space1;
     private String voterId;
     private String adminId;
     private boolean isAdmin = false;
@@ -229,6 +228,7 @@ public class VoteActivity extends AppCompatActivity {
         MB_partyPlatformBtn = findViewById(R.id.MB_partyPlatformBtn);
         infoButton = findViewById(R.id.infoButton);
         dbUtils = new DbUtils();
+
     }
 
     @Override
