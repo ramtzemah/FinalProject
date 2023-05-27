@@ -46,6 +46,7 @@ public class AppointAdmin extends AppCompatActivity {
     private Voter tempVoter = null;
     private List<String> areaNames;
     private DbUtils dbUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +65,14 @@ public class AppointAdmin extends AppCompatActivity {
 
     private void dialoAappointAdmin() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("מינוי: " + tempVoter.getFirstName() + " " + tempVoter.getLastName()+ " לאחראי אזור: " + areasDropdown.getSelectedItem().toString());
+        builder.setTitle("מינוי: " + tempVoter.getFirstName() + " " + tempVoter.getLastName() + " לאחראי אזור: " + areasDropdown.getSelectedItem().toString());
         builder.setMessage("האם אתה בטוח שתרצה לבצע פעולה זו?");
 
         // Set up the buttons
         builder.setPositiveButton("כן!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Admin admin = new Admin(tempVoter,areasDropdown.getSelectedItem().toString(), false);
+                Admin admin = new Admin(tempVoter, areasDropdown.getSelectedItem().toString(), false);
                 dbUtils.manageAdmin(Constant.DataBaseName, Constant.AdminsCollection, tempVoter.getVoterId(), admin);
                 finish();
             }
@@ -91,9 +92,9 @@ public class AppointAdmin extends AppCompatActivity {
     }
 
     private void appointAdmin() {
-        if(areasDropdown.getSelectedItem().toString().isEmpty()){
-            Toast.makeText(this,"אתה חייב לבחור אזור", Toast.LENGTH_SHORT).show();
-        }else {
+        if (areasDropdown.getSelectedItem().toString().isEmpty()) {
+            Toast.makeText(this, "אתה חייב לבחור אזור", Toast.LENGTH_SHORT).show();
+        } else {
             dialoAappointAdmin();
         }
     }
@@ -110,11 +111,11 @@ public class AppointAdmin extends AppCompatActivity {
     private void searchAdmin() {
         tempVoter = null;
         String theText = id_search.getText().toString();
-        if(theText.isEmpty()){
-            Toast.makeText(this,"אתה חייב למלא את השדה של התעודת זהות", Toast.LENGTH_SHORT).show();
+        if (theText.isEmpty()) {
+            Toast.makeText(this, "אתה חייב למלא את השדה של התעודת זהות", Toast.LENGTH_SHORT).show();
         }
         //TODO fix it
-        else if (!Calculation.isValidId(theText)){
+        else if (!Calculation.isValidId(theText)) {
 
         }
 //        else if (theText.length() != 9) {
@@ -122,11 +123,22 @@ public class AppointAdmin extends AppCompatActivity {
 //        }
         else {
             dbUtils.getVoterById(Constant.DataBaseName, Constant.VotersCollection, theText, (success, error) -> {
-                if(success != null){
+                if (success != null) {
+                    boolean isAdmin = false;
                     tempVoter = (Voter) success;
-                    presentVoter(tempVoter);
+                    for (Admin admin : TemporaryDB.getAllAdmins().values()) {
+                        if (String.valueOf(admin.getVoterId()).equals(tempVoter.getVoterId())) {
+                            isAdmin = true;
+                            break;
+                        }
+                    }
+                    if (isAdmin) {
+                        Toast.makeText(this, "מי שבחרת כבר מהנל אזור מסויים, אי אפשר להיות מנהל של כמה אזורים", Toast.LENGTH_SHORT).show();
+                    } else {
+                        presentVoter(tempVoter);
+                    }
                 } else {
-                    Toast.makeText(this,"לא נמצא אף אזרח, אנא בדוק את ה ת.ז ונסה שנית", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "לא נמצא אף אזרח, אנא בדוק את ה ת.ז ונסה שנית", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -166,7 +178,7 @@ public class AppointAdmin extends AppCompatActivity {
     private void refershList() {
         areaNames = new ArrayList<>();
         areaNames.add("");
-        for(Area area : TemporaryDB.getAllAreas().values()){
+        for (Area area : TemporaryDB.getAllAreas().values()) {
             areaNames.add(area.getAreaName());
         }
 
