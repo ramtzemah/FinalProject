@@ -54,8 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="bottom"
+            android:orientation="vertical"
             android:paddingTop="10dp"
             android:paddingBottom="20dp">
 
@@ -71,10 +71,10 @@
                     android:layout_height="150dp"
                     android:layout_marginStart="15dp"
                     android:background="@drawable/border_square_grey_with_background"
-                    android:src="@drawable/ic_detect_parties"
-                    android:scaleType="centerCrop"
                     android:drawablePadding="8dp"
-                    android:padding="16dp" />
+                    android:padding="16dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_detect_parties" />
 
                 <Space
                     android:id="@+id/space1"
@@ -86,12 +86,12 @@
                     android:id="@+id/MB_voteBtn"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:background="@drawable/border_square_grey_with_background"
-                    android:src="@drawable/ic_ballotbox"
-                    android:scaleType="centerCrop"
-                    android:padding="2dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp" />
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/border_square_grey_with_background"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_ballotbox" />
 
             </LinearLayout>
 
@@ -99,10 +99,10 @@
                 android:id="@+id/MB_manageBtn"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/border_square_grey_with_background"
-                android:src="@drawable/ic_admin"
-                android:scaleType="centerCrop"
                 android:layout_marginStart="150dp"
+                android:background="@drawable/border_square_grey_with_background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_admin"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
