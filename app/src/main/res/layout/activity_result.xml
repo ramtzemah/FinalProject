@@ -145,7 +145,7 @@
 
         <com.github.mikephil.charting.charts.PieChart
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:id="@+id/pieChart_view"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
