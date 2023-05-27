@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.telephony.SmsManager;
 import android.text.Editable;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.finalproject.Calculations.Constant;
@@ -50,6 +53,8 @@ public class SMSActivity extends AppCompatActivity {
     private String mVerificationId;
     private EditText[] verificationCodeFields;
     private DbUtils dbUtils;
+    private LinearLayout ll_timer, ll_send_again;
+    private TextView timer, te_send_again;
 
 
     @Override
@@ -61,7 +66,6 @@ public class SMSActivity extends AppCompatActivity {
         id = getIntent().getStringExtra("id");
         phoneNumber = getIntent().getStringExtra("phoneNumber");
 
-
         sendSMS(phoneNumber);
         initViews();
     }
@@ -69,6 +73,10 @@ public class SMSActivity extends AppCompatActivity {
 
 
     private void findviews() {
+        ll_timer = findViewById(R.id.ll_timer);
+        timer = findViewById(R.id.timer);
+        ll_send_again = findViewById(R.id.ll_send_again);
+        te_send_again = findViewById(R.id.te_send_again);
         digit1 = findViewById(R.id.digit1);
         digit2 = findViewById(R.id.digit2);
         digit3 = findViewById(R.id.digit3);
@@ -82,6 +90,7 @@ public class SMSActivity extends AppCompatActivity {
         firebaseAuthSettings = mAuth.getFirebaseAuthSettings();
         verificationCodeFields = new EditText[]{digit1, digit2, digit3, digit4, digit5, digit6};
         dbUtils = new DbUtils();
+        startCountdown(90000);
     }
 
     private void initViews() {
@@ -96,6 +105,14 @@ public class SMSActivity extends AppCompatActivity {
                 }
                 PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId,code);
                 signInWithPhoneAuthCredential(credential);
+            }
+        });
+
+        te_send_again.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendSMS(phoneNumber);
+                startCountdown(90000);
             }
         });
     }
@@ -248,6 +265,33 @@ public class SMSActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    private void startCountdown(int milliSeconds) {
+        ll_timer.setVisibility(View.VISIBLE);
+        ll_send_again.setVisibility(View.GONE);
+
+        new CountDownTimer(milliSeconds, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long remindTimeInSeconds = millisUntilFinished / 1000;
+                long secondLessThanOneMin = remindTimeInSeconds % 60;
+                String minutes = String.format("%01d", remindTimeInSeconds / 60);
+                String seconds = String.format("%01d", secondLessThanOneMin);
+
+                if (secondLessThanOneMin < 10) {
+                    timer.setText("0" + minutes + ":" + "0" + seconds);
+                } else {
+                    timer.setText("0" + minutes + ":" + seconds);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                ll_timer.setVisibility(View.GONE);
+                ll_send_again.setVisibility(View.VISIBLE);
+            }
+        }.start();
     }
 
 
