@@ -53,26 +53,24 @@ public class ResultActivity extends AppCompatActivity {
 
         dbUtils = new DbUtils();
         area = getIntent().getStringExtra("area");
-        if (area.equals("all")){
+        if (area.equals("all")) {
             getDataAllCountry();
             title.setText("All Country");
-         //   agesBlocksData();
-        }else {
+            showPieChartAllCountry();
+        } else {
             title.setText(area);
             getDataByArea();
+            showPieChartByArea();
         }
-
-        showPieChart();
-
 
 
         ages_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 createAgeBlocks();
-                if (area.equals("all")){
+                if (area.equals("all")) {
                     agesBlocksData();
-                }else {
+                } else {
                     title.setText(area);
                     agesBlocksDataByArea();
                 }
@@ -90,16 +88,16 @@ public class ResultActivity extends AppCompatActivity {
     private void getDataAllCountry() {
         dbUtils.getAllVotesInCountry(Constant.DataBaseName, Constant.VotesCollectionNew, (result, t) -> {
             if (result != null) {
-                dbUtils.getAllVotesAndSex(Constant.DataBaseName, Constant.VotesCollectionNew,  Gender.זכר.toString(), (success, error) -> {
+                dbUtils.getAllVotesAndSex(Constant.DataBaseName, Constant.VotesCollectionNew, Gender.זכר.toString(), (success, error) -> {
                     if (success != null) {
                         double boysGirlsVote = calculatePercentage((long) success, (long) result);
-                        pb_by_sex_prec.setProgressPercentage(boysGirlsVote,true);
+                        pb_by_sex_prec.setProgressPercentage(boysGirlsVote, true);
                     }
                 });
                 dbUtils.getAllVotersAllCountry(Constant.DataBaseName, Constant.VotersCollection, (success, error) -> {
                     if (success != null) {
                         double votNotVote = calculatePercentage((long) result, (long) success);
-                        pb_voters_prec.setProgressPercentage(votNotVote,true);
+                        pb_voters_prec.setProgressPercentage(votNotVote, true);
                     }
                 });
             }
@@ -111,21 +109,21 @@ public class ResultActivity extends AppCompatActivity {
         int dropDownSelection = Integer.parseInt(ages_dropdown.getSelectedItem().toString());
         dbUtils.getAllAgeVoterByArea(Constant.DataBaseName, Constant.VotersCollection, area, dropDownSelection, (result, t) -> {
             if (result != null) {
-                Map<Integer,Integer> temp = (Map<Integer, Integer>) result;
+                Map<Integer, Integer> temp = (Map<Integer, Integer>) result;
                 for (Map.Entry<Integer, Integer> entry : temp.entrySet()) {
                     allVotersByAgeBlock.put(entry.getKey(),
                             entry.getValue());
                 }
                 dbUtils.getAllAgeVoterHowVoteByArea(Constant.DataBaseName, Constant.VotersCollection, area, dropDownSelection, (success, t2) -> {
                     if (success != null) {
-                        Map<Integer,Integer> temp2 = (Map<Integer, Integer>) success;
+                        Map<Integer, Integer> temp2 = (Map<Integer, Integer>) success;
                         for (Map.Entry<Integer, Integer> entry2 : temp2.entrySet()) {
                             allVotersHowVoteByAgeBlock.put(entry2.getKey(),
                                     entry2.getValue());
                         }
                         ArrayList<Double> votesPrec = new ArrayList<>();
-                        for (int i = TemporaryDB.startVotingAge(); i < TemporaryDB.getOldestAge(); i=i+dropDownSelection) {
-                            votesPrec.add(calculatePercentage(allVotersHowVoteByAgeBlock.get(i),allVotersByAgeBlock.get(i)));
+                        for (int i = TemporaryDB.startVotingAge(); i < TemporaryDB.getOldestAge(); i = i + dropDownSelection) {
+                            votesPrec.add(calculatePercentage(allVotersHowVoteByAgeBlock.get(i), allVotersByAgeBlock.get(i)));
                         }
                         adapter = new DistributionOfVotersByAgeAdapter(this, agesBlocksList, votesPrec);
                         RV_DistributionByAge.setLayoutManager(new LinearLayoutManager(this));
@@ -138,31 +136,31 @@ public class ResultActivity extends AppCompatActivity {
 
     private void agesBlocksData() {
         int dropDownSelection = Integer.parseInt(ages_dropdown.getSelectedItem().toString());
-                dbUtils.getAllAgeVoter(Constant.DataBaseName, Constant.VotersCollection, dropDownSelection, (result, t) -> {
-                    if (result != null) {
-                        Map<Integer,Integer> temp = (Map<Integer, Integer>) result;
-                        for (Map.Entry<Integer, Integer> entry : temp.entrySet()) {
-                            allVotersByAgeBlock.put(entry.getKey(),
-                                    entry.getValue());
+        dbUtils.getAllAgeVoter(Constant.DataBaseName, Constant.VotersCollection, dropDownSelection, (result, t) -> {
+            if (result != null) {
+                Map<Integer, Integer> temp = (Map<Integer, Integer>) result;
+                for (Map.Entry<Integer, Integer> entry : temp.entrySet()) {
+                    allVotersByAgeBlock.put(entry.getKey(),
+                            entry.getValue());
+                }
+                dbUtils.getAllAgeVoterHowVote(Constant.DataBaseName, Constant.VotersCollection, dropDownSelection, (success, t2) -> {
+                    if (success != null) {
+                        Map<Integer, Integer> temp2 = (Map<Integer, Integer>) success;
+                        for (Map.Entry<Integer, Integer> entry2 : temp2.entrySet()) {
+                            allVotersHowVoteByAgeBlock.put(entry2.getKey(),
+                                    entry2.getValue());
                         }
-                        dbUtils.getAllAgeVoterHowVote(Constant.DataBaseName, Constant.VotersCollection, dropDownSelection, (success, t2) -> {
-                            if (success != null) {
-                                Map<Integer,Integer> temp2 = (Map<Integer, Integer>) success;
-                                for (Map.Entry<Integer, Integer> entry2 : temp2.entrySet()) {
-                                    allVotersHowVoteByAgeBlock.put(entry2.getKey(),
-                                            entry2.getValue());
-                                }
-                                ArrayList<Double> votesPrec = new ArrayList<>();
-                                for (int i = TemporaryDB.startVotingAge(); i < TemporaryDB.getOldestAge(); i=i+dropDownSelection) {
-                                votesPrec.add(calculatePercentage(allVotersHowVoteByAgeBlock.get(i),allVotersByAgeBlock.get(i)));
-                                }
-                                adapter = new DistributionOfVotersByAgeAdapter(this, agesBlocksList, votesPrec);
-                                RV_DistributionByAge.setLayoutManager(new LinearLayoutManager(this));
-                                RV_DistributionByAge.setAdapter(adapter);
-                            }
-                        });
+                        ArrayList<Double> votesPrec = new ArrayList<>();
+                        for (int i = TemporaryDB.startVotingAge(); i < TemporaryDB.getOldestAge(); i = i + dropDownSelection) {
+                            votesPrec.add(calculatePercentage(allVotersHowVoteByAgeBlock.get(i), allVotersByAgeBlock.get(i)));
+                        }
+                        adapter = new DistributionOfVotersByAgeAdapter(this, agesBlocksList, votesPrec);
+                        RV_DistributionByAge.setLayoutManager(new LinearLayoutManager(this));
+                        RV_DistributionByAge.setAdapter(adapter);
                     }
                 });
+            }
+        });
     }
 
     private void getDataByArea() {
@@ -171,13 +169,13 @@ public class ResultActivity extends AppCompatActivity {
                 dbUtils.getAllVotesInAreaAndSex(Constant.DataBaseName, Constant.VotesCollectionNew, area, Gender.זכר.toString(), (success, error) -> {
                     if (success != null) {
                         double boysGirlsVote = calculatePercentage((long) success, (long) result);
-                        pb_by_sex_prec.setProgressPercentage(boysGirlsVote,true);
+                        pb_by_sex_prec.setProgressPercentage(boysGirlsVote, true);
                     }
-            });
+                });
                 dbUtils.getAllVotersInArea(Constant.DataBaseName, Constant.VotersCollection, area, (success, error) -> {
                     if (success != null) {
                         double votNotVote = calculatePercentage((long) result, (long) success);
-                        pb_voters_prec.setProgressPercentage(votNotVote,true);
+                        pb_voters_prec.setProgressPercentage(votNotVote, true);
                     }
                 });
             }
@@ -186,18 +184,18 @@ public class ResultActivity extends AppCompatActivity {
 
     private void createAgeBlocks() {
         agesBlocksList = new ArrayList<AgesBlocks>();
-        allVotersByAgeBlock= new HashMap<>();
-        allVotersHowVoteByAgeBlock= new HashMap<>();
+        allVotersByAgeBlock = new HashMap<>();
+        allVotersHowVoteByAgeBlock = new HashMap<>();
         int oldesAge = TemporaryDB.getOldestAge();
         int startVotingAge = TemporaryDB.startVotingAge();
         int dropDownSelection = Integer.parseInt(ages_dropdown.getSelectedItem().toString());
-        while (startVotingAge < oldesAge){
-            allVotersByAgeBlock.put(startVotingAge,0);
-            allVotersHowVoteByAgeBlock.put(startVotingAge,0);
-            agesBlocksList.add(new AgesBlocks(startVotingAge, startVotingAge + dropDownSelection,dropDownSelection));
+        while (startVotingAge < oldesAge) {
+            allVotersByAgeBlock.put(startVotingAge, 0);
+            allVotersHowVoteByAgeBlock.put(startVotingAge, 0);
+            agesBlocksList.add(new AgesBlocks(startVotingAge, startVotingAge + dropDownSelection, dropDownSelection));
             startVotingAge += dropDownSelection;
         }
-        if(adapter != null){
+        if (adapter != null) {
             adapter.setAgesBlocksList(agesBlocksList);
             adapter.notifyDataSetChanged();
         }
@@ -215,7 +213,7 @@ public class ResultActivity extends AppCompatActivity {
 
 
     private void refreshList() {
-        List<String> ages = Arrays.asList("3","6", "9");
+        List<String> ages = Arrays.asList("3", "6", "9");
 
 // Create an ArrayAdapter with the keysList
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ages);
@@ -225,19 +223,26 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
+    private void showPieChartAllCountry() {
+        dbUtils.getResultAllCountry(Constant.DataBaseName, Constant.VotesCollectionNew, (success, error) -> {
+            if (success != null) {
+                Map<String, Integer> typeAmountMap = (Map<String, Integer>) success;
+                makePie(typeAmountMap);
+            }
+        });
+    }
+    private void showPieChartByArea() {
+        dbUtils.getResultByArea(Constant.DataBaseName, Constant.VotesCollectionNew, area, (success, error) -> {
+            if (success != null) {
+                Map<String, Integer> typeAmountMap = (Map<String, Integer>) success;
+                makePie(typeAmountMap);
+            }
+        });
+    }
 
-    private void showPieChart(){
-
+    private void makePie(Map<String, Integer> typeAmountMap) {
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         String label = "מפלגות:";
-
-        //initializing data
-        Map<String, Integer> typeAmountMap = new HashMap<>();
-        typeAmountMap.put("עוצמה יהודית",200);
-        typeAmountMap.put("לפיד",230);
-        typeAmountMap.put("כחול לבן",100);
-        typeAmountMap.put("ישראל ביתנו",50);
-        typeAmountMap.put("ליכוד",500);
 
         //initializing colors for the entries
         ArrayList<Integer> colors = new ArrayList<>();
@@ -250,12 +255,12 @@ public class ResultActivity extends AppCompatActivity {
         colors.add(Color.parseColor("#3ca567"));
 
         //input data and fit data into pie chart entry
-        for(String type: typeAmountMap.keySet()){
+        for (String type : typeAmountMap.keySet()) {
             pieEntries.add(new PieEntry(typeAmountMap.get(type).floatValue(), type));
         }
 
         //collecting the entries with label name
-        PieDataSet pieDataSet = new PieDataSet(pieEntries,label);
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, label);
         //setting text size of the value
         pieDataSet.setValueTextSize(12f);
         //providing color list for coloring different entries
@@ -270,18 +275,18 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public double calculatePercentage(long value, long total) {
-        if (total == 0){
+        if (total == 0) {
             return 0;
         }
-        double percentage = ((double) ((double) value / (double) total) )* 100.0;
+        double percentage = ((double) ((double) value / (double) total)) * 100.0;
         return percentage;
     }
 
     public double calculatePercentage(int value, int total) {
-        if (total == 0){
+        if (total == 0) {
             return 0;
         }
-        double percentage = ((double) ((double) value / (double) total) )* 100.0;
+        double percentage = ((double) ((double) value / (double) total)) * 100.0;
         return percentage;
     }
 }

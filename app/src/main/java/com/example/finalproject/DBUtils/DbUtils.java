@@ -12,19 +12,12 @@ import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Date;
 import com.example.finalproject.Entities.Party;
-import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Callbacks.PartiesCallback;
 import com.example.finalproject.Entities.VoterVote;
-import com.mongodb.client.AggregateIterable;
-import com.mongodb.client.MongoIterable;
-import com.mongodb.client.model.Aggregates;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Projections;
 import com.mongodb.internal.async.SingleResultCallback;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +27,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
-import io.realm.Realm;
 import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
@@ -175,13 +167,13 @@ public class DbUtils {
             if (task1.isSuccess()) {
                 Document result = task1.get();
                 // Assuming that Voter is a class that can be constructed from a Document.
-               if(result == null){
-                   callback.onResult(null, null);
-               } else {
-                   tempVoter.set(new Voter(result));
-                   callback.onResult(tempVoter.get(), null);
-                   Log.v("EXAMPLE", "successfully found a document: " + task1);
-               }
+                if (result == null) {
+                    callback.onResult(null, null);
+                } else {
+                    tempVoter.set(new Voter(result));
+                    callback.onResult(tempVoter.get(), null);
+                    Log.v("EXAMPLE", "successfully found a document: " + task1);
+                }
             } else {
                 Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
                 callback.onResult(null, task1.getError());
@@ -829,6 +821,79 @@ public class DbUtils {
             } else {
                 adminsCallback.onComplete(null, task.getError());
                 Log.e("EXAMPLE", "failed to find documents with: ", task.getError());
+            }
+        });
+    }
+
+
+    public void getResultAllCountry(String dataBase, String collectionName, PartiesCallback partiesCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        List<Document> pipeline = Arrays.asList(
+
+                new Document("$sortByCount", "$partyId"),
+                new Document("$lookup", new Document("from", "parties")
+                        .append("localField", "_id")
+                        .append("foreignField", "partyId")
+                        .append("as", "theParty")),
+                new Document("$project", new Document("count", "$count")
+                        .append("partyName", "$theParty.name")));
+
+        RealmResultTask<MongoCursor<Document>> aggregationTask =
+                collection.aggregate(pipeline).iterator();
+        aggregationTask.getAsync(task -> {
+            if (task.isSuccess()) {
+                MongoCursor<Document> results = task.get();
+                // iterate over and print the results to the log
+                Map<String, Integer> parties = new HashMap<>();
+                while (results.hasNext()) {
+                    Document doc = results.next();
+                    parties.put(String.valueOf(((ArrayList<Document>) doc.get("partyName")).get(0)), (Integer) doc.get("count"));
+                    Log.v("EXAMPLE", doc.toString());
+                }
+                partiesCallback.onComplete(parties, null);
+            } else {
+                partiesCallback.onComplete(null, task.getError());
+                Log.e("EXAMPLE", "failed to find document with: ", task.getError());
+                // votersCallback.onComplete(null, task.getError());
+            }
+        });
+    }
+
+    public void getResultByArea(String dataBase, String collectionName, String area, PartiesCallback partiesCallback) {
+        initConnection();
+        MongoDatabase database = mongoClient.getDatabase(dataBase);
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        List<Document> pipeline = Arrays.asList(
+                new Document("$match", new Document("area", area)),
+                new Document("$sortByCount", "$partyId"),
+                new Document("$lookup", new Document("from", "parties")
+                        .append("localField", "_id")
+                        .append("foreignField", "partyId")
+                        .append("as", "theParty")),
+                new Document("$project", new Document("count", "$count")
+                        .append("partyName", "$theParty.name")));
+
+        RealmResultTask<MongoCursor<Document>> aggregationTask =
+                collection.aggregate(pipeline).iterator();
+        aggregationTask.getAsync(task -> {
+            if (task.isSuccess()) {
+                MongoCursor<Document> results = task.get();
+                // iterate over and print the results to the log
+                Map<String, Integer> parties = new HashMap<>();
+                while (results.hasNext()) {
+                    Document doc = results.next();
+                    parties.put(String.valueOf(((ArrayList<Document>) doc.get("partyName")).get(0)), (Integer) doc.get("count"));
+                    Log.v("EXAMPLE", doc.toString());
+                }
+                partiesCallback.onComplete(parties, null);
+            } else {
+                partiesCallback.onComplete(null, task.getError());
+                Log.e("EXAMPLE", "failed to find document with: ", task.getError());
+                // votersCallback.onComplete(null, task.getError());
             }
         });
     }
