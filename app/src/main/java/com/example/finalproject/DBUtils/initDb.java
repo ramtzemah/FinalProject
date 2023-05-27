@@ -81,10 +81,10 @@ public class initDb {
 
     public void addAreasToDB(){
                         List<Area> areas = new ArrayList<>();
-                        areas.add(new Area("צפון"));
-                        areas.add(new Area("דרום"));
-                        areas.add(new Area("מזרח"));
-                        areas.add(new Area("מערב"));
+                        areas.add(new Area("צפון","מתנס מרכז הגליל"));
+                        areas.add(new Area("דרום","באר שבעת בית הספר דרורים"));
+                        areas.add(new Area("מזרח","מרכז ירושלים"));
+                        areas.add(new Area("מערב","חוף האמצע"));
                         dbUtils.addAllArea(Constant.DataBaseName,Constant.AreasCollection, areas);
                     }
 
