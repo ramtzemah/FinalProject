@@ -84,4 +84,5 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
     //Timer
     implementation 'com.github.tsuryo:Android-Countdown-Timer:1.2'
+
 }

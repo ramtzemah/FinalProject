@@ -219,15 +219,33 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void toAllParties() {
-        if(tempVoter.isAlreadyVote() || tempVoter.getAge() < 18){
-            toPartiesPlatform();
-        } else {
+        if(tempVoter.isAlreadyVote()){
+            cantVoteExplain("לא ניתן להצביע פעמיים, לכן תועבר כעת למסך צפייה במפלגות\nאנא לחץ OK לאישור");
+
+        }else if(tempVoter.getAge() < 18) {
+            cantVoteExplain("לא ניתן להצביע מתחת לגיל 18, לכן תועבר כעת למסך צפייה במפלגות\nאנא לחץ OK לאישור");
+        }
+        else {
             Intent intent = new Intent(VoteActivity.this, AllParties.class);
             intent.putExtra("from", "vote");
             intent.putExtra("userId", voterId);
             startActivity(intent);
         }
     }
+
+    private void cantVoteExplain(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(VoteActivity.this);
+        builder.setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        toPartiesPlatform();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 
     private void toAdminManageSection() {
         Intent intent = new Intent(VoteActivity.this, ManageSection.class);
