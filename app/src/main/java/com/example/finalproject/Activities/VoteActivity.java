@@ -28,6 +28,7 @@ import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.Entities.Admin;
+import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Enums.Gender;
 import com.example.finalproject.R;
@@ -49,7 +50,7 @@ public class VoteActivity extends AppCompatActivity {
     private Voter tempVoter;
     private Counter mCounter;
     private TextView welcome_text;
-
+    private Area tempArea;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +86,11 @@ public class VoteActivity extends AppCompatActivity {
         dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, voterId, (success, error) -> {
             if (success != null) {
                 tempVoter = (Voter) success;
+                dbUtils.getAreaByAreaName(Constant.DataBaseName, Constant.AreasCollection, tempVoter.getArea(), (result, exception) -> {
+                    if(result != null){
+                        tempArea = (Area) result;
+                    }
+                });
                 addtitle();
             }
         });

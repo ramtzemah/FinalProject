@@ -422,7 +422,7 @@ public class DbUtils {
         MongoDatabase database = mongoClient.getDatabase(dataBase);
         MongoCollection<Document> collection = database.getCollection(collectionName);
         Document document = new Document(new Document("areaId", area.getId())
-                .append("name", area.getAreaName()));
+                .append("name", area.getAreaName()).append("defaultVoteStation", area.getDefaultVoteStation()));
         collection.insertOne(document).getAsync(result -> {
             if (result.isSuccess()) {
                 Log.d("ptttttttt", "Inserted successfully");
@@ -440,7 +440,7 @@ public class DbUtils {
 
         for (Area area : areas) {
             Document document = new Document(new Document("areaId", area.getId())
-                    .append("name", area.getAreaName()));
+                    .append("name", area.getAreaName()).append("defaultVoteStation", area.getDefaultVoteStation()));
             documents.add(document);
         }
 

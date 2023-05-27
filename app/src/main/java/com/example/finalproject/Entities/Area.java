@@ -13,16 +13,19 @@ import java.util.Set;
 public class Area {
     private String id;
     private String areaName;
+    private String defaultVoteStation;
 
-    public Area(String areaName) {
+    public Area(String areaName, String defaultVoteStation) {
         this.areaName = areaName;
         ObjectId objectId = new ObjectId();
         this.id = objectId.toString();
+        this.defaultVoteStation = defaultVoteStation;
     }
 
     public Area(@NonNull Document document) {
         this.id = document.getString("areaId");
         this.areaName = document.getString("name");
+        this.defaultVoteStation = document.getString("defaultVoteStation");
     }
 
     public String getId() {
@@ -41,4 +44,11 @@ public class Area {
         this.areaName = areaName;
     }
 
+    public String getDefaultVoteStation() {
+        return defaultVoteStation;
+    }
+
+    public void setDefaultVoteStation(String defaultVoteStation) {
+        this.defaultVoteStation = defaultVoteStation;
+    }
 }

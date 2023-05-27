@@ -60,10 +60,10 @@ public class Generators {
     }
 
     public static void addAreasToDB(){
-        TemporaryDB.addArea(new Area("צפון"));
-        TemporaryDB.addArea(new Area("דרום"));
-        TemporaryDB.addArea(new Area("מזרח"));
-        TemporaryDB.addArea(new Area("מערב"));
+        TemporaryDB.addArea(new Area("dsadsa","צפון"));
+        TemporaryDB.addArea(new Area("dsadsa","דרום"));
+        TemporaryDB.addArea(new Area("dsadsa","מזרח"));
+        TemporaryDB.addArea(new Area("dsadsa","מערב"));
     }
 
     public static void addAdminToDB(){

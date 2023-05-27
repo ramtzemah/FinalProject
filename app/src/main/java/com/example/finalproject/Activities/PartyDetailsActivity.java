@@ -19,6 +19,7 @@ import androidx.biometric.BiometricPrompt;
 import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
+import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.R;
 import com.google.android.material.button.MaterialButton;
@@ -34,6 +35,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
     private String userId;
     private DbUtils dbUtils;
     private Voter tempVoter;
+    private Area tempArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,11 @@ public class PartyDetailsActivity extends AppCompatActivity {
         dbUtils.getVoterByVoterId(Constant.DataBaseName, Constant.VotersCollection, userId, (success, error) -> {
             if (success != null) {
                 tempVoter = (Voter) success;
+                dbUtils.getAreaByAreaName(Constant.DataBaseName, Constant.AreasCollection, tempVoter.getArea(), (result, exception) -> {
+                    if(result != null){
+                        tempArea = (Area) result;
+                    }
+                });
                 if (tempVoter.isAlreadyVote()) {
                     MB_votebtn.setOnClickListener(v -> alreadyVoted());
                 } else {
