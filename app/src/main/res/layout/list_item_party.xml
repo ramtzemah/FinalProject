@@ -1,25 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="3dp">
 
-
-    <ImageView
-        android:id="@+id/party_logo"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/party_logo_placeholder"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="@string/party_logo_content_description"/>
+        android:layout_marginBottom="10dp">
 
-    <TextView
-        android:id="@+id/party_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black"
-        android:visibility="gone"/>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="40dp"
+            app:strokeColor="@android:color/darker_gray"
+            app:strokeWidth="2dp">
+
+            <ImageView
+                android:id="@+id/party_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/party_logo_placeholder"
+
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/party_logo_content_description" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/party_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black"
+            android:visibility="gone" />
+
+    </FrameLayout>
 </LinearLayout>
