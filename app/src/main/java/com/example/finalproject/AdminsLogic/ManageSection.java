@@ -78,10 +78,10 @@ public class ManageSection extends AppCompatActivity {
         Date currentDate = Calendar.getInstance().getTime();
         if (currentDate.before(TemporaryDB.endDesiredDate)) {
             MB_resultBtn.setEnabled(false);
-            MB_resultBtn.setBackgroundResource(R.drawable.btn_grey);
+//            MB_resultBtn.setBackgroundResource(R.drawable.btn_grey);
         } else {
             MB_resultBtn.setEnabled(true);
-            MB_resultBtn.setBackgroundResource(R.drawable.btn_regular);
+//            MB_resultBtn.setBackgroundResource(R.drawable.btn_regular);
         }
         MB_resultBtn.setOnClickListener(v -> results());
         MB_firedAdminBtn.setOnClickListener(v -> firedAdmin());

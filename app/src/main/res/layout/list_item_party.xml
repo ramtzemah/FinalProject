@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/party_logo_placeholder"
 
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:contentDescription="@string/party_logo_content_description" />
 
         </com.google.android.material.card.MaterialCardView>
