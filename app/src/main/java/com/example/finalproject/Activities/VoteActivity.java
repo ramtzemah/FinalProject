@@ -32,6 +32,7 @@ import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Enums.Gender;
 import com.example.finalproject.R;
+import com.google.android.material.button.MaterialButton;
 import com.tsuryo.androidcountdown.Counter;
 import com.tsuryo.androidcountdown.TimeUnits;
 
@@ -39,7 +40,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class VoteActivity extends AppCompatActivity {
-    private ImageButton MB_voteBtn, MB_manageBtn, MB_partyPlatformBtn;
+    private MaterialButton MB_voteBtn, MB_manageBtn, MB_partyPlatformBtn;
     private ImageView infoButton;
     private String voterId;
     private String adminId;

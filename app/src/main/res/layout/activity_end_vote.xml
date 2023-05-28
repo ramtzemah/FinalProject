@@ -7,6 +7,14 @@
     android:padding="16dp"
     android:layoutDirection="rtl">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/ic_ballot_animation"
+        app:lottie_loop="true"/>
+
     <ImageView
         android:id="@+id/party_logo_imageview"
         android:layout_width="350dp"
