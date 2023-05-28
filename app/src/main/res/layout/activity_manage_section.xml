@@ -1,62 +1,112 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminsLogic.ManageSection">
+    >
 
-    <com.tsuryo.androidcountdown.Counter
-        android:id="@+id/counter"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:max_time_unit="HOUR"
-        app:text_color="@color/colorPrimary"
-        app:text_size="36dp"
-        android:layout_marginTop="170dp"
-        android:layout_centerHorizontal="true"
-        app:custom_font="@font/digi" />
+        android:orientation="vertical"
+        android:background="@drawable/admin_landing_screen">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_resultBtn"
-        android:layout_width="105dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
-        android:text="תוצאות"
-        android:textColor="@color/white"
-        app:cornerRadius="4dp"
-        app:strokeWidth="0dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="תפריט"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font_title" />
+        </LinearLayout>
+        <com.tsuryo.androidcountdown.Counter
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:max_time_unit="HOUR"
+            app:text_color="@color/colorPrimary"
+            app:text_size="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            app:custom_font="@font/digi" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_appointAdminBtn"
-        android:layout_width="105dp"
-        android:layout_height="80dp"
-        android:layout_below="@+id/MB_resultBtn"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
-        android:text="מנה מנהל"
-        android:textColor="@color/white"
-        android:visibility="invisible"
-        app:backgroundTint="#0068FF"
-        app:cornerRadius="4dp"
-        app:strokeWidth="0dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/MB_firedAdminBtn"
-        android:layout_width="105dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/MB_appointAdminBtn"
-        android:text="הדח מנהל"
-        android:textColor="@color/white"
-        app:backgroundTint="#0068FF"
-        app:cornerRadius="4dp"
-        app:strokeWidth="0dp"
-        android:visibility="invisible"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="550dp">
 
-</RelativeLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/MB_resultBtn"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="תוצאות"
+            android:textSize="26dp"
+            android:fontFamily="@font/font_title"
+            app:cornerRadius="45dp"
+            app:icon="@drawable/ic_btn_results"
+            app:iconPadding="-35dp"
+            app:iconSize="60dp"
+            app:iconGravity="end"
+            app:strokeWidth="0dp"
+            android:textColor="@color/white"
+            android:backgroundTint="#702963"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/MB_appointAdminBtn"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="10dp"
+            android:text="מנה מנהל"
+            android:textSize="26dp"
+            android:fontFamily="@font/font_title"
+            android:backgroundTint="#702963"
+            app:cornerRadius="45dp"
+            app:icon="@drawable/ic_appoint_admin_btn"
+            app:iconSize="60dp"
+            app:iconGravity="end"
+            app:strokeWidth="0dp"
+            android:textColor="@color/white"
+            android:visibility="invisible"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/MB_firedAdminBtn"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="הדח מנהל"
+            android:textColor="@color/white"
+            android:textSize="26dp"
+            android:fontFamily="@font/font_title"
+            app:cornerRadius="45dp"
+            app:backgroundTint="#702963"
+            app:strokeWidth="0dp"
+            app:icon="@drawable/ic_fire_admin_btn"
+            app:iconTint="@color/white"
+            app:iconSize="60dp"
+            app:iconGravity="end"
+            android:visibility="invisible" />
+
+
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>
