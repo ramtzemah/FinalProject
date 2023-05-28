@@ -60,6 +60,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="20dp">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -70,43 +71,66 @@
                 android:layout_marginTop="300dp"
                 android:paddingBottom="20dp">
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/MB_partyPlatformBtn"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@drawable/border_square_grey_with_background"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_detect_parties"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="35dp"
+                    app:cornerRadius="45dp"
+                    android:layout_marginEnd="35dp"
                     android:padding="16dp"
                     android:layout_marginTop="450dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:text="חפש מפלגות"
+                    android:textSize="26dp"
+                    android:fontFamily="@font/font_title"
+                    app:icon="@drawable/ic_detect_parties"
+                    app:iconSize="60dp"
+                    app:iconGravity="end"
+                    app:backgroundTint="#0884fc" />
 
-                <ImageButton
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/MB_voteBtn"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@drawable/border_square_grey_with_background"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_ballotbox"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="35dp"
+                    app:cornerRadius="45dp"
+                    android:layout_marginEnd="35dp"
                     android:padding="16dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    app:icon="@drawable/ic_ballotbox"
+                    android:text="הצבע כאן"
+                    android:textSize="26dp"
+                    app:iconPadding="-35dp"
+                    android:fontFamily="@font/font_title"
+                    app:iconSize="60dp"
+                    app:iconGravity="end"
+                    app:backgroundTint="#0884fc" />
 
-                <ImageButton
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/MB_manageBtn"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@drawable/border_square_grey_with_background"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ic_admin"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="35dp"
+                    app:cornerRadius="45dp"
+                    android:layout_marginEnd="35dp"
                     android:padding="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="ניהול"
+                    android:textSize="26dp"
+                    android:fontFamily="@font/font_title"
+                    app:icon="@drawable/ic_admin"
+                    app:iconPadding="-70dp"
+                    app:iconSize="60dp"
+                    app:iconGravity="end"
+                    app:backgroundTint="#0884fc"
                     android:visibility="gone"/>
+
             </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

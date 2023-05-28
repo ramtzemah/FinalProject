@@ -14,6 +14,7 @@ import com.example.finalproject.Entities.Party;
 import com.example.finalproject.Entities.Vote;
 import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Entities.VoterVote;
+import com.airbnb.lottie.LottieAnimationView;
 
 import com.example.finalproject.R;
 
@@ -25,6 +26,7 @@ public class EndVote extends AppCompatActivity {
     private DbUtils dbUtils;
     private String userId;
     private String areaName;
+    private LottieAnimationView animationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +34,17 @@ public class EndVote extends AppCompatActivity {
         setContentView(R.layout.activity_end_vote);
         findViews();
 
-        partyId = getIntent().getStringExtra("party_id");
-        userId = getIntent().getStringExtra("userId");
+        //partyId = getIntent().getStringExtra("party_id");
+        //userId = getIntent().getStringExtra("userId");
 //        userId = "644bcbcfb29206472498446c";
-        updateData();
+        //updateData();
 
 
-        chosenParty = TemporaryDB.getPartyById(partyId);
+        //chosenParty = TemporaryDB.getPartyById(partyId);
 
 
-        partyNameTextView.setText(chosenParty.getName());
-        partyLogoImageView.setImageResource(chosenParty.getLogoResourceId());
+       //partyNameTextView.setText(chosenParty.getName());
+        //partyLogoImageView.setImageResource(chosenParty.getLogoResourceId());
     }
 
     private void updateData() {
@@ -62,5 +64,8 @@ public class EndVote extends AppCompatActivity {
         partyNameTextView = findViewById(R.id.party_name_textview);
         partyLogoImageView = findViewById(R.id.party_logo_imageview);
         approved_text = findViewById(R.id.approved_text);
+        LottieAnimationView animationView = findViewById(R.id.animationView);
+        animationView.playAnimation();
+
     }
 }
