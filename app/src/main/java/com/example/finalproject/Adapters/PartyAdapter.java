@@ -47,6 +47,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
     public void onBindViewHolder(@NonNull PartyViewHolder holder, int position) {
         Party party = parties.get(position);
         holder.partyLogo.setImageResource(party.getLogoResourceId());
+        holder.partyLogo.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.partyName.setText(party.getName());
         holder.partyLogo.setOnClickListener(new View.OnClickListener() {
             @Override
