@@ -29,7 +29,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         DbUtils dbUtils = new DbUtils();
         dbUtils.initConnection();
-    //    initDbMethod();
+        //initDbMethod();
 
         regularFlow();
         progressBar = findViewById(R.id.progress_bar);
