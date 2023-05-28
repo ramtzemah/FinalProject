@@ -22,9 +22,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.finalproject.R;
 
 public class EndVote extends AppCompatActivity {
-
-    private TextView partyNameTextView, approved_text;
-    private ImageView partyLogoImageView,thanksForVoting;
+    private ImageView thanksForVoting;
     private Party chosenParty;
     private String partyId;
     private DbUtils dbUtils;
@@ -45,9 +43,6 @@ public class EndVote extends AppCompatActivity {
 
         chosenParty = TemporaryDB.getPartyById(partyId);
 
-
-        partyNameTextView.setText(chosenParty.getName());
-        partyLogoImageView.setImageResource(chosenParty.getLogoResourceId());
     }
 
     private void updateData() {
