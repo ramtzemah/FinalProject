@@ -213,10 +213,10 @@ public class ResultActivity extends AppCompatActivity {
     private void refreshList() {
         List<String> ages = Arrays.asList("3", "6", "9");
 
-// Create an ArrayAdapter with the keysList
+        // Create an ArrayAdapter with the keysList
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ages);
 
-// Set the ArrayAdapter to the spinner
+        // Set the ArrayAdapter to the spinner
         ages_dropdown.setAdapter(adapter);
     }
 
@@ -270,6 +270,7 @@ public class ResultActivity extends AppCompatActivity {
 
         pieChart.setData(pieData);
         pieChart.invalidate();
+
     }
 
     public double calculatePercentage(long value, long total) {

@@ -128,12 +128,8 @@ public class AppointAdmin extends AppCompatActivity {
         if (theText.isEmpty()) {
             Toast.makeText(this, "אתה חייב למלא את השדה של התעודת זהות", Toast.LENGTH_SHORT).show();
         }
-        //TODO fix it
-        else if (!Calculation.isValidId(theText)) {
-
-        }
-//        else if (theText.length() != 9) {
-//            Toast.makeText(this,"תעודת זהות לא תקינה", Toast.LENGTH_SHORT).show();
+//        else if (!Calculation.isValidId(theText)) {
+//            Toast.makeText(this,"אנא הזן תעודת זהות תקינה", Toast.LENGTH_SHORT).show();
 //        }
         else {
             dbUtils.getVoterById(Constant.DataBaseName, Constant.VotersCollection, theText, (success, error) -> {

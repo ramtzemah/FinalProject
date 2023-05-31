@@ -38,10 +38,9 @@ public class LoginActivity extends AppCompatActivity {
         if(theText.isEmpty()){
             Toast.makeText(this,"אתה חייב למלא את השדה של התעודת זהות", Toast.LENGTH_SHORT).show();
         }
-        //TODO fix it
-        else if (!Calculation.isValidId(theText)){
-
-        }
+//        else if (!Calculation.isValidId(theText)){
+//            Toast.makeText(this,"אנא הזן תעודת זהות תקינה", Toast.LENGTH_SHORT).show();
+//        }
         else {
             dbUtils.getPhoneNumberById(Constant.DataBaseName, Constant.VotersCollection, theText, (success,error) ->{
                     if(success != null){

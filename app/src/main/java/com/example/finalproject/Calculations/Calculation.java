@@ -2,27 +2,24 @@ package com.example.finalproject.Calculations;
 
 public class Calculation {
 
-    public static boolean isValidId(String id) {
-        // Ensure that the ID is 9 digits long
-//TODO fix IT
-//        if (id.length() != 9) {
-//            return false;
-//        }
-//
-//        // Multiply each digit by a weight factor and sum the products
-//        int sum = 0;
-//        for (int i = 0; i < 9; i++) {
-//            int digit = Integer.parseInt(id.substring(i, i+1));
-//            int weight = (i % 2 == 0) ? 1 : 2;
-//            int product = digit * weight;
-//            if (product > 9) {
-//                product -= 9;
-//            }
-//            sum += product;
-//        }
-//
-//        // Check if the sum is divisible by 10
-//        return (sum % 10 == 0);
-    return true;
+    public static boolean isValidId(String idNumber) {
+        // Remove any non-digit characters
+        idNumber = idNumber.replaceAll("\\D", "");
+
+        // Check if the ID number has 9 digits
+        if (idNumber.length() != 9) {
+            return false;
+        }
+
+        // Calculate the checksum
+        int sum = 0;
+        for (int i = 0; i < 8; i++) {
+            int digit = Character.getNumericValue(idNumber.charAt(i));
+            sum += (i % 2 == 0) ? digit : digit * 2 - (digit > 4 ? 9 : 0);
+        }
+
+        // Check if the checksum is valid
+        int checksum = Character.getNumericValue(idNumber.charAt(8));
+        return (sum + checksum) % 10 == 0;
     }
 }
