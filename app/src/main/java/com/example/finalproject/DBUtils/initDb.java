@@ -1,10 +1,6 @@
 package com.example.finalproject.DBUtils;
 
-import android.util.Log;
-
 import com.example.finalproject.Calculations.Constant;
-import com.example.finalproject.Callbacks.PartiesCallback;
-import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.Entities.Admin;
 import com.example.finalproject.Entities.Area;
 import com.example.finalproject.Entities.Party;
@@ -13,9 +9,7 @@ import com.example.finalproject.Enums.Gender;
 import com.example.finalproject.R;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class initDb {
     private  DbUtils dbUtils;

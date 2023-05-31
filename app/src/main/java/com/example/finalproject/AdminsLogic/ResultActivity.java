@@ -34,16 +34,14 @@ import java.util.Map;
 public class ResultActivity extends AppCompatActivity {
     private TextView title;
     private PieChart pieChart;
-    private RoundedProgressBar pb_voters_prec;
-    private RoundedProgressBar pb_by_sex_prec;
+    private RoundedProgressBar pb_voters_prec, pb_by_sex_prec;
     private RecyclerView RV_DistributionByAge;
     private DistributionOfVotersByAgeAdapter adapter;
     private ArrayList agesBlocksList;
     private Spinner ages_dropdown;
     private String area;
     private DbUtils dbUtils;
-    private Map<Integer, Integer> allVotersByAgeBlock;
-    private Map<Integer, Integer> allVotersHowVoteByAgeBlock;
+    private Map<Integer, Integer> allVotersByAgeBlock, allVotersHowVoteByAgeBlock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,7 @@ public class ResultActivity extends AppCompatActivity {
         area = getIntent().getStringExtra("area");
         if (area.equals("all")) {
             getDataAllCountry();
-            title.setText("All Country");
+            title.setText("התפלגות כלל המדינה");
             showPieChartAllCountry();
         } else {
             title.setText(area);

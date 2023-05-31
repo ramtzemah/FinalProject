@@ -42,8 +42,7 @@ import java.util.Date;
 public class VoteActivity extends AppCompatActivity {
     private MaterialButton MB_voteBtn, MB_manageBtn, MB_partyPlatformBtn;
     private ImageView infoButton;
-    private String voterId;
-    private String adminId;
+    private String voterId, adminId;
     private boolean isAdmin = false;
     private DbUtils dbUtils;
     private Admin tempAdmin;

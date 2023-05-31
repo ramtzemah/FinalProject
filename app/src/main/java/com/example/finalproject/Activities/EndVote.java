@@ -26,8 +26,7 @@ public class EndVote extends AppCompatActivity {
     private Party chosenParty;
     private String partyId;
     private DbUtils dbUtils;
-    private String userId;
-    private String areaName;
+    private String userId, areaName;
     private LottieAnimationView animationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
