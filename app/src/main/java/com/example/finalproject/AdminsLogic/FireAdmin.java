@@ -5,14 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.finalproject.Activities.LoginActivity;
+import com.example.finalproject.Activities.SMSActivity;
 import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
@@ -41,10 +47,17 @@ public class FireAdmin extends AppCompatActivity {
     private TextView city;
     private TextView age;
     private DbUtils dbUtils;
+    private ImageButton backButton;
+    private String voterId, area;
+    private boolean isAdminLeader = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_admin);
+        voterId = getIntent().getStringExtra("voterId");
+        area = getIntent().getStringExtra("area");
+        isAdminLeader = getIntent().getBooleanExtra("isAdminLeader", false);
+//        Log.d("shaga", "voter id " + voterId +  " area " + area + "is " + String.valueOf(isAdminLeader));
         findView();
         dbUtils = new DbUtils();
         setButtons();
@@ -55,6 +68,17 @@ public class FireAdmin extends AppCompatActivity {
         MB_clean_search.setOnClickListener(v -> cleanSearch());
         MB_searchAdminBtn.setOnClickListener(v -> searchAdmin());
         MB_fire_admin.setOnClickListener(v -> fireAdmin());
+        backButton.setOnClickListener(v -> toAdminPage());
+    }
+
+    private void toAdminPage() {
+        Intent intent = new Intent(FireAdmin.this, ManageSection.class);
+        intent.putExtra("voterId", voterId);
+        intent.putExtra("area", area);
+        intent.putExtra("isAdminLeader", isAdminLeader);
+//        Log.d("shaga", "voter id " + voterId +  " area " + area + "is " + String.valueOf(isAdminLeader));
+        startActivity(intent);
+        finish();
     }
 
     private void fireAdmin() {
@@ -122,8 +146,15 @@ public class FireAdmin extends AppCompatActivity {
         cardView.setVisibility(View.INVISIBLE);
         ll_fire.setVisibility(View.INVISIBLE);
         ll_search.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ll_search.getLayoutParams();
+        int newMarginTop = 200; // Set your desired margin top value here
+        layoutParams.setMargins(layoutParams.leftMargin, newMarginTop, layoutParams.rightMargin, layoutParams.bottomMargin);
+
+        ll_search.setLayoutParams(layoutParams);
+
         admins_dropdown.setSelection(0);
     }
+
 
     private void findView() {
         MB_clean_search = findViewById(R.id.MB_clean_search);
@@ -140,6 +171,7 @@ public class FireAdmin extends AppCompatActivity {
         gender = findViewById(R.id.gender);
         city = findViewById(R.id.city);
         age = findViewById(R.id.age);
+        backButton = findViewById(R.id.backButton);
     }
 
     private void refreshList() {

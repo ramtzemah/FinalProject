@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,11 +49,16 @@ public class AppointAdmin extends AppCompatActivity {
     private Voter tempVoter = null;
     private List<String> areaNames;
     private DbUtils dbUtils;
-
+    private ImageButton backButton;
+    private String voterId, area;
+    private boolean isAdminLeader = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appoint_admin);
+        voterId = getIntent().getStringExtra("voterId");
+        area = getIntent().getStringExtra("area");
+        isAdminLeader = getIntent().getBooleanExtra("isAdminLeader", false);
         dbUtils = new DbUtils();
         findViews();
         setButtons();
@@ -61,6 +69,15 @@ public class AppointAdmin extends AppCompatActivity {
         MB_searchAdminBtn.setOnClickListener(v -> searchAdmin());
         MB_clean_search.setOnClickListener(v -> cleanSearch());
         MB_appointAdminBtn.setOnClickListener(v -> appointAdmin());
+        backButton.setOnClickListener(v -> toAdminPage());
+    }
+    private void toAdminPage() {
+        Intent intent = new Intent(AppointAdmin.this, ManageSection.class);
+        intent.putExtra("voterId", voterId);
+        intent.putExtra("area", area);
+        intent.putExtra("isAdminLeader", isAdminLeader);
+        startActivity(intent);
+        finish();
     }
 
     private void dialoAappointAdmin() {
@@ -105,6 +122,11 @@ public class AppointAdmin extends AppCompatActivity {
         ll_manage.setVisibility(View.INVISIBLE);
         ll_search.setVisibility(View.VISIBLE);
         areasDropdown.setVisibility(View.INVISIBLE);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) ll_search.getLayoutParams();
+        int newMarginTop = -400; // Set your desired margin top value here
+        layoutParams.setMargins(layoutParams.leftMargin, newMarginTop, layoutParams.rightMargin, layoutParams.bottomMargin);
+
+        ll_search.setLayoutParams(layoutParams);
         id_search.setText("");
     }
 
@@ -172,6 +194,7 @@ public class AppointAdmin extends AppCompatActivity {
         MB_clean_search = findViewById(R.id.MB_clean_search);
         ll_search = findViewById(R.id.ll_search);
         ll_manage = findViewById(R.id.ll_manage);
+        backButton = findViewById(R.id.backButton);
         refershList();
     }
 
