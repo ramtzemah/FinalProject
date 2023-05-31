@@ -97,12 +97,18 @@ public class ManageSection extends AppCompatActivity {
 
     private void appointAdmin() {
         Intent intent = new Intent(ManageSection.this, AppointAdmin.class);
+        intent.putExtra("voterId", voterId);
+        intent.putExtra("area", area);
+        intent.putExtra("isAdminLeader", isAdminLeader);
         startActivity(intent);
         finish();
     }
 
     private void firedAdmin() {
         Intent intent = new Intent(ManageSection.this, FireAdmin.class);
+        intent.putExtra("voterId", voterId);
+        intent.putExtra("area", area);
+        intent.putExtra("isAdminLeader", isAdminLeader);
         startActivity(intent);
         finish();
     }
