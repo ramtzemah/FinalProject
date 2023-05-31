@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.Entities.Voter;
-import com.example.finalproject.MainActivity;
 import com.example.finalproject.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
