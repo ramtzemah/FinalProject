@@ -31,21 +31,13 @@ import java.util.List;
 
 public class FireAdmin extends AppCompatActivity {
 
-    private MaterialButton MB_fire_admin;
-    private MaterialButton MB_clean_search;
-    private MaterialButton MB_searchAdminBtn;
+    private MaterialButton MB_fire_admin, MB_clean_search, MB_searchAdminBtn;
     private Spinner admins_dropdown;
-    private LinearLayout ll_search;
-    private LinearLayout ll_fire;
+    private LinearLayout ll_search, ll_fire;
     private Admin tempAdmin;
     private List<String> adminNames;
     private CardView cardView;
-    private TextView idNumber;
-    private TextView firstName;
-    private TextView lastName;
-    private TextView gender;
-    private TextView city;
-    private TextView age;
+    private TextView idNumber, firstName, lastName, gender, city, age;
     private DbUtils dbUtils;
     private ImageButton backButton;
     private String voterId, area;

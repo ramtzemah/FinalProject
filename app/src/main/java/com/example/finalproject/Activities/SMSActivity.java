@@ -47,10 +47,9 @@ public class SMSActivity extends AppCompatActivity {
     private ImageButton submitButton;
     private Random random = new Random();
     private int randomNumber;
-    private String id, phoneNumber;
+    private String id, phoneNumber, mVerificationId;
     private FirebaseAuth mAuth;
     private FirebaseAuthSettings firebaseAuthSettings;
-    private String mVerificationId;
     private EditText[] verificationCodeFields;
     private DbUtils dbUtils;
     private LinearLayout ll_timer, ll_send_again;

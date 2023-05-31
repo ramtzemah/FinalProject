@@ -1,6 +1,5 @@
 package com.example.finalproject.DBUtils;
 
-import static com.mongodb.client.model.Filters.and;
 
 import android.util.Log;
 

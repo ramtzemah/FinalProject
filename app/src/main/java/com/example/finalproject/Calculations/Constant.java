@@ -1,11 +1,5 @@
 package com.example.finalproject.Calculations;
 
-import com.example.finalproject.DBUtils.DbUtils;
-import com.example.finalproject.DBUtils.TemporaryDB;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Constant {
     public static final String DataBaseName = "Election";

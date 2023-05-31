@@ -20,9 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ManageSection extends AppCompatActivity {
-    private MaterialButton MB_appointAdminBtn;
-    private MaterialButton MB_firedAdminBtn;
-    private MaterialButton MB_resultBtn;
+    private MaterialButton MB_appointAdminBtn, MB_firedAdminBtn, MB_resultBtn;
     private String voterId, area;
     private boolean isAdminLeader = false;
     private Counter mCounter;

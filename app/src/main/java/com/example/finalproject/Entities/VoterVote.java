@@ -2,8 +2,6 @@ package com.example.finalproject.Entities;
 
 import android.util.Log;
 
-import com.example.finalproject.Enums.Gender;
-
 import org.bson.Document;
 
 public class VoterVote {

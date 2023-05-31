@@ -16,7 +16,7 @@ import io.realm.Realm;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Button button,Login;
+    private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(v->
                 resPage()
-        );
-        Login.setOnClickListener(v->
-                loginPage()
         );
 
         // TODO
@@ -80,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findView() {
-    button = findViewById(R.id.button);
-    //Login = findViewById(R.id.Login);
+        button = findViewById(R.id.button);
     }
 }

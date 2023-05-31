@@ -1,14 +1,9 @@
 package com.example.finalproject.Entities;
 
-import android.util.Log;
 import androidx.annotation.NonNull;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 public class Area {
     private String id;

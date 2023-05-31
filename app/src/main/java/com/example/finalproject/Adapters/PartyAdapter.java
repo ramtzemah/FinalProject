@@ -22,8 +22,7 @@ import java.util.Map;
 
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHolder> {
     private List<Party> parties;
-    private String source;
-    private String userId;
+    private String source, userId;
     private Activity activity;
     public PartyAdapter(Activity activity, Map<String, Party> parties, String source, String userId) {
         this.parties = new ArrayList<Party>();

@@ -32,11 +32,8 @@ public class PartyDetailsActivity extends AppCompatActivity {
     private TextView partyNameTextView, party_agenda, what_page;
     private ImageButton MB_home, MB_votebtn;
     private ImageView partyLogoImageView;
-    private String partyName, partyAgenda, partyId;
-    private int partyLogo;
-    private String source;
-    private int canAuthenticate;
-    private String userId;
+    private String partyName, partyAgenda, partyId, source, userId;
+    private int partyLogo, canAuthenticate;
     private DbUtils dbUtils;
     private Voter tempVoter;
     private Area tempArea;

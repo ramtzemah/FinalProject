@@ -1,12 +1,9 @@
 package com.example.finalproject.Entities;
 
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import org.bson.Document;
-
-import java.util.HashMap;
 
 public class Date {
     private double year;

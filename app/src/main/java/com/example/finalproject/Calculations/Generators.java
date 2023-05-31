@@ -8,7 +8,6 @@ import com.example.finalproject.Entities.Voter;
 import com.example.finalproject.Enums.Gender;
 import com.example.finalproject.R;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
