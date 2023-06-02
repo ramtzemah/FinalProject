@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.finalproject.Calculations.Constant;
 import com.example.finalproject.DBUtils.DbUtils;
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.DBUtils.initDb;
@@ -29,7 +30,24 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         DbUtils dbUtils = new DbUtils();
         dbUtils.initConnection();
-        //initDbMethod();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        dbUtils.deleteCollection(Constant.DataBaseName,Constant.PartiesCollection);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        initDb.addPartiesToDB();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+//        initDbMethod();
 
         regularFlow();
         progressBar = findViewById(R.id.progress_bar);

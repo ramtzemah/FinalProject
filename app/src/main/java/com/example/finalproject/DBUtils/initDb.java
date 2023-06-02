@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class initDb {
-    private  DbUtils dbUtils;
+    private DbUtils dbUtils;
     public initDb() throws InterruptedException {
         dbUtils = new DbUtils();
         dbUtils.deleteCollection(Constant.DataBaseName,Constant.VotersCollection);
@@ -58,7 +58,7 @@ public class initDb {
         dbUtils.addVotersToDb(Constant.DataBaseName, Constant.VotersCollection, voters);
     }
 
-    public void addPartiesToDB(){
+    public static void addPartiesToDB(){
         List<Party> parties = new ArrayList<>();
         parties.add((new Party("מפלגת החיות", R.drawable.ic_animals_logo,"דוגלת במדיניות המקדמת רווחת בעלי חיים וחקיקה חזקה יותר לזכויות בעלי חיים, כגון איסור על ניסויים בבעלי חיים למטרות קוסמטיות, הגדלת העונשים על התעללות בבעלי חיים ושיפור תקני רווחת בעלי חיים בחקלאות ובייצור מזון.")));
         parties.add((new Party("מפלגת אחדות", R.drawable.ic_ahdot_logo,"דוגלת במדיניות המקדמת דו-קיום בדרכי שלום בין ישראלים לפלסטינים, כגון עידוד דיאלוג ומשא ומתן, תמיכה בפתרון שתי המדינות וקידום יוזמות בין-דתיות ותרבותיות.")));
@@ -70,7 +70,7 @@ public class initDb {
         parties.add((new Party("המפלגה הטכנולוגית", R.drawable.ic_techno_logo,"דוגל במדיניות המקדמת חדשנות טכנולוגית ויזמות, כגון מתן תמריצי מס ומימון לסטארטאפים, השקעה במחקר ופיתוח וקידום חינוך (STEM Science, Technology, Engineering ו-Mathematics) בבתי ספר.")));
         parties.add((new Party("המפלגה הירוקה", R.drawable.ic_yeroka_logo,"תומכים במדיניות שמפחיתה את פליטת הפחמן ומקדמת אנרגיה מתחדשת, כמו השקעה באנרגיה סולרית ורוח, בניית יותר תחבורה ציבורית והגדלת מסים על דלקים מאובנים. כמו כן, לעודד חקלאות בת קיימא יותר ולהפחית את השימוש בפלסטיק.")));
         parties.add((new Party("מפלגת הצעירים", R.drawable.ic_youngs_logo,"דוגלת במדיניות המיטיבה עם הדורות הצעירים, כגון שיפור הגישה לדיור בר השגה, הגדלת המימון לתוכניות חינוך והכשרה בעבודה, והפחתת עלות שירותי הבריאות.")));
-
+        DbUtils dbUtils = new DbUtils();
         dbUtils.addParties(Constant.DataBaseName,Constant.PartiesCollection,parties);
     }
 

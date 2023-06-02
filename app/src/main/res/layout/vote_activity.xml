@@ -38,22 +38,29 @@
             app:tint="@color/white" />
         <!--            android:background="@drawable/circle_background"-->
 
-        <LinearLayout
+        <TextView
+            android:layout_marginTop="50dp"
+            android:id="@+id/watchText"
+            android:text="זמן שנותר לתחילת ההצבעה:"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp">
-            <com.tsuryo.androidcountdown.Counter
-                android:id="@+id/counter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:max_time_unit="DAY"
-                app:text_color="@color/colorPrimary"
-                app:text_size="36dp"
-                android:layout_marginStart="200dp"
-                app:custom_font="@font/digi" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/varsity_regular"/>
+
+        <com.tsuryo.androidcountdown.Counter
+            android:id="@+id/counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            app:custom_font="@font/digib"
+            app:max_time_unit="HOUR"
+            app:text_color="@color/colorPrimary"
+            app:text_size="36dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
