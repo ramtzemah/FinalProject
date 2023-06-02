@@ -73,6 +73,7 @@ dependencies {
     implementation 'com.github.MackHartley:RoundedProgressBar:3.0.0'
     //Pie cake
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.github.salehyarahmadi:DataTable:v1.0.1'
     //Biometric fingerprint
     implementation "androidx.biometric:biometric:1.1.0"
     //MongoDB

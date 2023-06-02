@@ -27,9 +27,15 @@ import com.mackhartley.roundedprogressbar.RoundedProgressBar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import ir.androidexception.datatable.DataTable;
+import ir.androidexception.datatable.model.DataTableHeader;
+import ir.androidexception.datatable.model.DataTableRow;
 
 public class ResultActivity extends AppCompatActivity {
     private TextView title;
@@ -42,6 +48,7 @@ public class ResultActivity extends AppCompatActivity {
     private String area;
     private DbUtils dbUtils;
     private Map<Integer, Integer> allVotersByAgeBlock, allVotersHowVoteByAgeBlock;
+    private DataTable dataTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,6 +207,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+        dataTable = findViewById(R.id.data_table);
         title = findViewById(R.id.title);
         pb_voters_prec = findViewById(R.id.pb_voters_prec);
         pb_by_sex_prec = findViewById(R.id.pb_by_sex_prec);
@@ -226,6 +234,7 @@ public class ResultActivity extends AppCompatActivity {
             if (success != null) {
                 Map<String, Integer> typeAmountMap = (Map<String, Integer>) success;
                 makePie(typeAmountMap);
+                makeTable(typeAmountMap);
             }
         });
     }
@@ -234,8 +243,47 @@ public class ResultActivity extends AppCompatActivity {
             if (success != null) {
                 Map<String, Integer> typeAmountMap = (Map<String, Integer>) success;
                 makePie(typeAmountMap);
+                makeTable(typeAmountMap);
             }
         });
+    }
+
+    private void makeTable(Map<String, Integer> typeAmountMap) {
+//        Stream<Map.Entry<String, Integer>> sortedMap = typeAmountMap.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())));
+        Map<String, Integer> sortedMap = (Map<String, Integer>) sortByValue(typeAmountMap);
+        DataTableHeader header = new DataTableHeader.Builder()
+                .item("מספר קולות", 4)
+                .item("שם המפלגה", 4)
+                .item("", 1).build();
+
+        ArrayList<DataTableRow> rows = new ArrayList<>();
+        // define 200 fake rows for table
+        int i = 0;
+        for (String type : sortedMap.keySet()) {
+            i++;
+            DataTableRow row = new DataTableRow.Builder()
+                    .value("" + sortedMap.get(type))
+                    .value(type)
+                    .value("" + i)
+                    .build();
+            rows.add(row);
+        }
+       // dataTable.setTypeface(typeface);
+        dataTable.setHeader(header);
+        dataTable.setRows(rows);
+        dataTable.inflate(this);
+    }
+
+    public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+        List<Map.Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        Map<K, V> result = new LinkedHashMap<>();
+        for (Map.Entry<K, V> entry : list) {
+            result.put(entry.getKey(), entry.getValue());
+        }
+
+        return result;
     }
 
     private void makePie(Map<String, Integer> typeAmountMap) {
