@@ -45,7 +45,7 @@ public class ManageSection extends AppCompatActivity {
         mCounter.setIsShowingTextDesc(true);
         mCounter.setTextColor(R.color.black);
         mCounter.setMaxTimeUnit(TimeUnits.HOUR);
-        mCounter.setTextSize(130);
+        mCounter.setTextSize(100);
         mCounter.setTypeFace(ResourcesCompat.getFont(this, com.tsuryo.androidcountdown.R.font.digi));
 
         mCounter.setListener(new Counter.Listener() {
