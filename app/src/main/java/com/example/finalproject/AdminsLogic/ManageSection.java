@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.finalproject.DBUtils.TemporaryDB;
 import com.example.finalproject.R;
@@ -24,6 +25,7 @@ public class ManageSection extends AppCompatActivity {
     private String voterId, area;
     private boolean isAdminLeader = false;
     private Counter mCounter;
+    private TextView watchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class ManageSection extends AppCompatActivity {
 //            MB_resultBtn.setBackgroundResource(R.drawable.btn_grey);
         } else {
             MB_resultBtn.setEnabled(true);
+            watchText.setVisibility(View.INVISIBLE);
 //            MB_resultBtn.setBackgroundResource(R.drawable.btn_regular);
         }
         MB_resultBtn.setOnClickListener(v -> results());
@@ -112,6 +115,7 @@ public class ManageSection extends AppCompatActivity {
     }
 
     private void findViews() {
+        watchText = findViewById(R.id.watchText);
         MB_appointAdminBtn = findViewById(R.id.MB_appointAdminBtn);
         MB_firedAdminBtn = findViewById(R.id.MB_firedAdminBtn);
         MB_resultBtn = findViewById(R.id.MB_resultBtn);

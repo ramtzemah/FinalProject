@@ -191,7 +191,7 @@ public class SMSActivity extends AppCompatActivity {
                             String msg = task.getException().getMessage();
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                msg = "incorrect code";
+                                msg = "הקוד שהוזן לא נכון קיימת אפשרות לשלוח את הקוד מחדש בחלוף הזמן שמוצג למטה";
                             }
                             Toast.makeText(SMSActivity.this, msg, Toast.LENGTH_LONG).show();
                         }

@@ -51,6 +51,8 @@ public class VoteActivity extends AppCompatActivity {
     private Counter mCounter;
     private TextView welcome_text;
     private Area tempArea;
+    private TextView watchText;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +149,7 @@ public class VoteActivity extends AppCompatActivity {
             //MB_voteBtn.setBackgroundResource(R.drawable.btn_grey);
         } else {
             MB_voteBtn.setEnabled(true);
+            watchText.setVisibility(View.INVISIBLE);
             //MB_voteBtn.setBackgroundResource(R.drawable.btn_regular);
         }
         MB_voteBtn.setOnClickListener(v -> toAllParties());
@@ -258,6 +261,7 @@ public class VoteActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+        watchText = findViewById(R.id.watchText);
         welcome_text = findViewById(R.id.welcome_text);
         mCounter = findViewById(R.id.counter);
         MB_voteBtn = findViewById(R.id.MB_voteBtn);
