@@ -68,6 +68,7 @@
             android:fontFamily="@font/font_title"
             app:cornerRadius="45dp"
             app:icon="@drawable/ic_btn_results"
+            app:iconTint="@color/white"
             app:iconPadding="-35dp"
             app:iconSize="60dp"
             app:iconGravity="end"

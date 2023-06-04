@@ -39,15 +39,15 @@
         <!--            android:background="@drawable/circle_background"-->
 
         <TextView
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="65dp"
             android:id="@+id/watchText"
             android:text="זמן שנותר לתחילת ההצבעה:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:textColor="@color/black"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:fontFamily="@font/varsity_regular"/>
 
         <com.tsuryo.androidcountdown.Counter
@@ -55,7 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:layout_marginTop="10dp"
             app:custom_font="@font/digib"
             app:max_time_unit="HOUR"
@@ -127,10 +128,12 @@
                     android:padding="16dp"
                     android:layout_marginBottom="10dp"
                     app:icon="@drawable/ic_ballotbox"
+                    app:iconTint="@color/white"
                     android:text="הצבע כאן"
                     android:textSize="26dp"
                     app:iconPadding="-35dp"
                     android:fontFamily="@font/font_title"
+                    android:textColor="@color/white"
                     app:iconSize="60dp"
                     app:iconGravity="end"
                     app:backgroundTint="#0884fc" />

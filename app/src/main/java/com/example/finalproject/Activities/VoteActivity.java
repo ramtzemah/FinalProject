@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -79,6 +80,7 @@ public class VoteActivity extends AppCompatActivity {
         }
 
         welcome_text.setText(title);
+        welcome_text.setBackgroundColor(Color.WHITE);
     }
 
     private void handleVoterFlow() {
@@ -102,7 +104,7 @@ public class VoteActivity extends AppCompatActivity {
         mCounter.setIsShowingTextDesc(true);
         mCounter.setTextColor(R.color.black);
         mCounter.setMaxTimeUnit(TimeUnits.HOUR);
-        mCounter.setTextSize(130);
+        mCounter.setTextSize(100);
         mCounter.setTypeFace(ResourcesCompat.getFont(this, com.tsuryo.androidcountdown.R.font.digi));
 
         mCounter.setListener(new Counter.Listener() {
