@@ -1,7 +1,7 @@
 package com.example.finalproject.Entities;
 
 import org.bson.Document;
-import org.bson.types.ObjectId;
+import java.util.UUID;
 
 public class Party {
     private String partyId; // maybe not necessary
@@ -16,8 +16,8 @@ public class Party {
         this.name = name;
         this.logoResourceId = logoResourceId;
         this.agenda = agenda;
-        ObjectId objectId = new ObjectId();
-        this.partyId = objectId.toString();
+        String result = UUID.nameUUIDFromBytes(name.getBytes()).toString();
+        this.partyId = result;
     }
 
     public Party(Document document) {

@@ -211,9 +211,13 @@ public class DbUtils {
             if (task1.isSuccess()) {
                 Document result = task1.get();
                 // Assuming that Voter is a class that can be constructed from a Document.
-                tempVoter.set(new Voter(result));
-                callback.onResult(tempVoter.get().getPhoneNumber(), null);
-                Log.v("EXAMPLE", "successfully found a document: " + task1);
+                if(result == null){
+                    callback.onResult(null, null);
+                }else{
+                    tempVoter.set(new Voter(result));
+                    callback.onResult(tempVoter.get().getPhoneNumber(), null);
+                    Log.v("EXAMPLE", "successfully found a document: " + task1);
+                }
             } else {
                 Log.e("EXAMPLE", "failed to find document with: ", task1.getError());
                 callback.onResult(null, task1.getError());
