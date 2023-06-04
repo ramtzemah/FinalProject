@@ -38,22 +38,22 @@ public class initDb {
 
     public static void addVotersToDB(){
         List<Voter> voters = new ArrayList<>();
-        voters.add(new Voter("אאא","אאא",19, Gender.זכר,"צפון",1,"+972509219009"));
-        voters.add(new Voter("בבב","בבב",20, Gender.נקבה,"דרום",2,"+972509219009"));
-        voters.add(new Voter("גגג","גגג",18, Gender.זכר,"מזרח",3,"+972509219009"));
-        voters.add(new Voter("דדד","דדד",21, Gender.נקבה,"דרום",4,"+972509219009"));
-        voters.add(new Voter("ההה","ההה",27, Gender.זכר,"צפון",5,"+972509219009"));
-        voters.add(new Voter("ווו","ווו",28, Gender.נקבה,"מזרח",6,"+972509219009"));
-        voters.add(new Voter("זזז","זזז",49, Gender.זכר,"צפון",7,"+972509219009"));
-        voters.add(new Voter("חחח","חחח",20, Gender.נקבה,"דרום",8,"+972509219009"));
-        voters.add(new Voter("טטט","טטט",29, Gender.נקבה,"מזרח",9,"+972509219009"));
-        voters.add(new Voter("כככ","כככ",57, Gender.זכר,"צפון",10,"+972509219009"));
-        voters.add(new Voter("ללל","ללל",35, Gender.נקבה,"דרום",11,"+972509219009"));
-        voters.add(new Voter("מממ","מממ",43, Gender.זכר,"מזרח",12,"+972509219009"));
-        voters.add(new Voter("נננ","נננ",52, Gender.זכר,"צפון",13,"+972509219009"));
-        voters.add(new Voter("ססס","ססס",60, Gender.נקבה,"דרום",14,"+972509219009"));
-        voters.add(new Voter("עעע","עעע",55, Gender.נקבה,"מזרח",15,"+972509219009"));
-        voters.add(new Voter("פפפ","פפפ",39, Gender.זכר,"מערב",16,"+972509219009"));
+        voters.add(new Voter("עומר","גאן",19, Gender.זכר,"צפון",208447649,"+972509219009"));
+        voters.add(new Voter("רם","צמח",20, Gender.נקבה,"דרום",205965866,"+972509219009"));
+        voters.add(new Voter("שון","בללי",18, Gender.זכר,"מזרח",206321846,"+972509219009"));
+        voters.add(new Voter("שחף","אליס",21, Gender.נקבה,"דרום",315962522,"+972509219009"));
+        voters.add(new Voter("מתן","שושן",27, Gender.זכר,"צפון",205697477,"+972509219009"));
+        voters.add(new Voter("עידן","פרץ",28, Gender.נקבה,"מזרח",316425164,"+972509219009"));
+        voters.add(new Voter("שימי","גאן",49, Gender.זכר,"צפון",24673485,"+972509219009"));
+        voters.add(new Voter("אסתר","כלפון",20, Gender.נקבה,"דרום",29402112,"+972509219009"));
+        voters.add(new Voter("עידן","גור",29, Gender.נקבה,"מזרח",324950211,"+972509219009"));
+        voters.add(new Voter("עילאי","גיר",57, Gender.זכר,"צפון",222471922,"+972509219009"));
+        voters.add(new Voter("ניצה","אלפסי",35, Gender.נקבה,"דרום",28510626,"+972509219009"));
+        voters.add(new Voter("ספיר","אליהו",43, Gender.זכר,"מזרח",311310148,"+972509219009"));
+        voters.add(new Voter("רעות","דוד",52, Gender.זכר,"צפון",300596319,"+972509219009"));
+        voters.add(new Voter("גלית","גוטמן",60, Gender.נקבה,"דרום",31589831,"+972509219009"));
+        voters.add(new Voter("ירדן","רוטמן",55, Gender.נקבה,"מזרח",327836136,"+972509219009"));
+        voters.add(new Voter("אילנה","פרידמן",39, Gender.זכר,"מערב",31589823,"+972509219009"));
         DbUtils dbUtils = new DbUtils();
         dbUtils.addVotersToDb(Constant.DataBaseName, Constant.VotersCollection, voters);
     }
