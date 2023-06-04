@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("phoneNumber",phoneNumber);
                         startActivity(intent);
                         finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "תעודת הזהות לא קיימת במערכת, תלחץ על ה״עזרה״ ותפנה לתמיכה", Toast.LENGTH_LONG).show();
                     }
             });
         }
