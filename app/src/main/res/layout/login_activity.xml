@@ -34,7 +34,7 @@
             android:layout_marginTop="150dp"
             android:layout_marginStart="35dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/lets_go_button"
+            android:background="@drawable/lets_go_button_des"
             tools:ignore="NotSibling" />
     </LinearLayout>
 
