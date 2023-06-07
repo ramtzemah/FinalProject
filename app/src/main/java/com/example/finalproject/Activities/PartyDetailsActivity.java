@@ -100,11 +100,6 @@ public class PartyDetailsActivity extends AppCompatActivity {
     }
 
     private void voteParty() {
-        Intent intent = new Intent(PartyDetailsActivity.this, EndVote.class);
-        intent.putExtra("party_id", partyId);
-        intent.putExtra("userId", userId);
-        PartyDetailsActivity.this.startActivity(intent);
-        finish();
         if (canAuthenticate == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("הצבעה ל" + partyName);
